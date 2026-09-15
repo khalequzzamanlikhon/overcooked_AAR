@@ -166,7 +166,7 @@ Things that break if you write this from scratch, all handled here:
 
 Most of the output quality comes from `aar/telemetry_to_text.py`, not the
 prompts. An LLM can't reason over 1,200 rows of coordinates; it reasons over
-events. See [`CLAUDE.md`](CLAUDE.md) and [`GUIDELINE.md`](GUIDELINE.md) for
+events. See [`GUIDELINE.md`](GUIDELINE.md) for
 details.
 
 ## Citation
