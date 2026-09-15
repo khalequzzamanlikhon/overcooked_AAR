@@ -1,0 +1,11 @@
+# Core — CPU only, always needed
+overcooked-ai
+opencv-python
+pygame
+pandas>=2.0          # legacy-pickle shim in data_loader handles the 1.x->2.x break
+numpy
+
+# Backend deps are installed by run.sh only when they're actually used:
+#   local (GPU): torch, transformers>=4.49, accelerate, qwen-vl-utils[decord]
+#   api:         groq, google-genai
+# Demo assets only (scripts/make_demo_assets.py): pillow
