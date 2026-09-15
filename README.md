@@ -62,8 +62,8 @@ bundled human trials ──┬── StateVisualizer ──> mp4 ────> V
 ## Quick start
 
 ```bash
-git clone https://github.com/khalequzzamanlikhon/overcooked_aar_v02.git
-cd overcooked_aar_v02
+git clone https://github.com/khalequzzamanlikhon/overcooked_AAR
+cd overcooked_AAR
 bash run.sh
 ```
 
@@ -166,8 +166,7 @@ Things that break if you write this from scratch, all handled here:
 
 Most of the output quality comes from `aar/telemetry_to_text.py`, not the
 prompts. An LLM can't reason over 1,200 rows of coordinates; it reasons over
-events. See [`GUIDELINE.md`](GUIDELINE.md) for
-details.
+events.
 
 ## Citation
 
