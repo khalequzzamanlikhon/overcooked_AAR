@@ -1,11 +1,17 @@
-# Core — CPU only, always needed
+# Data, rendering and analysis (CPU only)
 overcooked-ai
-opencv-python
+opencv-python-headless
 pygame
-pandas>=2.0          # legacy-pickle shim in data_loader handles the 1.x->2.x break
+pandas>=2.0          # the legacy-pickle shim in data_loader handles the 1.x -> 2.x break
 numpy
+pillow               # demo assets only
 
-# Backend deps are installed by run.sh only when they're actually used:
-#   local (GPU): torch, transformers>=4.49, accelerate, qwen-vl-utils[decord]
-#   api:         groq, google-genai
-# Demo assets only (scripts/make_demo_assets.py): pillow
+# Video LLM (needs a CUDA GPU; ~10 GB free for the 7B in 4-bit)
+torch
+transformers>=4.51
+accelerate
+qwen-vl-utils[decord]
+bitsandbytes         # 4-bit NF4; drop it and pass --bf16 if you have ~17 GB free
+
+# Tests
+pytest

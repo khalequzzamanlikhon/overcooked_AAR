@@ -4,5 +4,7 @@ __pycache__/
 *.pyc
 out/
 out_*/
-results/
+# results are committed, the videos they were made from are not
+results/*/videos/
 *.mp4
+!docs/demo/*.gif
