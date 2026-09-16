@@ -1,107 +1,128 @@
-"""Generate after-action reviews from telemetry text and from video.
+"""Ask the model what happened, then ask it to write the review.
 
-The comparison between the two is the research content. Telemetry knows
-exactly what happened but not what it looked like; video sees hesitation,
-near-misses, and repeated blocked attempts that never become discrete logged
-events. Where they disagree is the interesting part.
+Both conditions run the same two stages with the same wording:
 
-Backend is chosen by `LLMConfig.backend`:
-  'local' -> Qwen2.5-VL on your GPUs, no API keys, nothing leaves the box
-  'api'   -> Groq for text, Gemini for video
+  stage 1  source (event log text | gameplay video) -> numbered claims, as JSON
+  stage 2  claims -> after-action review, text only
+
+Splitting it this way is what makes the comparison checkable: a claim carries a
+time, a player and a type, so it can be checked against the log one by one. A
+paragraph of prose cannot.
 """
 from __future__ import annotations
 
 import logging
-import os
-from pathlib import Path
 
 from .config import LLMConfig
+from .vlm_local import generate_from_video, generate_text, parse_json
 
 logger = logging.getLogger(__name__)
 
-_AAR_INSTRUCTION = """You are writing an after-action review for a two-person
-cooperative cooking task (Overcooked). Two players share a kitchen and must
-deliver onion soups as fast as possible.
+# Identical for both conditions. Only the SOURCE line differs.
+_RULES = """Two players cook onion soups together in a kitchen (the game
+Overcooked). A soup needs 3 onions in a pot; it cooks for about 20 seconds;
+someone then picks it up with a clean dish and takes it to the serving hatch.
 
-Write a short AAR covering:
+P1 is the player in the blue hat, labelled P1 on screen.
+P2 is the player in the green hat, labelled P2 on screen."""
+
+_CLAIMS_TASK = """List what you can tell happened between {start:.0f} s and {end:.0f} s.
+Use the episode clock (the times in the source), not time since the clip started.
+
+Answer with ONE JSON object and nothing else:
+{{"deliveries": <how many soups were delivered in this minute>,
+  "claims": [{{"time": <seconds>, "player": "P1" | "P2" | "both" | "unclear",
+              "type": "delivery" | "pickup" | "pot" | "counter" | "blocked" | "idle" | "coordination" | "strategy" | "other",
+              "text": "<one short sentence>"}}]}}
+
+At most 8 claims, most important first. Only state what the source supports.
+Use "both" when they both did it and "unclear" when you cannot tell who did it.
+Do not guess at intentions."""
+
+_AAR_TASK = """Here is what was observed across a 180 second episode of a
+two-player cooking game, as claims with timestamps.
+
+{claims}
+
+Final score: {score}. Layout: {layout}.
+
+Write a short after-action review for the two players:
 1. What the team did well.
-2. What caused delays or wasted effort.
-3. One specific, concrete thing they should do differently next time.
+2. What cost them time.
+3. One concrete thing to do differently next time.
 
-Be specific and evidence-based. If you are not sure something happened, say so
-rather than asserting it. Do not speculate about intent you cannot observe."""
-
-_COMPARE_INSTRUCTION = """Below are two after-action reviews of the SAME
-episode. One was written from a structured event log, the other from watching
-the gameplay video.
-
-Identify:
-1. Claims both agree on.
-2. Claims only one makes.
-3. Any place they directly contradict each other.
-
-For each disagreement, state which source would be more reliable for that
-specific kind of claim, and why."""
+Use only the claims above. Refer to times and players. If the claims do not
+support something, do not say it. Six sentences at most."""
 
 
 def init_backend(cfg: LLMConfig) -> None:
-    """Load the local model once up front, so the cost isn't paid mid-loop."""
-    if cfg.backend == "local":
-        from .vlm_local import load_backend
+    from .vlm_local import load_backend
 
-        load_backend(cfg.local_model_id, cfg.device, cfg.max_pixels)
+    load_backend(cfg.model_id, cfg.device, cfg.load_in_4bit)
 
 
-def _api_text(prompt: str, cfg: LLMConfig) -> str:
-    import groq
-
-    client = groq.Groq(api_key=os.environ["GROQ_API_KEY"])
-    response = client.chat.completions.create(
-        model=cfg.api_text_model, max_tokens=cfg.max_tokens,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.choices[0].message.content
+def _claims_prompt(start: float, end: float, source: str | None) -> str:
+    task = _CLAIMS_TASK.format(start=start, end=end)
+    if source is None:
+        return f"{_RULES}\n\nSOURCE: the video above, which covers seconds {start:.0f}-{end:.0f} of the episode.\n\n{task}"
+    return f"{_RULES}\n\nSOURCE: an event log of the episode.\n\n{source}\n\n{task}"
 
 
-def _api_video(video_path: Path, prompt: str, cfg: LLMConfig) -> str:
-    # Small clips (a few hundred KB, well under the 20MB inline request cap) go
-    # straight in the request body -- skips the separate Files-API upload/poll
-    # step entirely, which some API-key setups can't reach.
-    from google import genai
-    from google.genai import types
-
-    client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
-    video_part = types.Part.from_bytes(data=video_path.read_bytes(), mime_type="video/mp4")
-    response = client.models.generate_content(model=cfg.api_video_model, contents=[video_part, prompt])
-    return response.text
-
-
-def aar_from_telemetry(timeline: str, cfg: LLMConfig) -> str:
-    prompt = f"{_AAR_INSTRUCTION}\n\n{timeline}"
-    if cfg.backend == "local":
-        from .vlm_local import generate_text
-
-        return generate_text(prompt, cfg.max_tokens)
-    return _api_text(prompt, cfg)
-
-
-def aar_from_video(video_path: Path, cfg: LLMConfig) -> str:
-    """Video only -- no timeline given, the model must read the gameplay."""
-    if cfg.backend == "local":
-        from .vlm_local import generate_from_video
-
-        return generate_from_video(video_path, _AAR_INSTRUCTION, cfg.video_sample_fps, cfg.max_tokens)
-    return _api_video(video_path, _AAR_INSTRUCTION, cfg)
+def _normalise(parsed: dict | None, raw: str) -> dict:
+    if not isinstance(parsed, dict):
+        return {"deliveries": None, "claims": [], "parse_failed": True, "raw": raw}
+    claims = parsed.get("claims") or []
+    clean = []
+    for claim in claims if isinstance(claims, list) else []:
+        if not isinstance(claim, dict) or "text" not in claim:
+            continue
+        try:
+            time_s = float(claim.get("time"))
+        except (TypeError, ValueError):
+            time_s = None
+        player = str(claim.get("player", "unclear")).upper().replace("PLAYER ", "P")
+        clean.append(
+            {
+                "time": time_s,
+                "player": player if player in {"P1", "P2", "BOTH", "UNCLEAR"} else "UNCLEAR",
+                "type": str(claim.get("type", "other")).lower(),
+                "text": str(claim["text"]).strip(),
+            }
+        )
+    deliveries = parsed.get("deliveries")
+    try:
+        deliveries = int(deliveries)
+    except (TypeError, ValueError):
+        deliveries = None
+    return {"deliveries": deliveries, "claims": clean, "parse_failed": False}
 
 
-def compare_aars(telemetry_aar: str, video_aar: str, cfg: LLMConfig) -> str:
-    prompt = (
-        f"{_COMPARE_INSTRUCTION}\n\n"
-        f"=== AAR A (from event log) ===\n{telemetry_aar}\n\n"
-        f"=== AAR B (from video) ===\n{video_aar}"
-    )
-    if cfg.backend == "local":
-        from .vlm_local import generate_text
+_RETRY = '\n\nReturn ONE JSON object starting with {"deliveries": and nothing else.'
 
-        return generate_text(prompt, cfg.max_tokens)
-    return _api_text(prompt, cfg)
+
+def claims_from_timeline(timeline: str, start: float, end: float, cfg: LLMConfig) -> dict:
+    prompt = _claims_prompt(start, end, timeline)
+    got = _normalise(parse_json(raw := generate_text(prompt, cfg.max_new_tokens)), raw)
+    if got.get("parse_failed"):
+        got = _normalise(parse_json(raw := generate_text(prompt + _RETRY, cfg.max_new_tokens)), raw)
+        got["retried"] = True
+    return got
+
+
+def claims_from_video(video_path, start: float, end: float, fps: float, cfg: LLMConfig) -> dict:
+    prompt = _claims_prompt(start, end, None)
+    raw = generate_from_video(video_path, prompt, fps, cfg.max_new_tokens)
+    got = _normalise(parse_json(raw), raw)
+    if got.get("parse_failed"):
+        raw = generate_from_video(video_path, prompt + _RETRY, fps, cfg.max_new_tokens)
+        got = _normalise(parse_json(raw), raw)
+        got["retried"] = True
+    return got
+
+
+def aar_from_claims(claims: list[dict], layout: str, score: float, cfg: LLMConfig) -> str:
+    if not claims:
+        return "(no claims were produced for this episode)"
+    lines = [f"- t={c['time']}s {c['player']}: {c['text']}" if c["time"] is not None else f"- {c['player']}: {c['text']}" for c in claims]
+    prompt = _AAR_TASK.format(claims="\n".join(lines), score=int(score), layout=layout)
+    return generate_text(prompt, cfg.max_new_tokens).strip()
