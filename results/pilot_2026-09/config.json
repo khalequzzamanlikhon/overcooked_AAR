@@ -1,0 +1,19 @@
+{
+  "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "load_in_4bit": true,
+  "conditions": [
+    "telemetry",
+    "video_dense",
+    "video_sparse"
+  ],
+  "video_fps": {
+    "video_dense": 2.0,
+    "video_sparse": 0.3333333333333333
+  },
+  "segment_seconds": 60.0,
+  "render": {
+    "real_time": true,
+    "player_labels": true
+  },
+  "split": "train"
+}

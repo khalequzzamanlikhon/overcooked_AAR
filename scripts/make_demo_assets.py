@@ -29,9 +29,9 @@ def _read_frames(video: Path, every: int, limit: int, width: int) -> list[Image.
     return frames
 
 
-def make_gif(video: Path, out: Path, width: int = 360, every: int = 2, limit: int = 150) -> None:
+def make_gif(video: Path, out: Path, width: int = 320, every: int = 3, limit: int = 110) -> None:
     frames = _read_frames(video, every, limit, width)
-    frames = [f.convert("P", palette=Image.ADAPTIVE, colors=128) for f in frames]
+    frames = [f.convert("P", palette=Image.ADAPTIVE, colors=64) for f in frames]
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=100, loop=0, optimize=True)
 
 
