@@ -125,22 +125,6 @@ python run_pipeline.py --layout all --n-trials 1 --out out_all --no-llm
 python scripts/make_demo_assets.py --run out_all --out docs/demo
 ```
 
-## Project structure
-
-| File | Responsibility |
-|---|---|
-| `run.sh` | One-command setup + run |
-| `run_pipeline.py` | Orchestration, CLI |
-| `aar/config.py` | Data, render, and LLM config |
-| `aar/data_loader.py` | Load bundled pickles (pandas 2.x shim), group into trials |
-| `aar/state_convert.py` | 2019 state format → current `OvercookedState` |
-| `aar/render_video.py` | Trajectory → mp4 via `StateVisualizer` |
-| `aar/telemetry_to_text.py` | State stream → natural-language event timeline |
-| `aar/vlm_local.py` | Qwen2.5-VL loading and generation |
-| `aar/generate_aar.py` | Backend dispatch, AAR + comparison prompts |
-| `rate_aars.py` | Blind human rating harness |
-| `scripts/make_demo_assets.py` | GIFs / images for this README |
-
 ## Data
 
 Ships with the `overcooked-ai` package — 39 train and 37 test trials of real
