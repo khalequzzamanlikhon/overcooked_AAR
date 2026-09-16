@@ -1,65 +1,95 @@
-"""Blind rating harness for the generated AARs.
+"""Blind pairwise rating of the generated reviews.
 
-Shows AARs one at a time with the source hidden and shuffled, so you don't
-unconsciously favour the telemetry version because you know which is which.
-Writes ratings to ratings.json for analysis.
+Ranking is easier than rating: asking "which of these two is more accurate"
+gives a cleaner signal than asking two people to put a 1-5 number on each one,
+because they do not have to agree on what a 4 means.
 
-    python rate_aars.py --results out/results.json
+Each rater watches the episode video, then sees two reviews of it as A and B,
+in a random order, with the source hidden, and picks one. They are also asked
+to guess which one came from the video -- if raters can tell, the comparison is
+not really blind and that has to be reported.
+
+    python rate_aars.py --run results/pilot --rater alice
+
+Writes results/pilot/ratings/alice.json. One file per rater, so nobody
+overwrites anybody.
 """
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import random
 from pathlib import Path
 
-_CRITERIA = {
-    "accuracy": "Does it describe what actually happened? (1-5)",
-    "specificity": "Is the advice concrete rather than generic? (1-5)",
-    "usefulness": "Would this help the team improve? (1-5)",
-}
+_QUESTIONS = [
+    ("accuracy", "Which review describes what actually happened more accurately? [a/b/tie] "),
+    ("usefulness", "Which would help this team more next time? [a/b/tie] "),
+]
+_GUESS = "Which one do you think was written from the video? [a/b/no idea] "
 
 
-def _prompt_score(label: str, question: str) -> int:
+def _ask(question: str, allowed: set[str]) -> str:
     while True:
-        raw = input(f"  {label} - {question} ")
-        if raw.isdigit() and 1 <= int(raw) <= 5:
-            return int(raw)
-        print("  enter 1-5")
+        answer = input(question).strip().lower()
+        if answer in allowed:
+            return answer
+        print(f"  please answer one of: {', '.join(sorted(allowed))}")
 
 
-def main(results_path: Path, out_path: Path) -> None:
-    records = json.loads(results_path.read_text())
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--run", type=Path, default=Path("results/run"))
+    parser.add_argument("--rater", required=True, help="your name; one file per rater")
+    parser.add_argument("--seed", type=int, default=0, help="same seed = same order for every rater")
+    args = parser.parse_args()
+
+    records = json.loads((args.run / "results.json").read_text())
+    out_dir = args.run / "ratings"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{args.rater}.json"
+    done = json.loads(out_path.read_text()) if out_path.exists() else []
+    seen = {(row["trial_id"], row["pair"]) for row in done}
+
+    rng = random.Random(args.seed)
     items = []
     for rec in records:
-        for source in ("aar_telemetry", "aar_video"):
-            if rec.get(source):
-                items.append({"trial_id": rec["trial_id"], "source": source, "text": rec[source],
-                              "final_score": rec["final_score"], "video": rec.get("video")})
-    random.shuffle(items)
+        available = [c for c in rec["conditions"] if rec["conditions"][c].get("aar")]
+        for left, right in itertools.combinations(sorted(available), 2):
+            items.append((rec, left, right))
+    rng.shuffle(items)
 
-    ratings = []
-    for i, item in enumerate(items, 1):
-        print(f"\n{'=' * 70}\nAAR {i}/{len(items)}  (trial {item['trial_id']}, final score {int(item['final_score'])})")
-        print(f"Watch first: {item['video']}")
-        print(f"{'-' * 70}\n{item['text']}\n{'-' * 70}")
-        scores = {k: _prompt_score(k, q) for k, q in _CRITERIA.items()}
-        notes = input("  notes (optional): ")
-        ratings.append({**{k: v for k, v in item.items() if k != "text"}, **scores, "notes": notes})
-        out_path.write_text(json.dumps(ratings, indent=2))  # save as you go
+    for i, (rec, left, right) in enumerate(items, 1):
+        pair = f"{left}_vs_{right}"
+        if (rec["trial_id"], pair) in seen:
+            continue
+        order = [left, right]
+        rng.shuffle(order)  # which one is shown as A
+        print(f"\n{'=' * 72}\n{i}/{len(items)}  episode {rec['trial_id']}  ({rec['layout']}, final score {int(rec['final_score'])})")
+        print(f"Watch the episode first: {rec['video']}")
+        for tag, condition in zip("AB", order):
+            print(f"\n--- Review {tag} ---\n{rec['conditions'][condition]['aar']}")
+        print()
 
-    by_source: dict[str, list[dict]] = {}
-    for r in ratings:
-        by_source.setdefault(r["source"], []).append(r)
-    print(f"\n{'=' * 70}")
-    for source, rs in by_source.items():
-        means = {c: sum(r[c] for r in rs) / len(rs) for c in _CRITERIA}
-        print(f"{source}: " + "  ".join(f"{c}={m:.2f}" for c, m in means.items()))
+        row = {"trial_id": rec["trial_id"], "pair": pair, "shown_as": {"A": order[0], "B": order[1]}, "rater": args.rater}
+        for name, question in _QUESTIONS:
+            answer = _ask(question, {"a", "b", "tie"})
+            row["question"] = name
+            row["winner"] = "tie" if answer == "tie" else order[0 if answer == "a" else 1]
+            done.append(dict(row))
+        guess = _ask(_GUESS, {"a", "b", "no idea"})
+        done.append(
+            {
+                **row,
+                "question": "source_guess",
+                "winner": "no idea" if guess == "no idea" else order[0 if guess == "a" else 1],
+            }
+        )
+        out_path.write_text(json.dumps(done, indent=2))
+        print(f"  saved -> {out_path}")
+
+    print(f"\ndone: {len(done)} answers in {out_path}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--results", type=Path, default=Path("out/results.json"))
-    parser.add_argument("--out", type=Path, default=Path("out/ratings.json"))
-    args = parser.parse_args()
-    main(args.results, args.out)
+    main()
