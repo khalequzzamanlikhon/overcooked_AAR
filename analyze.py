@@ -88,14 +88,15 @@ def rating_metrics(rating_dir: Path) -> dict:
     files = sorted(rating_dir.glob("*.json")) if rating_dir.exists() else []
     if not files:
         return {}
-    votes: dict[str, list] = defaultdict(list)
+    # votes per pair, so a telemetry-vs-video vote is never mixed with a video-vs-video one
+    votes: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
     per_rater: dict[str, dict] = {}
     for path in files:
         rater = path.stem
         per_rater[rater] = {}
         for row in json.loads(path.read_text()):
             key = (row["trial_id"], row["pair"], row["question"])
-            votes[row["question"]].append(row["winner"])
+            votes[row["pair"]][row["question"]].append(row["winner"])
             per_rater[rater][str(key)] = row["winner"]
 
     agreement = None
@@ -108,7 +109,7 @@ def rating_metrics(rating_dir: Path) -> dict:
 
     return {
         "raters": len(files),
-        "votes": {q: dict(Counter(v)) for q, v in votes.items()},
+        "votes": {pair: {q: dict(Counter(v)) for q, v in qs.items()} for pair, qs in votes.items()},
         "unanimous_share": agreement,
     }
 
@@ -129,7 +130,9 @@ def to_markdown(summary: dict, ratings: dict, n_episodes: int) -> str:
         )
     text = [f"Episodes: {n_episodes}", "", *rows]
     if ratings:
-        text += ["", f"Human pairwise ratings from {ratings['raters']} rater(s): {json.dumps(ratings['votes'])}"]
+        text += ["", f"Human pairwise ratings from {ratings['raters']} rater(s), votes per question:"]
+        for pair, questions in sorted(ratings["votes"].items()):
+            text += [f"- {pair}: " + "; ".join(f"{q} {json.dumps(v)}" for q, v in questions.items())]
         if ratings.get("unanimous_share") is not None:
             text += [f"Raters agreed on {ratings['unanimous_share'] * 100:.0f}% of the pairs they both saw."]
     return "\n".join(text)

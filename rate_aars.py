@@ -10,6 +10,11 @@ to guess which one came from the video -- if raters can tell, the comparison is
 not really blind and that has to be reported.
 
     python rate_aars.py --run results/pilot --rater alice
+    python rate_aars.py --run results/pilot --rater alice --pairs telemetry:video_dense
+
+By default every pair of conditions is shown (15 episodes x 3 pairs = 45
+comparisons, about 3 hours). --pairs limits it to the comparisons you name,
+e.g. telemetry:video_dense alone is 15 comparisons, about an hour.
 
 Writes results/pilot/ratings/alice.json. One file per rater, so nobody
 overwrites anybody.
@@ -37,14 +42,45 @@ def _ask(question: str, allowed: set[str]) -> str:
         print(f"  please answer one of: {', '.join(sorted(allowed))}")
 
 
+def parse_pairs(spec: str | None) -> set[frozenset[str]] | None:
+    """"telemetry:video_dense,telemetry:video_sparse" -> {{telemetry, video_dense}, ...}; None = all pairs."""
+    if not spec:
+        return None
+    pairs = set()
+    for item in spec.split(","):
+        names = [n.strip() for n in item.split(":")]
+        if len(names) != 2 or not all(names) or names[0] == names[1]:
+            raise SystemExit(f"bad --pairs entry {item!r}: expected two different conditions, like telemetry:video_dense")
+        pairs.add(frozenset(names))
+    return pairs
+
+
+def select_items(records: list[dict], wanted: set[frozenset[str]] | None) -> list[tuple[dict, str, str]]:
+    items = []
+    for rec in records:
+        available = [c for c in rec["conditions"] if rec["conditions"][c].get("aar")]
+        for left, right in itertools.combinations(sorted(available), 2):
+            if wanted is None or frozenset((left, right)) in wanted:
+                items.append((rec, left, right))
+    return items
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", type=Path, default=Path("results/run"))
     parser.add_argument("--rater", required=True, help="your name; one file per rater")
     parser.add_argument("--seed", type=int, default=0, help="same seed = same order for every rater")
+    parser.add_argument("--pairs", default=None,
+                        help="only these condition pairs, comma-separated, e.g. telemetry:video_dense (default: all pairs)")
     args = parser.parse_args()
 
     records = json.loads((args.run / "results.json").read_text())
+    wanted = parse_pairs(args.pairs)
+    if wanted:
+        known = {c for rec in records for c in rec["conditions"]}
+        unknown = sorted({n for pair in wanted for n in pair} - known)
+        if unknown:
+            raise SystemExit(f"unknown condition(s) in --pairs: {', '.join(unknown)}; this run has {', '.join(sorted(known))}")
     out_dir = args.run / "ratings"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{args.rater}.json"
@@ -52,11 +88,7 @@ def main() -> None:
     seen = {(row["trial_id"], row["pair"]) for row in done}
 
     rng = random.Random(args.seed)
-    items = []
-    for rec in records:
-        available = [c for c in rec["conditions"] if rec["conditions"][c].get("aar")]
-        for left, right in itertools.combinations(sorted(available), 2):
-            items.append((rec, left, right))
+    items = select_items(records, wanted)
     rng.shuffle(items)
 
     for i, (rec, left, right) in enumerate(items, 1):
