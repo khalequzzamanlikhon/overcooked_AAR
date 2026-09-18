@@ -164,19 +164,6 @@ The 7B model in 4-bit needs about 10 GB of free VRAM; pass `--bf16` to
 tokens, and a whole 180 s episode would be about 30k, which is why I split the video
 into minutes. The full pilot took about 2.3 hours on one RTX A5000.
 
-| Path | What it is |
-|---|---|
-| `aar/data_loader.py` | loads the 2019 human trials (with a fix for old pandas pickles) |
-| `aar/telemetry_to_text.py` | raw state → events → the text the log condition reads |
-| `aar/render_video.py` | trials → real-time mp4s with labels, split by minute |
-| `aar/generate_aar.py` | the prompts: claims first, then the review |
-| `aar/vlm_local.py` | loads Qwen2.5-VL and runs it on text or video |
-| `aar/verify.py` | checks one claim against the log: supported, wrong time, contradicted, unchecked |
-| `run_pipeline.py` | runs everything, one episode at a time |
-| `analyze.py` | the results table |
-| `rate_aars.py` | blind pairwise rating, one file per rater |
-| `results/pilot_2026-09/` | this run: claims, verdicts, reviews, metrics |
-
 ## Data
 
 The data ships with the `overcooked-ai` package: 39 train and 37 test trials of real
