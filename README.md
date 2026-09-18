@@ -1,18 +1,22 @@
 # Telemetry vs. video: comparing automatic after-action reviews
 
-**Status: pilot study, started September 2026.** The automatic checks below are done.
-The blind human rating is built but not yet run, and is marked as pending throughout.
+**Status: pilot study, started September 2026.** The automatic claim checks are done.
+I plan to add a blind human rating next; the tool for it is built.
 
-An after-action review has to say what happened. A game log knows exactly what happened
-but not what it looked like. Video shows hesitation, a blocked attempt, a near-miss —
-none of which becomes a logged event. So: give the *same* model the *same* episode
-through each source, ask it for the same thing, and check every claim it makes against
-the log.
+After a team plays, an after-action review says what they did well, what cost them
+time, and what to change. I wanted to know whether a model writes a better review
+from the game's event log or from watching the gameplay video. The log knows exactly
+what happened, but video shows things the log never records, like hesitation or a
+near-miss.
+
+So I gave the *same* model the *same* episode in two forms, asked it the same
+questions, and checked every claim it made against the log.
 
 ## Demo
 
-Real human-human episodes from the 2019 study, rendered straight from the bundled action
-logs at the speed they were played, with the episode clock and player labels on screen.
+These are real human-human episodes from the 2019 Overcooked study, rendered from the
+bundled action logs at the speed they were played, with the clock and player labels
+on screen.
 
 <p align="center">
   <img src="docs/demo/cramped_room.gif" width="32%" alt="cramped_room episode">
@@ -20,124 +24,130 @@ logs at the speed they were played, with the episode clock and player labels on 
   <img src="docs/demo/random0.gif" width="32%" alt="random0 (forced_coordination) episode">
 </p>
 
-The same episode as the telemetry condition sees it — an event timeline extracted from
-~1,200 timesteps of raw state ([full file](docs/demo/cramped_room_timeline.txt)):
+And this is what the model reads in the log condition for the same episode: events I
+extract from about 1,200 timesteps of raw game state
+([full file](docs/demo/cramped_room_timeline.txt)):
 
 ```text
 Layout: cramped_room
 Episode length: 181 s. This is seconds 0-60.
-Final score for the whole episode: 90
+Final score for the whole episode: 55
 
 Event log:
-  t=   2.3s  P2 picked up an onion.
-  t=   3.8s  P2 put an onion in the pot.
-  t=   7.2s  A pot started cooking (3 onions).
-  t=  10.1s  A soup finished cooking.
-  t=  11.4s  P2 stood still for 4 s.
-  t=  17.1s  P1 filled a dish with soup.
-  t=  18.6s  P1 tried to move into P2 and was blocked for 1.2 s.
-  t=  21.0s  P1 delivered a soup.
+  t=   5.4s  P1 picked up an onion.
+  t=   5.6s  P1 tried to move into P2 and was blocked for 0.8 s.
+  t=   8.1s  P1 put an onion in the pot.
+  ...
+  t=  14.1s  A pot started cooking (3 onions).
+  t=  17.0s  A soup finished cooking.
+  t=  18.0s  P1 filled a dish with soup.
+  t=  22.2s  P1 delivered a soup.
   ...
 ```
 
-## Design
+## How it works
 
 ```
-bundled human trials ─┬─ render, real time ─── 60 s clips ──> Video LLM ─┐
-                      │                                                  ├─> claims (JSON) ──> AAR
-                      └─ event extraction ──── 60 s windows ─> same LLM ─┘        │
-                                                                                  ├─> checked against the log
-                                                                                  └─> blind pairwise rating (pending)
+human game logs ─┬─ render in real time ─── 60 s clips ──> Video LLM ─┐
+                 │                                                    ├─> claims (JSON) ──> review
+                 └─ extract events ──────── 60 s windows ─> same model ┘        │
+                                                                               ├─> checked against the log
+                                                                               └─> blind human rating (planned)
 ```
 
-Choices that the comparison depends on:
+The choices the comparison depends on:
 
 | | |
 |---|---|
-| One model | Qwen2.5-VL-7B-Instruct for every condition, 4-bit NF4, greedy. A difference between conditions should come from the input, not from two different models. |
-| One prompt | Identical wording; only the sentence naming the source differs. |
-| One minute at a time | Both sources are read in 60 s windows, so both get the same number of chances to make a claim, and a 60 s clip at 2 fps fits in context (~10k visual tokens). |
-| Claims first, prose second | Stage 1 returns numbered claims (time, player, type, text). Stage 2 writes the review from those claims only. A paragraph cannot be checked; a claim can. |
-| Real time, labelled | The video runs at the speed it was played (~6.7 fps, 180 s) with the episode clock and P1/P2 drawn over the chefs, so a claim about P1 in one condition means the same thing in the other. |
+| One model | I used Qwen2.5-VL-7B-Instruct (4-bit, greedy) for every condition, so a difference comes from the input, not the model. |
+| One prompt | The wording is the same for both; only the sentence that names the source changes. |
+| One minute at a time | Both sources are read in 60 s windows, so both get the same number of chances to make a claim. A 60 s clip at 2 fps also fits in the model's context. |
+| Claims first, review second | First the model lists numbered claims (time, player, type, text). Then it writes the review from those claims only. I can check a claim; I can't check a paragraph. |
+| Real time, labelled | The video plays at the speed it was played, with the episode clock and P1/P2 drawn on screen, so "P1" means the same player in both conditions. |
 
 ## Getting the log right first
 
-The telemetry condition is only meaningful if the log is true. Three things had to be
-fixed before any of this meant anything, all verified against the bundled data:
+The comparison only means something if the log condition is fed the truth. My first
+version had three bugs, which I found by checking the events against the raw data:
 
-1. **Action alignment.** The action at step `t` produces the move from `t` to `t+1`, not
-   from `t-1` to `t`. Matched the other way, most real moves look like failed ones.
-2. **Blocked moves.** A blocked move means the teammate is standing on the tile you tried
-   to enter. Counting every press that does not move you also counts pressing into a
-   counter — which is how you use a counter — and floods the log with false "blocked"
-   events. Real ones are rare: a handful per episode.
-3. **Nothing is dropped.** The old timeline kept every Nth event when it got long, which
-   threw away most deliveries. Deliveries are the score. `tests/test_events.py` checks
-   that the number of delivery events equals the final score divided by 5, on every
-   episode it is run over.
+1. **Action timing.** The action at step `t` moves the player from `t` to `t+1`, not
+   from `t-1` to `t`. Matched the wrong way, most real moves looked like failed ones.
+2. **Blocked moves.** A move is blocked only when the teammate is standing on the tile
+   you tried to enter. I was also counting presses into a counter, which is simply how
+   you use a counter, so the log was full of fake "blocked" events.
+3. **Dropped deliveries.** When a timeline got long, I kept every Nth event, which
+   threw away most deliveries, and deliveries are the score. Now nothing is dropped,
+   and `tests/test_events.py` checks that the number of deliveries always matches the
+   final score.
 
 ## Results
 
-15 episodes (3 per layout, spread across the score range), 45 one-minute windows per
-condition, 239 real deliveries, 1,140 claims. Full run in
+I ran 15 episodes (3 per layout, spread across the score range): 45 one-minute windows
+per condition, 239 real deliveries and 1,140 claims in total. The full run is in
 [`results/pilot_2026-09/`](results/pilot_2026-09/).
 
 | condition | claims | supported | supported, naming a player | contradicted | wrong time | names a player | timestamp on a 5 s grid | delivery count error |
 |---|---|---|---|---|---|---|---|---|
-| telemetry | 351 | **81%** | 81% | 2% | 17% | 97% | 1% | 2.13 |
-| video, 2 fps | 411 | **53%** | 52% | 9% | 38% | 96% | 98% | 3.96 |
-| video, 1 frame / 3 s | 378 | **59%** | 54% | 8% | 32% | 78% | 79% | 4.56 |
+| log (`telemetry`) | 351 | **81%** | 81% | 2% | 17% | 97% | 1% | 2.13 |
+| video, 2 fps (`video_dense`) | 411 | **53%** | 52% | 9% | 38% | 96% | 98% | 3.96 |
+| video, 1 frame / 3 s (`video_sparse`) | 378 | **59%** | 54% | 8% | 32% | 78% | 79% | 4.56 |
 
-*supported* = an event of that kind, by that player, within 3 s of the claimed time.
-*wrong time* = that player did do it in that minute, but more than 3 s away.
-*contradicted* = no such event by that player in that minute at all.
+*supported*: an event of that kind, by that player, within 3 s of the claimed time.
+*wrong time*: that player did it in that minute, but more than 3 s away.
+*contradicted*: that player did no such thing in that minute.
 
-What the run says:
+What I found:
 
-- **Reading the log beats watching, 81% against 53%.** Not a surprise on its own. What the
-  breakdown shows is *how* the video model is wrong: it is not inventing events (only 9%
-  are contradicted outright) — it is putting real events at the wrong moment (38%).
-- **The video model is not reading the clock.** 98% of its timestamps land on a 5-second
-  grid, against 1% for the log condition. It is spacing claims evenly through the minute
-  and labelling them, which is exactly what produces "wrong time" rather than "contradicted".
-  The episode clock is on screen in every frame.
-- **Neither can count repetitions, video least of all.** The video condition under-counted
-  deliveries in 41 of 45 minutes at 2 fps and in **45 of 45** at 1 frame per 3 s, usually
-  reporting one delivery in a minute where four to seven happened. Reading the log it was
-  exact in 13 of 45.
-- **A lower frame rate looks better until you control for vagueness.** At 1 frame per 3 s the
-  supported rate rises to 59%, but only 78% of those claims name a player, against 96% at
-  2 fps. Count only the claims that name P1 or P2 and the two rates are the same (54% vs
-  52%). The sparse model buys accuracy with "both players", not with better seeing.
-- **Type of claim follows the source.** The log condition mostly claims deliveries
-  (243 of 351); the sparse video condition mostly claims pickups (248 of 378) — the visible
-  action — and almost half as many deliveries.
+- **The log beats the video, 81% to 53%.** That alone isn't surprising. The
+  interesting part is *how* the video model goes wrong: it rarely invents events (9%
+  contradicted); mostly it puts real events at the wrong moment (38%).
+- **The video model doesn't read the clock.** 98% of its timestamps land on a 5-second
+  grid, against 1% for the log. It spaces its claims evenly through the minute (15 s,
+  20 s, 25 s…) instead of reading the time, even though the clock is on screen in
+  every frame.
+- **Neither counts well, and video is worse.** With video at 2 fps the model
+  under-counted deliveries in 41 of 45 minutes, and in all 45 at 1 frame per 3 s,
+  often saying one delivery when there were four to seven. From the log it was exact
+  in 13 of 45.
+- **Fewer frames only looked better.** At 1 frame per 3 s the supported rate goes up
+  to 59%, but only 78% of those claims name a player (96% at 2 fps). Counting only
+  claims that name P1 or P2, the two video settings are the same: 54% vs. 52%. The
+  model got "more accurate" by being vaguer.
+- **What the model claims follows the source.** From the log it mostly claims
+  deliveries (243 of 351). From sparse video it mostly claims pickups (248 of 378),
+  the most visible action, and far fewer deliveries.
 
 ## Limitations
 
-- **15 episodes, one model, one prompt, greedy decoding, 4-bit weights.** No other models,
-  no prompt variants, no repeated runs.
-- **The automatic check only judges what the log records.** Claims about coordination or
-  strategy are left alone; they are what the human rating is for.
+- **Small pilot.** 15 episodes, one model, one prompt, greedy decoding, no repeated runs.
+- **Small model.** Qwen2.5-VL-7B in 4-bit is a small, compressed model. A larger Video
+  LLM may do better on video; I haven't tested that yet. Because both conditions use
+  the same model, the gap is about the input, but the absolute numbers would likely
+  change.
+- **The check only covers what the log records.** Claims about coordination or
+  strategy are left alone; that is what the human rating is for.
+- **The written review isn't checked.** Stage 2 can add its own mistakes. In one
+  episode, the log-based review said P1 made 24 deliveries when the team made 17.
 - **Vague claims are easier to support.** "Both players picked up an onion" matches
-  whoever did it, so the table reports supported-rate again over only the claims that name
-  a specific player.
-- **Rendered sprites, not real video, and no audio.** Whatever a Video LLM does here, it
-  is not the same problem as reading a real recording of real people.
-- **The human rating is not done**, so nothing here says which review is more *useful* to
-  a player — only which claims are true.
+  whoever did it, so the table also reports the supported rate for claims that name a
+  player.
+- **Rendered sprites, no audio.** This is not the same as real video of real people.
 
-## Pending
+## Next: blind human rating (planned)
 
-Blind pairwise rating: each rater watches the episode, sees two reviews of it as A and B
-with the source hidden, picks which is more accurate and which is more useful, and guesses
-which came from the video. Ranking is easier than rating, and the guess is there to show
-whether the comparison is really blind.
+Each rater watches an episode, reads two reviews of it labelled A and B with the
+source hidden, picks which is more accurate and which would help the team more, and
+guesses which one came from the video. Ranking two reviews is easier than scoring one,
+and the guess shows whether the test was really blind.
 
 ```bash
-python rate_aars.py --run results/pilot_2026-09 --rater <name>   # one file per rater
-python analyze.py --run results/pilot_2026-09                    # adds the ratings to the table
+# one file per rater; --pairs limits it to log vs. 2 fps video (15 comparisons, ~1 hour)
+python rate_aars.py --run results/pilot_2026-09 --rater r1 --pairs telemetry:video_dense
+python analyze.py --run results/pilot_2026-09      # adds the ratings to the results
 ```
+
+After that, I want to rerun the pipeline with a larger Video LLM to see how much of
+the gap is the model and how much is the input.
 
 ## Run it
 
@@ -149,24 +159,29 @@ GPU=1 MODEL=Qwen/Qwen2.5-VL-3B-Instruct bash run.sh
 python -m pytest tests -q
 ```
 
-Needs ~10 GB of free VRAM for the 7B in 4-bit; pass `--bf16` to `run_pipeline.py` if you
-have ~17 GB. A 60 s clip at 2 fps is about 10k visual tokens, a whole 180 s episode about
-30k, which is why the clips are split.
+The 7B model in 4-bit needs about 10 GB of free VRAM; pass `--bf16` to
+`run_pipeline.py` if you have about 17 GB. A 60 s clip at 2 fps is about 10k visual
+tokens, and a whole 180 s episode would be about 30k, which is why I split the video
+into minutes. The full pilot took about 2.3 hours on one RTX A5000.
 
 | Path | What it is |
 |---|---|
-| `aar/telemetry_to_text.py` | raw state -> events -> the text the telemetry condition reads |
-| `aar/render_video.py` | trials -> real-time mp4s, labelled, split by minute |
-| `aar/generate_aar.py` | the two prompts, identical except for the source line |
-| `aar/verify.py` | one claim vs the log: supported, wrong time, contradicted, unchecked |
+| `aar/data_loader.py` | loads the 2019 human trials (with a fix for old pandas pickles) |
+| `aar/telemetry_to_text.py` | raw state → events → the text the log condition reads |
+| `aar/render_video.py` | trials → real-time mp4s with labels, split by minute |
+| `aar/generate_aar.py` | the prompts: claims first, then the review |
+| `aar/vlm_local.py` | loads Qwen2.5-VL and runs it on text or video |
+| `aar/verify.py` | checks one claim against the log: supported, wrong time, contradicted, unchecked |
+| `run_pipeline.py` | runs everything, one episode at a time |
 | `analyze.py` | the results table |
 | `rate_aars.py` | blind pairwise rating, one file per rater |
 | `results/pilot_2026-09/` | this run: claims, verdicts, reviews, metrics |
 
 ## Data
 
-Ships with the `overcooked-ai` package: 39 train and 37 test trials of real human-human
-play across five layouts, final scores 40-205. Nothing to download.
+The data ships with the `overcooked-ai` package: 39 train and 37 test trials of real
+human-human play across five layouts, with final scores from 40 to 205. There is
+nothing to download.
 
 Carroll, M., Shah, R., Ho, M. K., Griffiths, T. L., Seshia, S. A., Abbeel, P., Dragan, A.
 *On the Utility of Learning about Humans for Human-AI Coordination.* NeurIPS 2019.
