@@ -11,7 +11,7 @@ Two choices matter for the comparison:
 * Player labels. The chefs wear a blue and a green hat; the log calls them
   Player 1 and Player 2. Without a label on screen, a claim about "the blue
   chef" cannot be matched to a claim about "Player 1", so P1/P2 is drawn over
-  each chef the way a game shows name tags.
+  each chef the way a game shows name tags, in white with a black outline.
 
 Headless note: pygame needs a video driver. SDL_VIDEODRIVER=dummy is set here
 so rendering works on a server with no display.
@@ -37,7 +37,11 @@ from .telemetry_to_text import LAYOUT_ALIASES  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
-_LABEL_COLORS = [(255, 200, 80), (120, 255, 160)]  # BGR, close to the hat colours
+# White with a black outline reads on every tile. The first version drew the
+# label in the hat colour on top of the hat, where it all but disappeared.
+_LABEL_FONT = cv2.FONT_HERSHEY_SIMPLEX
+_LABEL_SCALE = 0.7
+_LABEL_THICKNESS = 2
 
 
 def _surface_to_bgr(surface: pygame.Surface) -> np.ndarray:
@@ -46,14 +50,16 @@ def _surface_to_bgr(surface: pygame.Surface) -> np.ndarray:
 
 
 def _label_players(frame: np.ndarray, state: dict, tile: int, rows: int) -> None:
-    """Draw P1/P2 over the chefs. The HUD sits above the grid, so the grid
-    starts at (frame height - rows * tile)."""
+    """Draw P1/P2 just above each chef's head, centred on the tile. The HUD
+    sits above the grid, so the grid starts at (frame height - rows * tile)."""
     grid_top = frame.shape[0] - rows * tile
     for i, player in enumerate(state["players"]):
         x, y = player["position"]
-        org = (int(x * tile) + 4, grid_top + int(y * tile) + 16)
-        cv2.putText(frame, f"P{i + 1}", org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 3, cv2.LINE_AA)
-        cv2.putText(frame, f"P{i + 1}", org, cv2.FONT_HERSHEY_SIMPLEX, 0.5, _LABEL_COLORS[i], 1, cv2.LINE_AA)
+        text = f"P{i + 1}"
+        (w, _), _ = cv2.getTextSize(text, _LABEL_FONT, _LABEL_SCALE, _LABEL_THICKNESS)
+        org = (int(x * tile + (tile - w) / 2), grid_top + int(y * tile) + 4)
+        cv2.putText(frame, text, org, _LABEL_FONT, _LABEL_SCALE, (0, 0, 0), _LABEL_THICKNESS + 3, cv2.LINE_AA)
+        cv2.putText(frame, text, org, _LABEL_FONT, _LABEL_SCALE, (255, 255, 255), _LABEL_THICKNESS, cv2.LINE_AA)
 
 
 def render_trial(
