@@ -180,7 +180,7 @@ Event log:
   t= 119.6s  P1 picked up an onion.
 
 Layout: random0
-Episode length: 181 s. This is seconds 120-181.
+Episode length: 181 s. This is seconds 120-180.
 Final score for the whole episode: 65
 
 Event log:
@@ -304,5 +304,3 @@ Event log:
   t= 179.0s  P1 put an onion in the pot.
   t= 179.0s  P2 picked up an onion.
   t= 179.0s  A pot started cooking (3 onions).
-  t= 180.0s  P1 picked up a dish.
-  t= 180.3s  P2 put an onion down on a counter.

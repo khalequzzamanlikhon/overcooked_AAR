@@ -243,6 +243,21 @@ def _merge_blocked(events: list[Event], gap_steps: int = 6) -> list[Event]:
     return merged
 
 
+def segment_bounds(duration: float, seconds: float, min_tail: float = 10.0) -> list[tuple[float, float]]:
+    """Split an episode into windows of `seconds`, as [(start, end), ...].
+
+    A leftover shorter than `min_tail` joins the last window, and the last
+    window ends after the final timestep, so every event lands in exactly one
+    window. Episodes run ~180.6 s: the first version cut the last minute at
+    180 and lost whatever happened in the final 0.6 s, a delivery included.
+    """
+    starts = [0.0]
+    while starts[-1] + seconds <= duration - min_tail:
+        starts.append(starts[-1] + seconds)
+    ends = starts[1:] + [float(int(duration) + 1)]
+    return list(zip(starts, ends))
+
+
 def segment_events(events: list[Event], start: float, end: float) -> list[Event]:
     return [e for e in events if start <= e.seconds < end]
 

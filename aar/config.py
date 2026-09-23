@@ -36,6 +36,7 @@ class RenderConfig:
     tile_size: int = 75
     subsample: int = 1  # keep every timestep; the data is only ~6.7 Hz
     label_players: bool = True  # draw P1/P2 over the chefs
+    clock_strip_px: int = 48  # clock and score strip above the grid, in place of the package HUD
     segment_seconds: float = SEGMENT_SECONDS
 
 

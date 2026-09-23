@@ -122,7 +122,7 @@ Event log:
   t= 119.3s  P2 tried to move into P1 and was blocked.
 
 Layout: cramped_room
-Episode length: 181 s. This is seconds 120-181.
+Episode length: 181 s. This is seconds 120-180.
 Final score for the whole episode: 55
 
 Event log:
@@ -166,4 +166,3 @@ Event log:
   t= 178.1s  P1 filled a dish with soup.
   t= 178.1s  P2 picked up an onion.
   t= 179.3s  P1 delivered a soup.
-  t= 180.0s  P2 put an onion in the pot.

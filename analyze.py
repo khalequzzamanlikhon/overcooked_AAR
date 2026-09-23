@@ -11,6 +11,14 @@ Automatic metrics (per condition):
   wrong time            right kind of event, wrong moment (>3 s off)
   delivery count error  mean |claimed - actual| soups per minute
 
+Chance baselines (per condition), so a rate can be read against what a claim
+with no real information would score:
+  supported at a random time   the same claims, each moved to a random time
+                               in its minute and checked again
+  not contradicted, swapped    claims naming P1 or P2, re-checked with the
+                               player swapped; if this is close to the real
+                               rate, the player names carry little information
+
 Human ratings, if present, are pairwise: which of two reviews of the same
 episode is more accurate, and which is more useful.
 """
@@ -18,9 +26,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
+
+from aar.telemetry_to_text import Event, segment_events
+from aar.verify import verify_claim
+
+_SWAP = {"P1": "P2", "P2": "P1"}
 
 
 def automatic_metrics(records: list[dict]) -> dict[str, dict]:
@@ -84,6 +98,41 @@ def automatic_metrics(records: list[dict]) -> dict[str, dict]:
     return summary
 
 
+def chance_baselines(records: list[dict], draws: int = 20, seed: int = 0) -> dict[str, dict]:
+    """Re-check every checkable claim with its time or its player scrambled."""
+    rng = random.Random(seed)
+    acc: dict[str, Counter] = defaultdict(Counter)
+    for rec in records:
+        events = [Event(**e) for e in rec["events"]]
+        for condition, block in rec["conditions"].items():
+            a = acc[condition]
+            for seg in block["segments"]:
+                seg_events = segment_events(events, seg["start"], seg["end"])
+                for claim in seg["claims"]:
+                    status = claim["verdict"]["status"]
+                    if status == "unchecked":
+                        continue
+                    for _ in range(draws):
+                        moved = dict(claim, time=rng.uniform(seg["start"], seg["end"]))
+                        a["random_supported"] += verify_claim(moved, seg_events)["status"] == "supported"
+                    a["random_draws"] += draws
+                    if claim.get("player") in _SWAP:
+                        swapped = dict(claim, player=_SWAP[claim["player"]])
+                        a["named"] += 1
+                        a["named_ok"] += status != "contradicted"
+                        a["swapped_ok"] += verify_claim(swapped, seg_events)["status"] != "contradicted"
+
+    ratio = lambda n, d: round(n / d, 3) if d else None  # noqa: E731
+    return {
+        condition: {
+            "supported_at_random_time": ratio(a["random_supported"], a["random_draws"]),
+            "not_contradicted_named": ratio(a["named_ok"], a["named"]),
+            "not_contradicted_swapped": ratio(a["swapped_ok"], a["named"]),
+        }
+        for condition, a in acc.items()
+    }
+
+
 def rating_metrics(rating_dir: Path) -> dict:
     files = sorted(rating_dir.glob("*.json")) if rating_dir.exists() else []
     if not files:
@@ -114,21 +163,40 @@ def rating_metrics(rating_dir: Path) -> dict:
     }
 
 
-def to_markdown(summary: dict, ratings: dict, n_episodes: int) -> str:
+def _pct(v: float | None) -> str:
+    return "-" if v is None else f"{v * 100:.0f}%"
+
+
+def to_markdown(summary: dict, baselines: dict, ratings: dict, n_episodes: int) -> str:
     rows = [
         "| condition | claims | supported | supported, naming a player | contradicted | wrong time "
         "| names a player | timestamp on a 5 s grid | delivery count error |",
         "|---|---|---|---|---|---|---|---|---|",
     ]
     for condition, m in summary.items():
-        pct = lambda v: "-" if v is None else f"{v * 100:.0f}%"  # noqa: E731
         rows.append(
-            f"| {condition} | {m['claims']} | {pct(m['supported'])} | {pct(m['supported_when_named'])} | "
-            f"{pct(m['contradicted'])} | {pct(m['wrong_time'])} | {pct(m['named_player_share'])} | "
-            f"{pct(m['round_timestamp_share'])} | "
+            f"| {condition} | {m['claims']} | {_pct(m['supported'])} | {_pct(m['supported_when_named'])} | "
+            f"{_pct(m['contradicted'])} | {_pct(m['wrong_time'])} | {_pct(m['named_player_share'])} | "
+            f"{_pct(m['round_timestamp_share'])} | "
             f"{'-' if m['delivery_count_mae'] is None else m['delivery_count_mae']} |"
         )
     text = [f"Episodes: {n_episodes}", "", *rows]
+    text += [
+        "",
+        "A whole-second timestamp lands on a 5 s grid 20% of the time by chance.",
+        "",
+        "Chance baselines: the same claims with the time moved to a random moment in",
+        "the minute, and with P1 and P2 swapped.",
+        "",
+        "| condition | supported | supported at a random time | not contradicted (named player) "
+        "| not contradicted, P1/P2 swapped |",
+        "|---|---|---|---|---|",
+    ]
+    for condition, b in baselines.items():
+        text.append(
+            f"| {condition} | {_pct(summary[condition]['supported'])} | {_pct(b['supported_at_random_time'])} | "
+            f"{_pct(b['not_contradicted_named'])} | {_pct(b['not_contradicted_swapped'])} |"
+        )
     if ratings:
         text += ["", f"Human pairwise ratings from {ratings['raters']} rater(s), votes per question:"]
         for pair, questions in sorted(ratings["votes"].items()):
@@ -146,10 +214,13 @@ def main() -> None:
 
     records = json.loads((args.run / "results.json").read_text())
     summary = automatic_metrics(records)
+    baselines = chance_baselines(records)
     ratings = rating_metrics(args.ratings or args.run / "ratings")
 
-    (args.run / "metrics.json").write_text(json.dumps({"automatic": summary, "human": ratings}, indent=2))
-    report = to_markdown(summary, ratings, len(records))
+    (args.run / "metrics.json").write_text(
+        json.dumps({"automatic": summary, "chance": baselines, "human": ratings}, indent=2)
+    )
+    report = to_markdown(summary, baselines, ratings, len(records))
     (args.run / "metrics.md").write_text(report)
     print(report)
 

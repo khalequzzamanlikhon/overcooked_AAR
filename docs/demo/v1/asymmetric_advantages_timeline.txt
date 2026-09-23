@@ -130,7 +130,7 @@ Event log:
   t= 119.7s  P1 picked up an onion.
 
 Layout: asymmetric_advantages
-Episode length: 181 s. This is seconds 120-181.
+Episode length: 181 s. This is seconds 120-180.
 Final score for the whole episode: 80
 
 Event log:

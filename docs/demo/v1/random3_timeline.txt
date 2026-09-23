@@ -115,7 +115,7 @@ Event log:
   t= 118.2s  P2 delivered a soup.
 
 Layout: random3
-Episode length: 181 s. This is seconds 120-181.
+Episode length: 181 s. This is seconds 120-180.
 Final score for the whole episode: 45
 
 Event log:

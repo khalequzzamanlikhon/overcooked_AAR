@@ -124,5 +124,22 @@
       }
     }
   },
+  "chance": {
+    "telemetry": {
+      "supported_at_random_time": 0.465,
+      "not_contradicted_named": 0.979,
+      "not_contradicted_swapped": 0.592
+    },
+    "video_dense": {
+      "supported_at_random_time": 0.515,
+      "not_contradicted_named": 0.909,
+      "not_contradicted_swapped": 0.853
+    },
+    "video_sparse": {
+      "supported_at_random_time": 0.634,
+      "not_contradicted_named": 0.894,
+      "not_contradicted_swapped": 0.863
+    }
+  },
   "human": {}
 }

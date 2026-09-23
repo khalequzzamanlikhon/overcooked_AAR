@@ -2,9 +2,9 @@ Episodes: 15
 
 | condition | claims | supported | supported, naming a player | contradicted | wrong time | names a player | timestamp on a 5 s grid | delivery count error |
 |---|---|---|---|---|---|---|---|---|
-| telemetry | 351 | 81% | 81% | 2% | 17% | 97% | 1% | 2.13 |
-| video_dense | 411 | 53% | 52% | 9% | 38% | 96% | 98% | 3.96 |
-| video_sparse | 378 | 59% | 54% | 8% | 32% | 78% | 79% | 4.56 |
+| telemetry | 320 | 77% | 77% | 3% | 20% | 97% | 2% | 2.4 |
+| video_dense | 395 | 48% | 44% | 14% | 38% | 89% | 63% | 3.19 |
+| video_sparse | 322 | 51% | 50% | 8% | 41% | 92% | 42% | 4.2 |
 
 A whole-second timestamp lands on a 5 s grid 20% of the time by chance.
 
@@ -13,6 +13,6 @@ the minute, and with P1 and P2 swapped.
 
 | condition | supported | supported at a random time | not contradicted (named player) | not contradicted, P1/P2 swapped |
 |---|---|---|---|---|
-| telemetry | 81% | 46% | 98% | 59% |
-| video_dense | 53% | 52% | 91% | 85% |
-| video_sparse | 59% | 63% | 89% | 86% |
+| telemetry | 77% | 45% | 97% | 62% |
+| video_dense | 48% | 48% | 84% | 80% |
+| video_sparse | 51% | 51% | 92% | 82% |

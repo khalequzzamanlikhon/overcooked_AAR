@@ -1,0 +1,157 @@
+{
+  "automatic": {
+    "telemetry": {
+      "claims": 320,
+      "checkable": 320,
+      "checkable_share": 1.0,
+      "supported": 0.769,
+      "contradicted": 0.031,
+      "wrong_time": 0.2,
+      "delivery_count_mae": 2.4,
+      "named_player_share": 0.972,
+      "supported_when_named": 0.768,
+      "round_timestamp_share": 0.016,
+      "parse_failures": 0,
+      "by_type": {
+        "blocked": {
+          "n": 9,
+          "supported": 9,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "counter": {
+          "n": 2,
+          "supported": 2,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 233,
+          "supported": 171,
+          "contradicted": 10,
+          "wrong_time": 52
+        },
+        "idle": {
+          "n": 2,
+          "supported": 1,
+          "contradicted": 0,
+          "wrong_time": 1
+        },
+        "pickup": {
+          "n": 73,
+          "supported": 62,
+          "contradicted": 0,
+          "wrong_time": 11
+        },
+        "pot": {
+          "n": 1,
+          "supported": 1,
+          "contradicted": 0,
+          "wrong_time": 0
+        }
+      }
+    },
+    "video_dense": {
+      "claims": 395,
+      "checkable": 393,
+      "checkable_share": 0.995,
+      "supported": 0.476,
+      "contradicted": 0.145,
+      "wrong_time": 0.379,
+      "delivery_count_mae": 3.19,
+      "named_player_share": 0.891,
+      "supported_when_named": 0.438,
+      "round_timestamp_share": 0.633,
+      "parse_failures": 2,
+      "by_type": {
+        "coordination": {
+          "n": 2,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 206,
+          "supported": 66,
+          "contradicted": 54,
+          "wrong_time": 86
+        },
+        "pickup": {
+          "n": 182,
+          "supported": 120,
+          "contradicted": 1,
+          "wrong_time": 61
+        },
+        "pot": {
+          "n": 5,
+          "supported": 1,
+          "contradicted": 2,
+          "wrong_time": 2
+        }
+      }
+    },
+    "video_sparse": {
+      "claims": 322,
+      "checkable": 318,
+      "checkable_share": 0.988,
+      "supported": 0.513,
+      "contradicted": 0.079,
+      "wrong_time": 0.409,
+      "delivery_count_mae": 4.2,
+      "named_player_share": 0.916,
+      "supported_when_named": 0.505,
+      "round_timestamp_share": 0.425,
+      "parse_failures": 0,
+      "by_type": {
+        "coordination": {
+          "n": 3,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 117,
+          "supported": 43,
+          "contradicted": 17,
+          "wrong_time": 57
+        },
+        "pickup": {
+          "n": 200,
+          "supported": 119,
+          "contradicted": 8,
+          "wrong_time": 73
+        },
+        "pot": {
+          "n": 1,
+          "supported": 1,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "strategy": {
+          "n": 1,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        }
+      }
+    }
+  },
+  "chance": {
+    "telemetry": {
+      "supported_at_random_time": 0.449,
+      "not_contradicted_named": 0.968,
+      "not_contradicted_swapped": 0.621
+    },
+    "video_dense": {
+      "supported_at_random_time": 0.476,
+      "not_contradicted_named": 0.838,
+      "not_contradicted_swapped": 0.801
+    },
+    "video_sparse": {
+      "supported_at_random_time": 0.508,
+      "not_contradicted_named": 0.915,
+      "not_contradicted_swapped": 0.817
+    }
+  },
+  "human": {}
+}

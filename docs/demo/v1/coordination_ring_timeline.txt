@@ -87,7 +87,7 @@ Event log:
   t= 119.3s  P1 delivered a soup.
 
 Layout: coordination_ring
-Episode length: 181 s. This is seconds 120-181.
+Episode length: 181 s. This is seconds 120-180.
 Final score for the whole episode: 45
 
 Event log:
@@ -132,5 +132,3 @@ Event log:
   t= 177.6s  P2 put an onion in the pot.
   t= 177.6s  A pot started cooking (3 onions).
   t= 177.8s  P1 picked up a dish.
-  t= 180.5s  A soup finished cooking.
-  t= 180.6s  P2 picked up an onion.

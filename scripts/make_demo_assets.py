@@ -31,7 +31,9 @@ def _read_frames(video: Path, every: int, limit: int, width: int) -> list[Image.
 
 def make_gif(video: Path, out: Path, width: int = 320, every: int = 3, limit: int = 110) -> None:
     frames = _read_frames(video, every, limit, width)
-    frames = [f.convert("P", palette=Image.ADAPTIVE, colors=64) for f in frames]
+    # 96, not 64: with the clock strip taking palette entries, 64 merged the
+    # blue and green hats into one colour
+    frames = [f.convert("P", palette=Image.ADAPTIVE, colors=96) for f in frames]
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=100, loop=0, optimize=True)
 
 
