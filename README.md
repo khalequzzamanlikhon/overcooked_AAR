@@ -18,10 +18,24 @@ These are real human-human episodes from the 2019 Overcooked study, rendered fro
 bundled action logs at the speed they were played, with the clock and player labels
 on screen.
 
+**Current render** (used for [`results/pilot_2026-09b/`](results/pilot_2026-09b/)):
+large clock strip, white outlined P1/P2 labels.
+
 <p align="center">
-  <img src="docs/demo/cramped_room.gif" width="32%" alt="cramped_room episode">
-  <img src="docs/demo/coordination_ring.gif" width="32%" alt="coordination_ring episode">
-  <img src="docs/demo/random0.gif" width="32%" alt="random0 (forced_coordination) episode">
+  <img src="docs/demo/cramped_room.gif" width="32%" alt="cramped_room episode, current render">
+  <img src="docs/demo/coordination_ring.gif" width="32%" alt="coordination_ring episode, current render">
+  <img src="docs/demo/random0.gif" width="32%" alt="random0 (forced_coordination) episode, current render">
+</p>
+
+**First render** (used for [`results/pilot_2026-09/`](results/pilot_2026-09/)), kept
+for comparison: the same episodes, with the clock in ~8 px text at the top left and
+the labels drawn in the hat colour on top of the hat. Both were close to unreadable
+for the model.
+
+<p align="center">
+  <img src="docs/demo/v1/cramped_room.gif" width="32%" alt="cramped_room episode, first render">
+  <img src="docs/demo/v1/coordination_ring.gif" width="32%" alt="coordination_ring episode, first render">
+  <img src="docs/demo/v1/random0.gif" width="32%" alt="random0 (forced_coordination) episode, first render">
 </p>
 
 And this is what the model reads in the log condition for the same episode: events I
