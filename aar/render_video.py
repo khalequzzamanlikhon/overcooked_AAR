@@ -37,7 +37,7 @@ from overcooked_ai_py.visualization.state_visualizer import StateVisualizer  # n
 from .config import RenderConfig  # noqa: E402
 from .data_loader import Trial  # noqa: E402
 from .state_convert import convert_old_state  # noqa: E402
-from .telemetry_to_text import LAYOUT_ALIASES  # noqa: E402
+from .telemetry_to_text import LAYOUT_ALIASES, segment_bounds  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +92,7 @@ def render_trial(
 
     duration = trial.time_elapsed[-1]
     fps = (len(trial) - 1) / duration / cfg.subsample  # ~6.7, i.e. real time
+    bounds = segment_bounds(duration, cfg.segment_seconds)
     out_dir.mkdir(parents=True, exist_ok=True)
     full_path = out_dir / f"{trial.trial_id}.mp4"
 
@@ -113,13 +114,11 @@ def render_trial(
             full_writer = cv2.VideoWriter(str(full_path), fourcc, fps, (w, h))
         full_writer.write(frame)
 
-        seg = int(trial.time_elapsed[i] // cfg.segment_seconds)
-        if seg * cfg.segment_seconds > duration - 10:
-            seg -= 1  # a few leftover seconds belong to the last minute
+        seg = next(k for k, (_, end) in enumerate(bounds) if trial.time_elapsed[i] < end)
         if seg not in seg_writers:
             path = out_dir / f"{trial.trial_id}_seg{seg}.mp4"
             seg_writers[seg] = cv2.VideoWriter(str(path), fourcc, fps, (w, h))
-            segments[seg] = (seg * cfg.segment_seconds, (seg + 1) * cfg.segment_seconds, path)
+            segments[seg] = (*bounds[seg], path)
         seg_writers[seg].write(frame)
 
     if full_writer is not None:
