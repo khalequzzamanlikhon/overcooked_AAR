@@ -12,6 +12,10 @@ Two choices matter for the comparison:
   Player 1 and Player 2. Without a label on screen, a claim about "the blue
   chef" cannot be matched to a claim about "Player 1", so P1/P2 is drawn over
   each chef the way a game shows name tags, in white with a black outline.
+* A clock the model can read. The package's HUD writes "Time: 75" in ~8 px
+  text, which does not survive the model's resize, and claims from video
+  came back on an even 5 s grid. A black-on-white strip across the top shows
+  the episode clock and score in large type instead.
 
 Headless note: pygame needs a video driver. SDL_VIDEODRIVER=dummy is set here
 so rendering works on a server with no display.
@@ -62,6 +66,17 @@ def _label_players(frame: np.ndarray, state: dict, tile: int, rows: int) -> None
         cv2.putText(frame, text, org, _LABEL_FONT, _LABEL_SCALE, (255, 255, 255), _LABEL_THICKNESS, cv2.LINE_AA)
 
 
+def _add_clock_strip(frame: np.ndarray, seconds: float, score: float, height: int) -> np.ndarray:
+    """Put the episode clock and score in a strip above the grid."""
+    frame = cv2.copyMakeBorder(frame, height, 0, 0, 0, cv2.BORDER_CONSTANT, value=(255, 255, 255))
+    baseline = int(height * 0.72)
+    cv2.putText(frame, f"t = {int(seconds)} s", (8, baseline), _LABEL_FONT, 1.0, (0, 0, 0), 2, cv2.LINE_AA)
+    text = f"score {int(score)}"
+    (w, _), _ = cv2.getTextSize(text, _LABEL_FONT, 0.8, 2)
+    cv2.putText(frame, text, (frame.shape[1] - w - 8, baseline), _LABEL_FONT, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
+    return frame
+
+
 def render_trial(
     trial: Trial, out_dir: Path, cfg: RenderConfig | None = None
 ) -> tuple[Path, list[tuple[float, float, Path]]]:
@@ -87,14 +102,11 @@ def render_trial(
 
     for i in range(0, len(trial), cfg.subsample):
         state = convert_old_state(trial.states[i])
-        surface = visualizer.render_state(
-            state=state,
-            grid=mdp.terrain_mtx,
-            hud_data={"score": int(trial.scores[i]), "time": int(trial.time_elapsed[i])},
-        )
+        surface = visualizer.render_state(state=state, grid=mdp.terrain_mtx)
         frame = _surface_to_bgr(surface)
         if cfg.label_players:
             _label_players(frame, trial.states[i], cfg.tile_size, rows)
+        frame = _add_clock_strip(frame, trial.time_elapsed[i], trial.scores[i], cfg.clock_strip_px)
 
         h, w = frame.shape[:2]
         if full_writer is None:

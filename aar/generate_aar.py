@@ -64,7 +64,10 @@ def init_backend(cfg: LLMConfig) -> None:
 def _claims_prompt(start: float, end: float, source: str | None) -> str:
     task = _CLAIMS_TASK.format(start=start, end=end)
     if source is None:
-        return f"{_RULES}\n\nSOURCE: the video above, which covers seconds {start:.0f}-{end:.0f} of the episode.\n\n{task}"
+        return (
+            f"{_RULES}\n\nSOURCE: the video above, which covers seconds {start:.0f}-{end:.0f} of the episode. "
+            f"The episode clock is shown at the top of every frame.\n\n{task}"
+        )
     return f"{_RULES}\n\nSOURCE: an event log of the episode.\n\n{source}\n\n{task}"
 
 
