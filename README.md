@@ -68,7 +68,8 @@ The choices the comparison depends on:
 ## Getting the log right first
 
 The comparison only means something if the log condition is fed the truth. My first
-version had three bugs, which I found by checking the events against the raw data:
+version had three bugs, which I found by checking the events against the raw data
+(a fourth, the last minute ending at 180 s, is described under Results):
 
 1. **Action timing.** The action at step `t` moves the player from `t` to `t+1`, not
    from `t-1` to `t`. Matched the wrong way, most real moves looked like failed ones.
@@ -83,39 +84,68 @@ version had three bugs, which I found by checking the events against the raw dat
 ## Results
 
 I ran 15 episodes (3 per layout, spread across the score range): 45 one-minute windows
-per condition, 239 real deliveries and 1,140 claims in total. The full run is in
-[`results/pilot_2026-09/`](results/pilot_2026-09/).
+per condition and 239 real deliveries. I ran them twice:
+
+- [`results/pilot_2026-09/`](results/pilot_2026-09/), the first run. In its video the
+  P1/P2 labels were drawn in the hat colour on top of the hat, and the clock was
+  ~8 px text. Both were close to unreadable, and the last minute stopped at 180 s,
+  losing the final 0.6 s of each episode (one delivery in total).
+- [`results/pilot_2026-09b/`](results/pilot_2026-09b/), the rerun with white outlined
+  labels, a large clock strip and the last minute running to the end. Same episodes,
+  model, precision and prompts. The numbers below are from this run.
 
 | condition | claims | supported | supported, naming a player | contradicted | wrong time | names a player | timestamp on a 5 s grid | delivery count error |
 |---|---|---|---|---|---|---|---|---|
-| log (`telemetry`) | 351 | **81%** | 81% | 2% | 17% | 97% | 1% | 2.13 |
-| video, 2 fps (`video_dense`) | 411 | **53%** | 52% | 9% | 38% | 96% | 98% | 3.96 |
-| video, 1 frame / 3 s (`video_sparse`) | 378 | **59%** | 54% | 8% | 32% | 78% | 79% | 4.56 |
+| log (`telemetry`) | 320 | **77%** | 77% | 3% | 20% | 97% | 2% | 2.40 |
+| video, 2 fps (`video_dense`) | 395 | **48%** | 44% | 14% | 38% | 89% | 63% | 3.19 |
+| video, 1 frame / 3 s (`video_sparse`) | 322 | **51%** | 50% | 8% | 41% | 92% | 42% | 4.20 |
 
 *supported*: an event of that kind, by that player, within 3 s of the claimed time.
 *wrong time*: that player did it in that minute, but more than 3 s away.
 *contradicted*: that player did no such thing in that minute.
 
+A supported rate needs a baseline: in a busy minute, a claim like "P1 picked up an
+onion" lands within 3 s of some real pickup fairly often by luck alone. So I checked
+the same claims again twice: once with each time moved to a random moment in its
+minute, and once with P1 and P2 swapped.
+
+| condition | supported | supported at a random time | not contradicted | not contradicted, P1/P2 swapped |
+|---|---|---|---|---|
+| log | 77% | 45% | 97% | 62% |
+| video, 2 fps | 48% | **48%** | 84% | **80%** |
+| video, 1 frame / 3 s | 51% | **51%** | 92% | **82%** |
+
 What I found:
 
-- **The log beats the video, 81% to 53%.** That alone isn't surprising. The
-  interesting part is *how* the video model goes wrong: it rarely invents events (9%
-  contradicted); mostly it puts real events at the wrong moment (38%).
-- **The video model doesn't read the clock.** 98% of its timestamps land on a 5-second
-  grid, against 1% for the log. It spaces its claims evenly through the minute (15 s,
-  20 s, 25 s…) instead of reading the time, even though the clock is on screen in
-  every frame.
-- **Neither counts well, and video is worse.** With video at 2 fps the model
-  under-counted deliveries in 41 of 45 minutes, and in all 45 at 1 frame per 3 s,
+- **The log beats the video, 77% to 48%.** And the log's timing is real: it scores
+  32 points above its random-time baseline.
+- **The video model's timestamps carry no information.** Its claims score exactly
+  what they would at a random time in the minute, in both video settings and in both
+  runs (53% vs. 52% in the first run). I first read the 38% "wrong time" as "it sees
+  the right events and gets the moment wrong". The baseline says otherwise: it knows
+  roughly what kinds of things happen in a minute of Overcooked, not when they did.
+- **Its player names carry little more.** Swapping P1 and P2 barely changes the
+  video claims (84% → 80% not contradicted), while the log's claims fall apart
+  (97% → 62%). Both players pick things up all the time, so a low contradicted rate
+  doesn't show the model was looking.
+- **A readable clock changed the timestamps, not their accuracy.** With the clock too
+  small to read, 98% of video timestamps landed on a 5 s grid (15 s, 20 s, 25 s…);
+  with a large clock strip, 63%. Whole-second times would land there 20% of the time
+  by chance, so the model now uses the clock more, but its times still don't line up
+  with events. Unreadable video was part of the problem, not all of it.
+- **Neither counts well, and video is worse.** At 2 fps the model under-counted
+  deliveries in 37 of 42 minutes it answered, and in all 45 at 1 frame per 3 s,
   often saying one delivery when there were four to seven. From the log it was exact
-  in 13 of 45.
-- **Fewer frames only looked better.** At 1 frame per 3 s the supported rate goes up
-  to 59%, but only 78% of those claims name a player (96% at 2 fps). Counting only
-  claims that name P1 or P2, the two video settings are the same: 54% vs. 52%. The
-  model got "more accurate" by being vaguer.
+  in 10 of 45.
+- **Fewer frames don't help.** At 1 frame per 3 s the supported rate is 51% against
+  48% at 2 fps, and both equal their random-time baselines.
 - **What the model claims follows the source.** From the log it mostly claims
-  deliveries (243 of 351). From sparse video it mostly claims pickups (248 of 378),
+  deliveries (233 of 320). From sparse video it mostly claims pickups (200 of 322),
   the most visible action, and far fewer deliveries.
+- **The runs are repeatable.** Decoding is greedy, and for the log condition the
+  first two minutes of every episode produced identical claims in both runs. Its drop
+  from 81% to 77% comes entirely from the last minute, whose input now includes the
+  final 0.6 s.
 
 ## Limitations
 
