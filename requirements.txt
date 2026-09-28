@@ -4,13 +4,15 @@ opencv-python-headless
 pygame
 pandas>=2.0          # the legacy-pickle shim in data_loader handles the 1.x -> 2.x break
 numpy
+scipy                # one-to-one claim matching, Wilcoxon tests
+matplotlib           # study-v2 figures
 pillow               # demo assets only
 
-# Video LLM (needs a CUDA GPU; ~10 GB free for the 7B in 4-bit)
+# Video LLM (needs a CUDA GPU; ~10 GB free for the 7B in 4-bit, ~17 GB for bf16)
 torch
-transformers>=4.51
+transformers>=4.57   # 4.57 adds Qwen3-VL
 accelerate
-qwen-vl-utils[decord]
+qwen-vl-utils[decord]>=0.0.14   # 0.0.14 adds Qwen3-VL's video metadata
 bitsandbytes         # 4-bit NF4; drop it and pass --bf16 if you have ~17 GB free
 
 # Tests
