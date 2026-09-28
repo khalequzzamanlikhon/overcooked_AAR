@@ -8,7 +8,7 @@
 #
 # Options, as environment variables:
 #   MODELS="qwen25vl7b_4bit qwen25vl7b_bf16 qwen3vl8b_bf16"   which models (tags from aar/config.py)
-#   PHASES="setup rescore probe_build smoke probe pilot all analyze variance"   which steps
+#   PHASES="setup rescore probe_build smoke pilot probe all analyze variance"   which steps
 #   GPUS=0,1        the GPUs it may use. 4-bit goes on the one with most free memory,
 #                   bf16 is spread over all of them.
 #   EPISODES=all    for the `all` phase: all | N
@@ -23,8 +23,8 @@
 #   probe_build  build the perception-probe items (no GPU)
 #   smoke        per model: 1 minute of 1 episode, every condition, and 20 probe items;
 #                a model that fails here is skipped for the rest
-#   probe        per model: every probe item in every variant
 #   pilot        per model: the pilot's 15 episodes, every condition
+#   probe        per model: every probe item in every variant
 #   all          per model: all 76 episodes (the 15 are already done)
 #   analyze      metrics with CIs per run, the probe tables, the cross-model summary
 #   variance     per model: pilot's 15, telemetry + video_dense, sampled decoding, 3 seeds
@@ -73,7 +73,7 @@ fi
 # ---------------------------------------------------------------- the run itself
 
 MODELS="${MODELS:-qwen25vl7b_4bit qwen25vl7b_bf16 qwen3vl8b_bf16}"
-PHASES="${PHASES:-setup rescore probe_build smoke probe pilot all analyze variance}"
+PHASES="${PHASES:-setup rescore probe_build smoke pilot probe all analyze variance}"
 GPUS="${GPUS:-0,1}"
 EPISODES="${EPISODES:-all}"
 SEEDS="${SEEDS:-1 2 3}"
@@ -173,18 +173,18 @@ fi
 
 run_models() { for tag in $MODELS; do [[ "$SKIP_MODELS" == *" $tag "* ]] || echo "$tag"; done; }
 
-if has_phase probe; then
-  log "========== perception probe =========="
-  for tag in $(run_models); do
-    step "probe $tag" with_gpu "$tag" python scripts/probe_run.py --out "$ROOT/probe/$tag"
-  done
-fi
-
 if has_phase pilot; then
   log "========== the pilot's 15 episodes, every condition =========="
   for tag in $(run_models); do
     step "pilot $tag" with_gpu "$tag" python run_pipeline.py --episodes pilot --out "$ROOT/$tag" --video-cache "$VIDEOS"
     step "analyze $tag (15)" python analyze.py --run "$ROOT/$tag"
+  done
+fi
+
+if has_phase probe; then
+  log "========== perception probe =========="
+  for tag in $(run_models); do
+    step "probe $tag" with_gpu "$tag" python scripts/probe_run.py --out "$ROOT/probe/$tag"
   done
 fi
 

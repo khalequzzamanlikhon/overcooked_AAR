@@ -362,8 +362,8 @@ probe items are skipped on a rerun):
 | `rescore` | re-score both pilots with the v2 checker → `results/v2/rescored/` | - |
 | `probe_build` | build the probe items (kept if they exist) | - |
 | `smoke` | per model: 1 minute of 1 episode in every condition and 20 probe items; a model that fails is skipped | yes |
-| `probe` | per model: every probe item, every variant → `results/v2/probe/<model>/` | yes |
 | `pilot` | per model: the pilot's 15 episodes, every condition → `results/v2/<model>/` | yes |
+| `probe` | per model: every probe item, every variant → `results/v2/probe/<model>/` | yes |
 | `all` | per model: the other 61 episodes | yes |
 | `analyze` | tables and figures per run, probe tables, cross-model summary → `results/v2/SUMMARY.md` | - |
 | `variance` | per model: 3 sampled-decoding seeds on the pilot episodes → `results/v2/variance/` | yes |
