@@ -66,15 +66,73 @@ def _label_players(frame: np.ndarray, state: dict, tile: int, rows: int) -> None
         cv2.putText(frame, text, org, _LABEL_FONT, _LABEL_SCALE, (255, 255, 255), _LABEL_THICKNESS, cv2.LINE_AA)
 
 
-def _add_clock_strip(frame: np.ndarray, seconds: float, score: float, height: int) -> np.ndarray:
+def _add_clock_strip(frame: np.ndarray, seconds: float, score: float, height: int, show_score: bool = True) -> np.ndarray:
     """Put the episode clock and score in a strip above the grid."""
     frame = cv2.copyMakeBorder(frame, height, 0, 0, 0, cv2.BORDER_CONSTANT, value=(255, 255, 255))
     baseline = int(height * 0.72)
     cv2.putText(frame, f"t = {int(seconds)} s", (8, baseline), _LABEL_FONT, 1.0, (0, 0, 0), 2, cv2.LINE_AA)
-    text = f"score {int(score)}"
-    (w, _), _ = cv2.getTextSize(text, _LABEL_FONT, 0.8, 2)
-    cv2.putText(frame, text, (frame.shape[1] - w - 8, baseline), _LABEL_FONT, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
+    if show_score:
+        text = f"score {int(score)}"
+        (w, _), _ = cv2.getTextSize(text, _LABEL_FONT, 0.8, 2)
+        cv2.putText(frame, text, (frame.shape[1] - w - 8, baseline), _LABEL_FONT, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
     return frame
+
+
+class FrameRenderer:
+    """Draws single states of one trial, the way every video in the study looks.
+
+    `hud` picks the strip above the grid: "full" (clock and score, what the
+    pipeline uses), "clock" (no score) or "none" (no strip). The last two are
+    only for the perception probe's ablations.
+    """
+
+    def __init__(self, trial: Trial, cfg: RenderConfig | None = None):
+        self.trial = trial
+        self.cfg = cfg or RenderConfig()
+        layout = LAYOUT_ALIASES.get(trial.layout_name, trial.layout_name)
+        self.mdp = OvercookedGridworld.from_layout_name(layout, old_dynamics=True)
+        self.rows = len(self.mdp.terrain_mtx)
+        self.visualizer = StateVisualizer(tile_size=self.cfg.tile_size)
+
+    @property
+    def fps(self) -> float:
+        return (len(self.trial) - 1) / self.trial.time_elapsed[-1] / self.cfg.subsample  # ~6.7, i.e. real time
+
+    def frame(self, i: int) -> np.ndarray:
+        trial, cfg = self.trial, self.cfg
+        state = convert_old_state(trial.states[i])
+        surface = self.visualizer.render_state(state=state, grid=self.mdp.terrain_mtx)
+        frame = _surface_to_bgr(surface)
+        if cfg.label_players:
+            _label_players(frame, trial.states[i], cfg.tile_size, self.rows)
+        if cfg.hud == "none":
+            return frame
+        return _add_clock_strip(
+            frame, trial.time_elapsed[i], trial.scores[i], cfg.clock_strip_px, show_score=cfg.hud == "full"
+        )
+
+
+def render_frame(trial: Trial, i: int, cfg: RenderConfig | None = None) -> np.ndarray:
+    return FrameRenderer(trial, cfg).frame(i)
+
+
+def render_clip(trial: Trial, t0: float, t1: float, path: Path, cfg: RenderConfig | None = None,
+                renderer: FrameRenderer | None = None) -> Path:
+    """Write the states with t0 <= time < t1 to `path`, in real time."""
+    renderer = renderer or FrameRenderer(trial, cfg)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    writer = None
+    for i in range(0, len(trial), renderer.cfg.subsample):
+        if not t0 <= trial.time_elapsed[i] < t1:
+            continue
+        frame = renderer.frame(i)
+        if writer is None:
+            h, w = frame.shape[:2]
+            writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"mp4v"), renderer.fps, (w, h))
+        writer.write(frame)
+    if writer is not None:
+        writer.release()
+    return path
 
 
 def render_trial(
@@ -85,13 +143,10 @@ def render_trial(
     Returns (full_video, [(start_s, end_s, segment_path), ...]).
     """
     cfg = cfg or RenderConfig()
-    layout = LAYOUT_ALIASES.get(trial.layout_name, trial.layout_name)
-    mdp = OvercookedGridworld.from_layout_name(layout, old_dynamics=True)
-    rows = len(mdp.terrain_mtx)
-    visualizer = StateVisualizer(tile_size=cfg.tile_size)
+    renderer = FrameRenderer(trial, cfg)
 
     duration = trial.time_elapsed[-1]
-    fps = (len(trial) - 1) / duration / cfg.subsample  # ~6.7, i.e. real time
+    fps = renderer.fps
     bounds = segment_bounds(duration, cfg.segment_seconds)
     out_dir.mkdir(parents=True, exist_ok=True)
     full_path = out_dir / f"{trial.trial_id}.mp4"
@@ -102,12 +157,7 @@ def render_trial(
     segments: dict[int, tuple[float, float, Path]] = {}
 
     for i in range(0, len(trial), cfg.subsample):
-        state = convert_old_state(trial.states[i])
-        surface = visualizer.render_state(state=state, grid=mdp.terrain_mtx)
-        frame = _surface_to_bgr(surface)
-        if cfg.label_players:
-            _label_players(frame, trial.states[i], cfg.tile_size, rows)
-        frame = _add_clock_strip(frame, trial.time_elapsed[i], trial.scores[i], cfg.clock_strip_px)
+        frame = renderer.frame(i)
 
         h, w = frame.shape[:2]
         if full_writer is None:
