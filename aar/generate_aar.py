@@ -1,58 +1,26 @@
 """Ask the model what happened, then ask it to write the review.
 
-Both conditions run the same two stages with the same wording:
+Every condition runs the same two stages with the same wording:
 
-  stage 1  source (event log text | gameplay video) -> numbered claims, as JSON
+  stage 1  source (event log | video | video + log | raw state | nothing) -> numbered claims, as JSON
   stage 2  claims -> after-action review, text only
 
 Splitting it this way is what makes the comparison checkable: a claim carries a
 time, a player and a type, so it can be checked against the log one by one. A
-paragraph of prose cannot.
+paragraph of prose cannot. The prompts themselves live in `prompts.py`.
 """
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 
-from .config import LLMConfig
+from . import prompts
+from .config import CLAIM_CAP, LLMConfig
 from .vlm_local import generate_from_video, generate_text, parse_json
 
 logger = logging.getLogger(__name__)
 
-# Identical for both conditions. Only the SOURCE line differs.
-_RULES = """Two players cook onion soups together in a kitchen (the game
-Overcooked). A soup needs 3 onions in a pot; it cooks for about 20 seconds;
-someone then picks it up with a clean dish and takes it to the serving hatch.
-
-P1 is the player in the blue hat, labelled P1 on screen.
-P2 is the player in the green hat, labelled P2 on screen."""
-
-_CLAIMS_TASK = """List what you can tell happened between {start:.0f} s and {end:.0f} s.
-Use the episode clock (the times in the source), not time since the clip started.
-
-Answer with ONE JSON object and nothing else:
-{{"deliveries": <how many soups were delivered in this minute>,
-  "claims": [{{"time": <seconds>, "player": "P1" | "P2" | "both" | "unclear",
-              "type": "delivery" | "pickup" | "pot" | "counter" | "blocked" | "idle" | "coordination" | "strategy" | "other",
-              "text": "<one short sentence>"}}]}}
-
-At most 8 claims, most important first. Only state what the source supports.
-Use "both" when they both did it and "unclear" when you cannot tell who did it.
-Do not guess at intentions."""
-
-_AAR_TASK = """Here is what was observed across a 180 second episode of a
-two-player cooking game, as claims with timestamps.
-
-{claims}
-
-Final score: {score}. Layout: {layout}.
-
-Write a short after-action review for the two players:
-1. What the team did well.
-2. What cost them time.
-3. One concrete thing to do differently next time.
-
-Use only the claims above. Refer to times and players. If the claims do not
-support something, do not say it. Six sentences at most."""
+VIDEO_CONDITIONS = {"video_dense", "video_sparse", "video_log"}
 
 
 def init_backend(cfg: LLMConfig) -> None:
@@ -61,17 +29,9 @@ def init_backend(cfg: LLMConfig) -> None:
     load_backend(cfg.model_id, cfg.device, cfg.load_in_4bit)
 
 
-def _claims_prompt(start: float, end: float, source: str | None) -> str:
-    task = _CLAIMS_TASK.format(start=start, end=end)
-    if source is None:
-        return (
-            f"{_RULES}\n\nSOURCE: the video above, which covers seconds {start:.0f}-{end:.0f} of the episode. "
-            f"The episode clock is shown at the top of every frame.\n\n{task}"
-        )
-    return f"{_RULES}\n\nSOURCE: an event log of the episode.\n\n{source}\n\n{task}"
-
-
-def _normalise(parsed: dict | None, raw: str) -> dict:
+def _normalise(parsed: dict | None, raw: str, cap: int = CLAIM_CAP) -> dict:
+    """Clean claims, at most `cap` of them: a model that ignores the cap would
+    otherwise get more chances to hit an event than one that obeys it."""
     if not isinstance(parsed, dict):
         return {"deliveries": None, "claims": [], "parse_failed": True, "raw": raw}
     claims = parsed.get("claims") or []
@@ -97,35 +57,70 @@ def _normalise(parsed: dict | None, raw: str) -> dict:
         deliveries = int(deliveries)
     except (TypeError, ValueError):
         deliveries = None
-    return {"deliveries": deliveries, "claims": clean, "parse_failed": False}
+    return {"deliveries": deliveries, "claims": clean[:cap], "claims_over_cap": max(len(clean) - cap, 0),
+            "truncated": bool(parsed.get("truncated")), "parse_failed": False, "raw": raw}
 
 
-_RETRY = '\n\nReturn ONE JSON object starting with {"deliveries": and nothing else.'
+def claims_for_condition(
+    condition: str,
+    start: float,
+    end: float,
+    cfg: LLMConfig,
+    *,
+    log: str = "",
+    state: str = "",
+    layout: str = "",
+    video: Path | None = None,
+    fps: float = 2.0,
+    cap: int = CLAIM_CAP,
+) -> dict:
+    """Stage 1 for one minute of one condition. Retries once if the JSON is unreadable."""
+    prompt = prompts.claims_prompt(condition, start, end, cap, log=log, state=state, layout=layout)
 
+    def ask(text: str) -> str:
+        if condition in VIDEO_CONDITIONS:
+            return generate_from_video(video, text, fps, cfg.max_new_tokens, cfg.do_sample, cfg.seed)
+        return generate_text(text, cfg.max_new_tokens, cfg.do_sample, cfg.seed)
 
-def claims_from_timeline(timeline: str, start: float, end: float, cfg: LLMConfig) -> dict:
-    prompt = _claims_prompt(start, end, timeline)
-    got = _normalise(parse_json(raw := generate_text(prompt, cfg.max_new_tokens)), raw)
+    got = _normalise(parse_json(raw := ask(prompt)), raw, cap)
     if got.get("parse_failed"):
-        got = _normalise(parse_json(raw := generate_text(prompt + _RETRY, cfg.max_new_tokens)), raw)
+        got = _normalise(parse_json(raw := ask(prompt + prompts.RETRY)), raw, cap)
         got["retried"] = True
     return got
 
 
-def claims_from_video(video_path, start: float, end: float, fps: float, cfg: LLMConfig) -> dict:
-    prompt = _claims_prompt(start, end, None)
-    raw = generate_from_video(video_path, prompt, fps, cfg.max_new_tokens)
-    got = _normalise(parse_json(raw), raw)
-    if got.get("parse_failed"):
-        raw = generate_from_video(video_path, prompt + _RETRY, fps, cfg.max_new_tokens)
-        got = _normalise(parse_json(raw), raw)
-        got["retried"] = True
-    return got
+def claim_lines(claims: list[dict]) -> str:
+    return "\n".join(
+        f"- t={c['time']}s {c['player']}: {c['text']}" if c.get("time") is not None else f"- {c['player']}: {c['text']}"
+        for c in claims
+    )
 
 
 def aar_from_claims(claims: list[dict], layout: str, score: float, cfg: LLMConfig) -> str:
     if not claims:
         return "(no claims were produced for this episode)"
-    lines = [f"- t={c['time']}s {c['player']}: {c['text']}" if c["time"] is not None else f"- {c['player']}: {c['text']}" for c in claims]
-    prompt = _AAR_TASK.format(claims="\n".join(lines), score=int(score), layout=layout)
-    return generate_text(prompt, cfg.max_new_tokens).strip()
+    prompt = prompts.aar_prompt(claim_lines(claims), score, layout)
+    return generate_text(prompt, cfg.max_new_tokens, cfg.do_sample, cfg.seed).strip()
+
+
+# event kind -> claim type, for the oracle's claims
+_ORACLE_TYPE = {
+    "delivery": "delivery", "pickup": "pickup", "place_pot": "pot", "fill_dish": "pot",
+    "place_counter": "counter", "blocked": "blocked", "idle": "idle",
+    "waiting": "waiting", "handoff": "handoff", "congestion": "congestion",
+}
+
+
+def oracle_claims(events: list[dict]) -> list[dict]:
+    """The true events, written as the claims a perfect stage 1 would make."""
+    out = []
+    for e in events:
+        kind = e["kind"]
+        if kind not in _ORACLE_TYPE:
+            continue
+        player = "UNCLEAR" if e["player"] is None else f"P{e['player'] + 1}"
+        if kind in ("handoff", "congestion"):
+            player = "BOTH"
+        out.append({"time": round(e["seconds"], 1), "player": player, "type": _ORACLE_TYPE[kind],
+                    "text": e["text"].rstrip(".")})
+    return out
