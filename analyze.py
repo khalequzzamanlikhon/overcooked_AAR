@@ -133,6 +133,9 @@ def chance_baselines(records: list[dict], draws: int = 20, seed: int = 0) -> dic
     }
 
 
+_VIDEO_ONLY = {"video_dense", "video_sparse"}
+
+
 def rating_metrics(rating_dir: Path) -> dict:
     files = sorted(rating_dir.glob("*.json")) if rating_dir.exists() else []
     if not files:
@@ -140,13 +143,30 @@ def rating_metrics(rating_dir: Path) -> dict:
     # votes per pair, so a telemetry-vs-video vote is never mixed with a video-vs-video one
     votes: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
     per_rater: dict[str, dict] = {}
+    units: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))  # question -> unit -> answers
+    likert: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))  # dimension -> condition -> scores
+    likert_units: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
+    guesses = Counter()
     for path in files:
         rater = path.stem
         per_rater[rater] = {}
         for row in json.loads(path.read_text()):
+            if row["question"].startswith("likert_"):
+                dim = row["question"][len("likert_"):]
+                likert[dim][row["condition"]].append(row["score"])
+                likert_units[dim][f"{row['trial_id']}|{row['condition']}"].append(row["score"])
+                continue
             key = (row["trial_id"], row["pair"], row["question"])
             votes[row["pair"]][row["question"]].append(row["winner"])
             per_rater[rater][str(key)] = row["winner"]
+            units[row["question"]][f"{row['trial_id']}|{row['pair']}"].append(row["winner"])
+            if row["question"] == "source_guess":
+                shown = set(row["shown_as"].values())
+                video = shown & _VIDEO_ONLY
+                if len(video) == 1:  # only a pair with exactly one video-only review has a right answer
+                    guesses["n"] += 1
+                    guesses["no_idea"] += row["winner"] == "no idea"
+                    guesses["correct"] += row["winner"] in video
 
     agreement = None
     if len(per_rater) > 1:
@@ -156,11 +176,22 @@ def rating_metrics(rating_dir: Path) -> dict:
             agree = sum(1 for k in shared if len({per_rater[r][k] for r in raters}) == 1)
             agreement = round(agree / len(shared), 3)
 
-    return {
+    from aar.stats import krippendorff_alpha
+
+    out = {
         "raters": len(files),
         "votes": {pair: {q: dict(Counter(v)) for q, v in qs.items()} for pair, qs in votes.items()},
         "unanimous_share": agreement,
     }
+    if len(per_rater) > 1:
+        out["krippendorff_alpha"] = {q: krippendorff_alpha(u) for q, u in units.items()}
+        out["krippendorff_alpha"] |= {f"likert_{d}": krippendorff_alpha(u, "interval") for d, u in likert_units.items()}
+    if guesses["n"]:
+        out["source_guess"] = {"pairs": guesses["n"], "correct": round(guesses["correct"] / guesses["n"], 3),
+                               "no_idea": round(guesses["no_idea"] / guesses["n"], 3)}
+    if likert:
+        out["likert_mean"] = {d: {c: round(statistics.mean(v), 2) for c, v in cs.items()} for d, cs in likert.items()}
+    return out
 
 
 def _pct(v: float | None) -> str:
@@ -210,19 +241,41 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", type=Path, default=Path("results/run"))
     parser.add_argument("--ratings", type=Path, default=None)
+    parser.add_argument("--legacy-only", action="store_true", help="only the pilot's metrics.json/md")
+    parser.add_argument("--no-legacy", action="store_true", help="only the study-v2 metrics")
+    parser.add_argument("--out", type=Path, default=None, help="where the v2 files go (default: --run)")
     args = parser.parse_args()
 
     records = json.loads((args.run / "results.json").read_text())
-    summary = automatic_metrics(records)
-    baselines = chance_baselines(records)
-    ratings = rating_metrics(args.ratings or args.run / "ratings")
+    if not args.no_legacy:
+        # the pilot's scorer, unchanged, so the README's pilot numbers can be regenerated exactly
+        summary = automatic_metrics(records)
+        baselines = chance_baselines(records)
+        ratings = rating_metrics(args.ratings or args.run / "ratings")
+        (args.run / "metrics.json").write_text(
+            json.dumps({"automatic": summary, "chance": baselines, "human": ratings}, indent=2)
+        )
+        report = to_markdown(summary, baselines, ratings, len(records))
+        (args.run / "metrics.md").write_text(report)
+        print(report)
+    if args.legacy_only:
+        return
 
-    (args.run / "metrics.json").write_text(
-        json.dumps({"automatic": summary, "chance": baselines, "human": ratings}, indent=2)
-    )
-    report = to_markdown(summary, baselines, ratings, len(records))
-    (args.run / "metrics.md").write_text(report)
-    print(report)
+    from aar.config import CLAIM_CAP_PILOT
+    from aar.report_v2 import write
+
+    config_path = args.run / "config.json"
+    config = json.loads(config_path.read_text()) if config_path.exists() else {}
+    cap = config.get("claim_cap", CLAIM_CAP_PILOT)  # the pilot's config predates the field; it used 8
+    out = args.out or args.run
+    out.mkdir(parents=True, exist_ok=True)
+    name = config.get("model", "?").split("/")[-1] + (" 4-bit" if config.get("load_in_4bit") or
+                                                        config.get("precision") == "nf4-4bit" else "")
+    write(records, out, cap, title=f"Study v2 metrics: {args.run.name} ({name})")
+    pilot = [r for r in records if r.get("pilot_subset", True)]
+    if 0 < len(pilot) < len(records):
+        write(pilot, out, cap, suffix="_pilot15", title=f"Study v2 metrics, pilot's 15 episodes: {args.run.name}")
+    print(f"\nstudy-v2 metrics -> {out / 'metrics_v2.md'}")
 
 
 if __name__ == "__main__":
