@@ -1,0 +1,133 @@
+Layout: coordination_ring
+This is seconds 0-60 of the episode.
+
+Event log:
+  t=   4.5s  P2 stood still for 3 s.
+  t=   7.1s  P1 picked up an onion.
+  t=   9.3s  P1 put an onion in the pot.
+  t=   9.9s  P2 picked up an onion.
+  t=  11.9s  P1 picked up an onion.
+  t=  13.7s  P2 put an onion in the pot.
+  t=  15.3s  P1 put an onion in the pot.
+  t=  17.7s  P2 picked up an onion.
+  t=  19.5s  P1 picked up an onion.
+  t=  20.9s  P2 put an onion in the pot.
+  t=  20.9s  P1 stood still for 3 s.
+  t=  20.9s  A pot started cooking (3 onions).
+  t=  23.7s  A soup finished cooking.
+  t=  24.5s  P1 put an onion in the pot.
+  t=  26.4s  P2 tried to move into P1 and was blocked.
+  t=  26.7s  P1 picked up an onion.
+  t=  28.8s  P1 put an onion in the pot.
+  t=  28.8s  A pot started cooking (3 onions).
+  t=  29.1s  P2 picked up an onion.
+  t=  31.7s  A soup finished cooking.
+  t=  33.0s  P2 put an onion down on a counter.
+  t=  33.8s  P1 tried to move into P2 and was blocked.
+  t=  36.8s  P1 picked up a dish.
+  t=  39.0s  P2 picked up a dish.
+  t=  39.2s  P1 filled a dish with soup.
+  t=  41.9s  P1 delivered a soup.
+  t=  42.9s  P2 filled a dish with soup.
+  t=  43.2s  P1 picked up an onion.
+  t=  46.8s  P1 put an onion in the pot.
+  t=  48.2s  P1 picked up an onion.
+  t=  49.2s  P2 delivered a soup.
+  t=  49.4s  P1 put an onion in the pot.
+  t=  51.2s  P2 picked up an onion.
+  t=  52.5s  P1 picked up an onion.
+  t=  54.2s  P2 put an onion in the pot.
+  t=  55.7s  P1 put an onion in the pot.
+  t=  55.7s  A pot started cooking (3 onions).
+  t=  58.5s  P2 picked up an onion.
+  t=  58.5s  A soup finished cooking.
+  t=  58.8s  P1 picked up a dish.
+  t=  59.4s  P2 tried to move into P1 and was blocked.
+
+Layout: coordination_ring
+This is seconds 60-120 of the episode.
+
+Event log:
+  t=  60.8s  P1 filled a dish with soup.
+  t=  63.0s  P1 delivered a soup.
+  t=  63.6s  P2 put an onion in the pot.
+  t=  64.2s  P1 picked up an onion.
+  t=  66.3s  P1 put an onion in the pot.
+  t=  67.4s  P2 picked up an onion.
+  t=  69.9s  P1 picked up an onion.
+  t=  71.3s  P2 put an onion in the pot.
+  t=  71.3s  A pot started cooking (3 onions).
+  t=  73.8s  P1 put an onion in the pot.
+  t=  74.1s  A soup finished cooking.
+  t=  79.1s  P1 picked up a dish.
+  t=  81.8s  P1 filled a dish with soup.
+  t=  84.2s  P1 delivered a soup.
+  t=  84.3s  P2 picked up an onion.
+  t=  86.0s  P1 picked up an onion.
+  t=  87.9s  P2 put an onion in the pot.
+  t=  87.9s  A pot started cooking (3 onions).
+  t=  90.0s  P1 put an onion in the pot.
+  t=  90.8s  A soup finished cooking.
+  t=  94.5s  P1 picked up a dish.
+  t=  97.1s  P1 filled a dish with soup.
+  t=  98.3s  P2 picked up an onion.
+  t=  99.5s  P1 delivered a soup.
+  t= 100.7s  P1 picked up an onion.
+  t= 102.8s  P2 put an onion in the pot.
+  t= 104.3s  P1 put an onion in the pot.
+  t= 104.3s  A pot started cooking (3 onions).
+  t= 106.5s  P2 picked up an onion.
+  t= 107.1s  A soup finished cooking.
+  t= 109.8s  P1 picked up a dish.
+  t= 113.0s  P1 tried to move into P2 and was blocked.
+  t= 114.0s  P1 tried to move into P2 and was blocked.
+  t= 117.2s  P1 filled a dish with soup.
+  t= 119.3s  P1 delivered a soup.
+
+Layout: coordination_ring
+This is seconds 120-181 of the episode.
+
+Event log:
+  t= 120.5s  P1 picked up an onion.
+  t= 121.8s  P2 put an onion in the pot.
+  t= 123.6s  P1 put an onion in the pot.
+  t= 125.1s  P2 picked up an onion.
+  t= 126.9s  P1 picked up an onion.
+  t= 128.6s  P2 put an onion in the pot.
+  t= 130.4s  P1 put an onion in the pot.
+  t= 131.9s  P2 picked up an onion.
+  t= 134.7s  P1 picked up a dish.
+  t= 134.9s  P2 put an onion in the pot.
+  t= 134.9s  A pot started cooking (3 onions).
+  t= 137.7s  A soup finished cooking.
+  t= 138.5s  P1 filled a dish with soup.
+  t= 140.6s  P1 delivered a soup.
+  t= 143.7s  P1 picked up an onion.
+  t= 146.0s  P1 put an onion in the pot.
+  t= 146.0s  A pot started cooking (3 onions).
+  t= 148.5s  P2 picked up an onion.
+  t= 148.8s  A soup finished cooking.
+  t= 151.5s  P1 picked up a dish.
+  t= 152.9s  P2 put an onion in the pot.
+  t= 154.2s  P1 filled a dish with soup.
+  t= 155.9s  P2 picked up an onion.
+  t= 156.6s  P1 delivered a soup.
+  t= 158.1s  P2 put an onion in the pot.
+  t= 159.8s  P1 picked up an onion.
+  t= 162.6s  P1 put an onion in the pot.
+  t= 162.6s  A pot started cooking (3 onions).
+  t= 163.7s  P2 picked up an onion.
+  t= 164.7s  P1 picked up a dish.
+  t= 165.5s  A soup finished cooking.
+  t= 165.9s  P1 tried to move into P2 and was blocked.
+  t= 168.2s  P1 filled a dish with soup.
+  t= 170.3s  P1 delivered a soup.
+  t= 171.3s  P1 picked up an onion.
+  t= 171.5s  P2 put an onion in the pot.
+  t= 173.7s  P1 put an onion in the pot.
+  t= 174.8s  P2 picked up an onion.
+  t= 177.6s  P2 put an onion in the pot.
+  t= 177.6s  A pot started cooking (3 onions).
+  t= 177.8s  P1 picked up a dish.
+  t= 180.5s  A soup finished cooking.
+  t= 180.6s  P2 picked up an onion.

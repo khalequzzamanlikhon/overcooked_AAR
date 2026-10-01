@@ -1,0 +1,3608 @@
+{
+  "conditions": {
+    "blind": {
+      "episodes": 15,
+      "claims": 252,
+      "checkable": 252,
+      "precision": {
+        "value": 0.6865,
+        "ci": [
+          0.6102,
+          0.7549
+        ]
+      },
+      "precision_named": {
+        "value": 0.7874,
+        "ci": [
+          0.7009,
+          0.8643
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.2222,
+        "ci": [
+          0.1333,
+          0.2889
+        ]
+      },
+      "duplicate": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "wrong_time": {
+        "value": 0.254,
+        "ci": [
+          0.1882,
+          0.3279
+        ]
+      },
+      "contradicted": {
+        "value": 0.0595,
+        "ci": [
+          0.0498,
+          0.0709
+        ]
+      },
+      "recall": {
+        "value": 0.0267,
+        "ci": [
+          0.0208,
+          0.0349
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.0956,
+        "ci": [
+          0.08,
+          0.1122
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.4518,
+        "ci": [
+          0.3896,
+          0.5137
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.9952,
+        "ci": [
+          0.9848,
+          1.0
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.9952,
+        "ci": [
+          0.9848,
+          1.0
+        ]
+      },
+      "delivery_mae": {
+        "value": 5.3111,
+        "ci": [
+          4.3556,
+          6.5783
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -5.3111,
+        "ci": [
+          -6.5783,
+          -4.3556
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "round5_timestamps": {
+        "value": 1.0,
+        "ci": [
+          1.0,
+          1.0
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.1333,
+        "ci": [
+          0.0,
+          0.2667
+        ]
+      },
+      "strict_alternation": {
+        "value": 1.0,
+        "ci": [
+          1.0,
+          1.0
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.0127,
+        "ci": [
+          0.0,
+          0.04
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": null,
+        "ci": [
+          null,
+          null
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 1.428,
+        "iqr": [
+          0.453,
+          3.009
+        ],
+        "ci": [
+          1.101,
+          2.004
+        ]
+      },
+      "delivery_answer_entropy_bits": -0.0,
+      "actor_chance": 0.5012,
+      "by_type": {
+        "delivery": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "pickup": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "pot": {
+          "claims": 237,
+          "precision": {
+            "value": 0.7257,
+            "ci": [
+              0.6444,
+              0.7984
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0851,
+            "ci": [
+              0.0636,
+              0.1097
+            ]
+          },
+          "f1": 0.1523
+        },
+        "counter": {
+          "claims": 15,
+          "precision": {
+            "value": 0.0667,
+            "ci": [
+              0.0,
+              0.2
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0038,
+            "ci": [
+              0.0,
+              0.0256
+            ]
+          },
+          "f1": 0.0072
+        },
+        "blocked": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.2421,
+            "ci": [
+              0.1878,
+              0.297
+            ]
+          },
+          "random": {
+            "value": 0.2286,
+            "ci": [
+              0.1896,
+              0.2761
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.3651,
+            "ci": [
+              0.2961,
+              0.4336
+            ]
+          },
+          "random": {
+            "value": 0.425,
+            "ci": [
+              0.3697,
+              0.4783
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.5516,
+            "ci": [
+              0.4646,
+              0.631
+            ]
+          },
+          "random": {
+            "value": 0.6183,
+            "ci": [
+              0.5479,
+              0.6872
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.6865,
+            "ci": [
+              0.6102,
+              0.7549
+            ]
+          },
+          "random": {
+            "value": 0.7298,
+            "ci": [
+              0.6697,
+              0.7824
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.7976,
+            "ci": [
+              0.7333,
+              0.8519
+            ]
+          },
+          "random": {
+            "value": 0.8345,
+            "ci": [
+              0.7764,
+              0.8784
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.869,
+            "ci": [
+              0.8159,
+              0.9151
+            ]
+          },
+          "random": {
+            "value": 0.8794,
+            "ci": [
+              0.8381,
+              0.9082
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.8929,
+            "ci": [
+              0.8504,
+              0.9289
+            ]
+          },
+          "random": {
+            "value": 0.8996,
+            "ci": [
+              0.8665,
+              0.9247
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.0306,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 0,
+        "timed_error_rate": {
+          "value": null,
+          "ci": [
+            null,
+            null
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": []
+      }
+    },
+    "telemetry": {
+      "episodes": 15,
+      "claims": 809,
+      "checkable": 806,
+      "precision": {
+        "value": 0.6935,
+        "ci": [
+          0.6391,
+          0.7418
+        ]
+      },
+      "precision_named": {
+        "value": 0.6999,
+        "ci": [
+          0.6435,
+          0.7497
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.4783,
+        "ci": [
+          0.0,
+          0.6667
+        ]
+      },
+      "duplicate": {
+        "value": 0.1055,
+        "ci": [
+          0.0675,
+          0.1589
+        ]
+      },
+      "wrong_time": {
+        "value": 0.1352,
+        "ci": [
+          0.0957,
+          0.1762
+        ]
+      },
+      "contradicted": {
+        "value": 0.0658,
+        "ci": [
+          0.0414,
+          0.0931
+        ]
+      },
+      "recall": {
+        "value": 0.1632,
+        "ci": [
+          0.128,
+          0.2086
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.5833,
+        "ci": [
+          0.5,
+          0.6578
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.8164,
+        "ci": [
+          0.7591,
+          0.8663
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.9349,
+        "ci": [
+          0.9073,
+          0.9593
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7229,
+        "ci": [
+          0.6239,
+          0.8192
+        ]
+      },
+      "delivery_mae": {
+        "value": 1.6222,
+        "ci": [
+          1.0222,
+          2.4444
+        ]
+      },
+      "delivery_signed_error": {
+        "value": 0.3333,
+        "ci": [
+          -0.7778,
+          1.0667
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.3333,
+        "ci": [
+          0.1778,
+          0.5111
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0222,
+        "ci": [
+          0.0,
+          0.0667
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.0247,
+        "ci": [
+          0.0155,
+          0.0361
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.0682,
+        "ci": [
+          0.0,
+          0.1395
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.1053,
+        "ci": [
+          0.0303,
+          0.223
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.8065,
+        "ci": [
+          0.7454,
+          0.8839
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 0.049,
+        "iqr": [
+          0.018,
+          1.353
+        ],
+        "ci": [
+          0.048,
+          0.049
+        ]
+      },
+      "delivery_answer_entropy_bits": 2.351,
+      "actor_chance": 0.5025,
+      "by_type": {
+        "delivery": {
+          "claims": 321,
+          "precision": {
+            "value": 0.5639,
+            "ci": [
+              0.5108,
+              0.6281
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.7573,
+            "ci": [
+              0.6746,
+              0.8491
+            ]
+          },
+          "f1": 0.6464
+        },
+        "pickup": {
+          "claims": 217,
+          "precision": {
+            "value": 0.7742,
+            "ci": [
+              0.6875,
+              0.8744
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.132,
+            "ci": [
+              0.0865,
+              0.198
+            ]
+          },
+          "f1": 0.2255
+        },
+        "pot": {
+          "claims": 207,
+          "precision": {
+            "value": 0.8647,
+            "ci": [
+              0.7082,
+              0.9726
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.1451,
+            "ci": [
+              0.0891,
+              0.2112
+            ]
+          },
+          "f1": 0.2485
+        },
+        "counter": {
+          "claims": 32,
+          "precision": {
+            "value": 0.4062,
+            "ci": [
+              0.1304,
+              0.7297
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0494,
+            "ci": [
+              0.0115,
+              0.2
+            ]
+          },
+          "f1": 0.0881
+        },
+        "blocked": {
+          "claims": 22,
+          "precision": {
+            "value": 0.6818,
+            "ci": [
+              0.5,
+              1.0
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.1648,
+            "ci": [
+              0.0404,
+              0.3154
+            ]
+          },
+          "f1": 0.2654
+        },
+        "idle": {
+          "claims": 3,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0526,
+            "ci": [
+              0.0,
+              0.1389
+            ]
+          },
+          "f1": 0.0999
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 1,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 3,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.5385,
+            "ci": [
+              0.4792,
+              0.592
+            ]
+          },
+          "random": {
+            "value": 0.1404,
+            "ci": [
+              0.1151,
+              0.1675
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.6017,
+            "ci": [
+              0.5379,
+              0.6609
+            ]
+          },
+          "random": {
+            "value": 0.2471,
+            "ci": [
+              0.2068,
+              0.2894
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.66,
+            "ci": [
+              0.602,
+              0.7136
+            ]
+          },
+          "random": {
+            "value": 0.3924,
+            "ci": [
+              0.3373,
+              0.4481
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.6935,
+            "ci": [
+              0.6391,
+              0.7418
+            ]
+          },
+          "random": {
+            "value": 0.4881,
+            "ci": [
+              0.4318,
+              0.5454
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.7146,
+            "ci": [
+              0.6615,
+              0.7607
+            ]
+          },
+          "random": {
+            "value": 0.5912,
+            "ci": [
+              0.538,
+              0.6456
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.7345,
+            "ci": [
+              0.6885,
+              0.7764
+            ]
+          },
+          "random": {
+            "value": 0.6596,
+            "ci": [
+              0.6137,
+              0.7082
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.7519,
+            "ci": [
+              0.7068,
+              0.7945
+            ]
+          },
+          "random": {
+            "value": 0.7061,
+            "ci": [
+              0.6604,
+              0.7533
+            ]
+          }
+        }
+      ],
+      "above_chance_area": 0.154,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 0.0,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 0.0,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 9,
+        "timed_error_rate": {
+          "value": 0.3333,
+          "ci": [
+            0.0,
+            0.4286
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": [
+          {
+            "time": 29.9,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated good teamwork by delivering soups and picking up onions efficiently, as seen at t=22.4s, t=29.9s, t=48.2s, and multiple instances of picking up onions between t=18.8s and t=144.8s.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 18.8,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated good teamwork by delivering soups and picking up onions efficiently, as seen at t=22.4s, t=29.9s, t=48.2s, and multiple instances of picking up onions between t=18.8s and t=144.8s.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 144.8,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated good teamwork by delivering soups and picking up onions efficiently, as seen at t=22.4s, t=29.9s, t=48.2s, and multiple instances of picking up onions between t=18.8s and t=144.8s.",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    },
+    "video_dense": {
+      "episodes": 15,
+      "claims": 709,
+      "checkable": 709,
+      "precision": {
+        "value": 0.3385,
+        "ci": [
+          0.2729,
+          0.4058
+        ]
+      },
+      "precision_named": {
+        "value": 0.3295,
+        "ci": [
+          0.2639,
+          0.3962
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.65,
+        "ci": [
+          0.65,
+          0.65
+        ]
+      },
+      "duplicate": {
+        "value": 0.2299,
+        "ci": [
+          0.1538,
+          0.3077
+        ]
+      },
+      "wrong_time": {
+        "value": 0.2228,
+        "ci": [
+          0.1682,
+          0.2822
+        ]
+      },
+      "contradicted": {
+        "value": 0.2087,
+        "ci": [
+          0.1218,
+          0.2949
+        ]
+      },
+      "recall": {
+        "value": 0.0519,
+        "ci": [
+          0.0413,
+          0.0656
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.1856,
+        "ci": [
+          0.1456,
+          0.2278
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.5626,
+        "ci": [
+          0.5013,
+          0.6307
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.7852,
+        "ci": [
+          0.6984,
+          0.8729
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7518,
+        "ci": [
+          0.68,
+          0.8253
+        ]
+      },
+      "delivery_mae": {
+        "value": 2.6889,
+        "ci": [
+          2.0222,
+          3.5333
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -2.2444,
+        "ci": [
+          -3.2,
+          -1.4439
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0889,
+        "ci": [
+          0.0,
+          0.2
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.2444,
+        "ci": [
+          0.1111,
+          0.4
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.4133,
+        "ci": [
+          0.3118,
+          0.5322
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0889,
+        "ci": [
+          0.0,
+          0.2222
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.7561,
+        "ci": [
+          0.575,
+          0.9211
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.081,
+        "ci": [
+          0.0269,
+          0.1537
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.2784,
+        "ci": [
+          0.1923,
+          0.3867
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 1.651,
+        "iqr": [
+          0.652,
+          3.312
+        ],
+        "ci": [
+          1.31,
+          2.122
+        ]
+      },
+      "delivery_answer_entropy_bits": 2.1,
+      "actor_chance": 0.5125,
+      "by_type": {
+        "delivery": {
+          "claims": 241,
+          "precision": {
+            "value": 0.2656,
+            "ci": [
+              0.2,
+              0.3451
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.2678,
+            "ci": [
+              0.1787,
+              0.3492
+            ]
+          },
+          "f1": 0.2667
+        },
+        "pickup": {
+          "claims": 97,
+          "precision": {
+            "value": 0.0928,
+            "ci": [
+              0.0118,
+              0.2041
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.0071,
+            "ci": [
+              0.0008,
+              0.0169
+            ]
+          },
+          "f1": 0.0132
+        },
+        "pot": {
+          "claims": 371,
+          "precision": {
+            "value": 0.4501,
+            "ci": [
+              0.3626,
+              0.5355
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0941,
+            "ci": [
+              0.0543,
+              0.1407
+            ]
+          },
+          "f1": 0.1557
+        },
+        "counter": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "blocked": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.1312,
+            "ci": [
+              0.0904,
+              0.1751
+            ]
+          },
+          "random": {
+            "value": 0.143,
+            "ci": [
+              0.1078,
+              0.1827
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.213,
+            "ci": [
+              0.1655,
+              0.2616
+            ]
+          },
+          "random": {
+            "value": 0.254,
+            "ci": [
+              0.1968,
+              0.3131
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.292,
+            "ci": [
+              0.2362,
+              0.3492
+            ]
+          },
+          "random": {
+            "value": 0.3897,
+            "ci": [
+              0.314,
+              0.4668
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.3385,
+            "ci": [
+              0.2729,
+              0.4058
+            ]
+          },
+          "random": {
+            "value": 0.4619,
+            "ci": [
+              0.3787,
+              0.5453
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.3992,
+            "ci": [
+              0.3348,
+              0.4647
+            ]
+          },
+          "random": {
+            "value": 0.5604,
+            "ci": [
+              0.4693,
+              0.6519
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.4485,
+            "ci": [
+              0.3785,
+              0.5244
+            ]
+          },
+          "random": {
+            "value": 0.6193,
+            "ci": [
+              0.531,
+              0.7077
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.4979,
+            "ci": [
+              0.4282,
+              0.5748
+            ]
+          },
+          "random": {
+            "value": 0.6474,
+            "ci": [
+              0.5578,
+              0.7387
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.1361,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 9,
+        "timed_error_rate": {
+          "value": 0.5556,
+          "ci": [
+            0.0,
+            1.0
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": [
+          {
+            "time": 60.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, the repeated picking up of soups at t=60.0s, t=120.0s, and t=180.0s suggests inefficiency, as these actions could have been streamlined.",
+            "status": "contradicted"
+          },
+          {
+            "time": 120.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, the repeated picking up of soups at t=60.0s, t=120.0s, and t=180.0s suggests inefficiency, as these actions could have been streamlined.",
+            "status": "contradicted"
+          },
+          {
+            "time": 180.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, the repeated picking up of soups at t=60.0s, t=120.0s, and t=180.0s suggests inefficiency, as these actions could have been streamlined.",
+            "status": "contradicted"
+          },
+          {
+            "time": 60.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, the repeated actions of picking up soups at the same time (t=60.0s, t=120.0s) caused unnecessary delays.",
+            "status": "contradicted"
+          },
+          {
+            "time": 120.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, the repeated actions of picking up soups at the same time (t=60.0s, t=120.0s) caused unnecessary delays.",
+            "status": "contradicted"
+          }
+        ]
+      }
+    },
+    "video_sparse": {
+      "episodes": 15,
+      "claims": 437,
+      "checkable": 437,
+      "precision": {
+        "value": 0.3387,
+        "ci": [
+          0.265,
+          0.4177
+        ]
+      },
+      "precision_named": {
+        "value": 0.3287,
+        "ci": [
+          0.2528,
+          0.4093
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.875,
+        "ci": [
+          0.875,
+          0.875
+        ]
+      },
+      "duplicate": {
+        "value": 0.1281,
+        "ci": [
+          0.0376,
+          0.2301
+        ]
+      },
+      "wrong_time": {
+        "value": 0.2952,
+        "ci": [
+          0.196,
+          0.4071
+        ]
+      },
+      "contradicted": {
+        "value": 0.238,
+        "ci": [
+          0.1595,
+          0.3279
+        ]
+      },
+      "recall": {
+        "value": 0.0354,
+        "ci": [
+          0.0267,
+          0.0483
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.1267,
+        "ci": [
+          0.1033,
+          0.1522
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.5316,
+        "ci": [
+          0.4832,
+          0.5857
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.7576,
+        "ci": [
+          0.6601,
+          0.8395
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7413,
+        "ci": [
+          0.6259,
+          0.8385
+        ]
+      },
+      "delivery_mae": {
+        "value": 3.3778,
+        "ci": [
+          2.5556,
+          4.5556
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -3.3778,
+        "ci": [
+          -4.5556,
+          -2.5556
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0667,
+        "ci": [
+          0.0,
+          0.1333
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.5111,
+        "ci": [
+          0.3778,
+          0.6667
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.6453,
+        "ci": [
+          0.553,
+          0.7247
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.7857,
+        "ci": [
+          0.675,
+          0.8864
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.3554,
+        "ci": [
+          0.2756,
+          0.4483
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 1.848,
+        "iqr": [
+          0.86,
+          3.702
+        ],
+        "ci": [
+          1.501,
+          2.979
+        ]
+      },
+      "delivery_answer_entropy_bits": 1.646,
+      "actor_chance": 0.5002,
+      "by_type": {
+        "delivery": {
+          "claims": 87,
+          "precision": {
+            "value": 0.3678,
+            "ci": [
+              0.2464,
+              0.4842
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.1339,
+            "ci": [
+              0.0833,
+              0.1797
+            ]
+          },
+          "f1": 0.1963
+        },
+        "pickup": {
+          "claims": 121,
+          "precision": {
+            "value": 0.2314,
+            "ci": [
+              0.1643,
+              0.3168
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.022,
+            "ci": [
+              0.0147,
+              0.0321
+            ]
+          },
+          "f1": 0.0402
+        },
+        "pot": {
+          "claims": 221,
+          "precision": {
+            "value": 0.3982,
+            "ci": [
+              0.2657,
+              0.5707
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0541,
+            "ci": [
+              0.0357,
+              0.0785
+            ]
+          },
+          "f1": 0.0953
+        },
+        "counter": {
+          "claims": 8,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "blocked": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.0686,
+            "ci": [
+              0.0478,
+              0.0889
+            ]
+          },
+          "random": {
+            "value": 0.1632,
+            "ci": [
+              0.1277,
+              0.2074
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.1442,
+            "ci": [
+              0.1084,
+              0.1826
+            ]
+          },
+          "random": {
+            "value": 0.2904,
+            "ci": [
+              0.2313,
+              0.3522
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.2769,
+            "ci": [
+              0.2045,
+              0.3544
+            ]
+          },
+          "random": {
+            "value": 0.4284,
+            "ci": [
+              0.3546,
+              0.4957
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.3387,
+            "ci": [
+              0.265,
+              0.4177
+            ]
+          },
+          "random": {
+            "value": 0.5236,
+            "ci": [
+              0.4383,
+              0.5959
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.4416,
+            "ci": [
+              0.3636,
+              0.5242
+            ]
+          },
+          "random": {
+            "value": 0.6156,
+            "ci": [
+              0.5269,
+              0.6892
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.4943,
+            "ci": [
+              0.4083,
+              0.5868
+            ]
+          },
+          "random": {
+            "value": 0.662,
+            "ci": [
+              0.5749,
+              0.736
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.5469,
+            "ci": [
+              0.4612,
+              0.6403
+            ]
+          },
+          "random": {
+            "value": 0.6968,
+            "ci": [
+              0.6048,
+              0.7764
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.1642,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 0,
+        "timed_error_rate": {
+          "value": null,
+          "ci": [
+            null,
+            null
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": []
+      }
+    },
+    "video_log": {
+      "episodes": 15,
+      "claims": 804,
+      "checkable": 803,
+      "precision": {
+        "value": 0.6737,
+        "ci": [
+          0.6115,
+          0.7348
+        ]
+      },
+      "precision_named": {
+        "value": 0.6848,
+        "ci": [
+          0.6226,
+          0.7446
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.3793,
+        "ci": [
+          0.0667,
+          0.6071
+        ]
+      },
+      "duplicate": {
+        "value": 0.1009,
+        "ci": [
+          0.0741,
+          0.1302
+        ]
+      },
+      "wrong_time": {
+        "value": 0.1669,
+        "ci": [
+          0.1152,
+          0.2198
+        ]
+      },
+      "contradicted": {
+        "value": 0.0585,
+        "ci": [
+          0.0233,
+          0.1127
+        ]
+      },
+      "recall": {
+        "value": 0.161,
+        "ci": [
+          0.1186,
+          0.2158
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.5756,
+        "ci": [
+          0.5022,
+          0.6467
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.8408,
+        "ci": [
+          0.7525,
+          0.9041
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.9393,
+        "ci": [
+          0.8838,
+          0.9756
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7248,
+        "ci": [
+          0.6032,
+          0.8372
+        ]
+      },
+      "delivery_mae": {
+        "value": 3.4773,
+        "ci": [
+          2.9545,
+          4.0455
+        ]
+      },
+      "delivery_signed_error": {
+        "value": 2.8864,
+        "ci": [
+          1.7333,
+          3.8636
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0455,
+        "ci": [
+          0.0,
+          0.1136
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0455,
+        "ci": [
+          0.0,
+          0.1395
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.0199,
+        "ci": [
+          0.0133,
+          0.0268
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.1031,
+        "ci": [
+          0.0478,
+          0.1673
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.8216,
+        "ci": [
+          0.7276,
+          0.9032
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 0.049,
+        "iqr": [
+          0.012,
+          1.8
+        ],
+        "ci": [
+          0.048,
+          0.349
+        ]
+      },
+      "delivery_answer_entropy_bits": 1.837,
+      "actor_chance": 0.5026,
+      "by_type": {
+        "delivery": {
+          "claims": 367,
+          "precision": {
+            "value": 0.4823,
+            "ci": [
+              0.4391,
+              0.5321
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.7406,
+            "ci": [
+              0.62,
+              0.8491
+            ]
+          },
+          "f1": 0.5842
+        },
+        "pickup": {
+          "claims": 241,
+          "precision": {
+            "value": 0.8133,
+            "ci": [
+              0.7234,
+              0.8901
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.154,
+            "ci": [
+              0.0948,
+              0.2319
+            ]
+          },
+          "f1": 0.259
+        },
+        "pot": {
+          "claims": 133,
+          "precision": {
+            "value": 0.9023,
+            "ci": [
+              0.8372,
+              0.9552
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0971,
+            "ci": [
+              0.0638,
+              0.1368
+            ]
+          },
+          "f1": 0.1753
+        },
+        "counter": {
+          "claims": 32,
+          "precision": {
+            "value": 0.75,
+            "ci": [
+              0.5,
+              0.9375
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0913,
+            "ci": [
+              0.031,
+              0.25
+            ]
+          },
+          "f1": 0.1628
+        },
+        "blocked": {
+          "claims": 9,
+          "precision": {
+            "value": 0.8889,
+            "ci": [
+              0.6667,
+              1.0
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0879,
+            "ci": [
+              0.0253,
+              0.1356
+            ]
+          },
+          "f1": 0.16
+        },
+        "idle": {
+          "claims": 14,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.2456,
+            "ci": [
+              0.0625,
+              0.4235
+            ]
+          },
+          "f1": 0.3943
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 5,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 2,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0278,
+            "ci": [
+              0.0,
+              0.0816
+            ]
+          },
+          "f1": 0.0541
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.533,
+            "ci": [
+              0.4659,
+              0.5944
+            ]
+          },
+          "random": {
+            "value": 0.12,
+            "ci": [
+              0.1048,
+              0.1374
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.5766,
+            "ci": [
+              0.5156,
+              0.6366
+            ]
+          },
+          "random": {
+            "value": 0.2253,
+            "ci": [
+              0.1919,
+              0.2609
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.6351,
+            "ci": [
+              0.5691,
+              0.6991
+            ]
+          },
+          "random": {
+            "value": 0.3528,
+            "ci": [
+              0.3084,
+              0.401
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.6737,
+            "ci": [
+              0.6115,
+              0.7348
+            ]
+          },
+          "random": {
+            "value": 0.4436,
+            "ci": [
+              0.394,
+              0.4983
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.7036,
+            "ci": [
+              0.6397,
+              0.7642
+            ]
+          },
+          "random": {
+            "value": 0.5534,
+            "ci": [
+              0.5041,
+              0.6057
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.721,
+            "ci": [
+              0.6571,
+              0.7805
+            ]
+          },
+          "random": {
+            "value": 0.6265,
+            "ci": [
+              0.5757,
+              0.6799
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.7285,
+            "ci": [
+              0.6654,
+              0.7867
+            ]
+          },
+          "random": {
+            "value": 0.6641,
+            "ci": [
+              0.6149,
+              0.7134
+            ]
+          }
+        }
+      ],
+      "above_chance_area": 0.1736,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 1.0,
+            "recall": 0.0095
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 0.0,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 7,
+        "timed_error_rate": {
+          "value": 0.2857,
+          "ci": [
+            0.0,
+            1.0
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": [
+          {
+            "time": 18.2,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated good teamwork by efficiently delivering soups and managing onions, as seen from t=18.2s to t=165.5s.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 165.5,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated good teamwork by efficiently delivering soups and managing onions, as seen from t=18.2s to t=165.5s.",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    },
+    "state_text": {
+      "episodes": 15,
+      "claims": 332,
+      "checkable": 315,
+      "precision": {
+        "value": 0.3492,
+        "ci": [
+          0.2381,
+          0.4926
+        ]
+      },
+      "precision_named": {
+        "value": 0.3605,
+        "ci": [
+          0.242,
+          0.5103
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.1905,
+        "ci": [
+          0.0,
+          0.2
+        ]
+      },
+      "duplicate": {
+        "value": 0.2984,
+        "ci": [
+          0.2048,
+          0.3663
+        ]
+      },
+      "wrong_time": {
+        "value": 0.2444,
+        "ci": [
+          0.1565,
+          0.3505
+        ]
+      },
+      "contradicted": {
+        "value": 0.1079,
+        "ci": [
+          0.0312,
+          0.2166
+        ]
+      },
+      "recall": {
+        "value": 0.0298,
+        "ci": [
+          0.0177,
+          0.0437
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.1067,
+        "ci": [
+          0.0622,
+          0.1567
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.7581,
+        "ci": [
+          0.6587,
+          0.8532
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.8878,
+        "ci": [
+          0.7742,
+          0.969
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.6531,
+        "ci": [
+          0.4541,
+          0.8471
+        ]
+      },
+      "delivery_mae": {
+        "value": 4.0222,
+        "ci": [
+          3.0222,
+          5.3111
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -4.0222,
+        "ci": [
+          -5.3111,
+          -3.0222
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.2,
+        "ci": [
+          0.0889,
+          0.3556
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.0271,
+        "ci": [
+          0.0153,
+          0.0395
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0444,
+        "ci": [
+          0.0,
+          0.1333
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.1317,
+        "ci": [
+          0.0244,
+          0.2741
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.3818,
+        "ci": [
+          0.2666,
+          0.6
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 1.238,
+        "iqr": [
+          0.597,
+          3.115
+        ],
+        "ci": [
+          0.901,
+          1.799
+        ]
+      },
+      "delivery_answer_entropy_bits": 1.59,
+      "actor_chance": 0.5091,
+      "by_type": {
+        "delivery": {
+          "claims": 127,
+          "precision": {
+            "value": 0.3307,
+            "ci": [
+              0.202,
+              0.5079
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.1757,
+            "ci": [
+              0.0935,
+              0.2819
+            ]
+          },
+          "f1": 0.2295
+        },
+        "pickup": {
+          "claims": 55,
+          "precision": {
+            "value": 0.3636,
+            "ci": [
+              0.2553,
+              0.5833
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.0157,
+            "ci": [
+              0.003,
+              0.0352
+            ]
+          },
+          "f1": 0.0301
+        },
+        "pot": {
+          "claims": 132,
+          "precision": {
+            "value": 0.3636,
+            "ci": [
+              0.192,
+              0.6818
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.034,
+            "ci": [
+              0.0107,
+              0.0581
+            ]
+          },
+          "f1": 0.0622
+        },
+        "counter": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "blocked": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 1,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.1683,
+            "ci": [
+              0.0988,
+              0.2676
+            ]
+          },
+          "random": {
+            "value": 0.1432,
+            "ci": [
+              0.0753,
+              0.2263
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.2413,
+            "ci": [
+              0.1452,
+              0.3583
+            ]
+          },
+          "random": {
+            "value": 0.2606,
+            "ci": [
+              0.1562,
+              0.3769
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.3333,
+            "ci": [
+              0.2255,
+              0.4759
+            ]
+          },
+          "random": {
+            "value": 0.3752,
+            "ci": [
+              0.2432,
+              0.509
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.3492,
+            "ci": [
+              0.2381,
+              0.4926
+            ]
+          },
+          "random": {
+            "value": 0.4441,
+            "ci": [
+              0.3007,
+              0.5848
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.3873,
+            "ci": [
+              0.2766,
+              0.5227
+            ]
+          },
+          "random": {
+            "value": 0.5283,
+            "ci": [
+              0.3812,
+              0.671
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.4286,
+            "ci": [
+              0.3173,
+              0.5601
+            ]
+          },
+          "random": {
+            "value": 0.5705,
+            "ci": [
+              0.4276,
+              0.7125
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.473,
+            "ci": [
+              0.3439,
+              0.6151
+            ]
+          },
+          "random": {
+            "value": 0.606,
+            "ci": [
+              0.4591,
+              0.7489
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.1085,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 8,
+        "timed_error_rate": {
+          "value": 0.125,
+          "ci": [
+            0.0,
+            0.5
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 1,
+        "examples": [
+          {
+            "time": 59.6,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "The team demonstrated excellent coordination by both players delivering the soup simultaneously at the same timestamp (t=59.6s).",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    },
+    "oracle": {
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 1,
+        "timed_error_rate": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": []
+      }
+    }
+  },
+  "paired": {
+    "telemetry - video_dense": {
+      "precision": {
+        "diff": 0.355,
+        "ci": [
+          0.2655,
+          0.4449
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.1113,
+        "ci": [
+          0.0773,
+          0.155
+        ],
+        "wilcoxon_p": 0.00012,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.4895,
+        "ci": [
+          0.3885,
+          0.6135
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.2537,
+        "ci": [
+          0.1751,
+          0.3322
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      }
+    },
+    "telemetry - video_sparse": {
+      "precision": {
+        "diff": 0.3549,
+        "ci": [
+          0.2556,
+          0.4479
+        ],
+        "wilcoxon_p": 0.00012,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.1278,
+        "ci": [
+          0.0971,
+          0.1662
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.6234,
+        "ci": [
+          0.5219,
+          0.7413
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.2847,
+        "ci": [
+          0.2165,
+          0.3514
+        ],
+        "wilcoxon_p": 0.00085,
+        "n_episodes": 15
+      }
+    },
+    "telemetry - blind": {
+      "precision": {
+        "diff": 0.007,
+        "ci": [
+          -0.0568,
+          0.0746
+        ],
+        "wilcoxon_p": 0.89038,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.1365,
+        "ci": [
+          0.1056,
+          0.1769
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.7573,
+        "ci": [
+          0.6751,
+          0.8465
+        ],
+        "wilcoxon_p": 0.00065,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.3645,
+        "ci": [
+          0.2809,
+          0.4407
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      }
+    },
+    "video_dense - blind": {
+      "precision": {
+        "diff": -0.348,
+        "ci": [
+          -0.4596,
+          -0.2333
+        ],
+        "wilcoxon_p": 0.00031,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.0252,
+        "ci": [
+          0.014,
+          0.036
+        ],
+        "wilcoxon_p": 0.00262,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.2678,
+        "ci": [
+          0.179,
+          0.3463
+        ],
+        "wilcoxon_p": 0.00089,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.1108,
+        "ci": [
+          0.0221,
+          0.1929
+        ],
+        "wilcoxon_p": 0.02557,
+        "n_episodes": 15
+      }
+    },
+    "video_sparse - blind": {
+      "precision": {
+        "diff": -0.3478,
+        "ci": [
+          -0.4501,
+          -0.2359
+        ],
+        "wilcoxon_p": 0.00043,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.0087,
+        "ci": [
+          0.0021,
+          0.0166
+        ],
+        "wilcoxon_p": 0.03077,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.1339,
+        "ci": [
+          0.0826,
+          0.1798
+        ],
+        "wilcoxon_p": 0.00119,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.0798,
+        "ci": [
+          0.0233,
+          0.1455
+        ],
+        "wilcoxon_p": 0.1323,
+        "n_episodes": 15
+      }
+    },
+    "video_dense - video_sparse": {
+      "precision": {
+        "diff": -0.0002,
+        "ci": [
+          -0.1131,
+          0.1084
+        ],
+        "wilcoxon_p": 0.97797,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.0165,
+        "ci": [
+          0.0024,
+          0.0298
+        ],
+        "wilcoxon_p": 0.08325,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.1339,
+        "ci": [
+          0.048,
+          0.2254
+        ],
+        "wilcoxon_p": 0.00827,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.031,
+        "ci": [
+          -0.0506,
+          0.1141
+        ],
+        "wilcoxon_p": 0.97797,
+        "n_episodes": 15
+      }
+    },
+    "video_log - telemetry": {
+      "precision": {
+        "diff": -0.0198,
+        "ci": [
+          -0.0844,
+          0.0413
+        ],
+        "wilcoxon_p": 0.88709,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": -0.0022,
+        "ci": [
+          -0.0215,
+          0.0222
+        ],
+        "wilcoxon_p": 0.93408,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": -0.0167,
+        "ci": [
+          -0.112,
+          0.0885
+        ],
+        "wilcoxon_p": 0.69071,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.0244,
+        "ci": [
+          -0.0224,
+          0.0651
+        ],
+        "wilcoxon_p": 0.0946,
+        "n_episodes": 15
+      }
+    },
+    "video_log - video_dense": {
+      "precision": {
+        "diff": 0.3352,
+        "ci": [
+          0.2436,
+          0.423
+        ],
+        "wilcoxon_p": 0.00012,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.1091,
+        "ci": [
+          0.0696,
+          0.1588
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.4728,
+        "ci": [
+          0.3251,
+          0.6232
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.2781,
+        "ci": [
+          0.1858,
+          0.3632
+        ],
+        "wilcoxon_p": 0.00012,
+        "n_episodes": 15
+      }
+    },
+    "state_text - telemetry": {
+      "precision": {
+        "diff": -0.3443,
+        "ci": [
+          -0.4371,
+          -0.2052
+        ],
+        "wilcoxon_p": 0.00116,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": -0.1334,
+        "ci": [
+          -0.1784,
+          -0.0997
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": -0.5816,
+        "ci": [
+          -0.6711,
+          -0.4932
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": -0.0582,
+        "ci": [
+          -0.1603,
+          0.0442
+        ],
+        "wilcoxon_p": 0.08325,
+        "n_episodes": 15
+      }
+    },
+    "state_text - video_dense": {
+      "precision": {
+        "diff": 0.0107,
+        "ci": [
+          -0.1343,
+          0.183
+        ],
+        "wilcoxon_p": 0.67877,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": -0.0221,
+        "ci": [
+          -0.0435,
+          -0.0007
+        ],
+        "wilcoxon_p": 0.03817,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": -0.0921,
+        "ci": [
+          -0.218,
+          0.0696
+        ],
+        "wilcoxon_p": 0.09927,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.1955,
+        "ci": [
+          0.0791,
+          0.3029
+        ],
+        "wilcoxon_p": 0.04126,
+        "n_episodes": 15
+      }
+    }
+  },
+  "claim_cap": 20,
+  "episodes": 15,
+  "tolerances": [
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.5,
+    10.0
+  ]
+}

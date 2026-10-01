@@ -1,0 +1,7 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "precision": "bf16",
+  "items": "probes/probe_v1.jsonl",
+  "n_items": 1646,
+  "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
+}

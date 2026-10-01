@@ -1,0 +1,374 @@
+{
+  "automatic": {
+    "blind": {
+      "claims": 222,
+      "checkable": 222,
+      "checkable_share": 1.0,
+      "supported": 0.725,
+      "contradicted": 0.0,
+      "wrong_time": 0.275,
+      "delivery_count_mae": 5.24,
+      "named_player_share": 0.784,
+      "supported_when_named": 0.753,
+      "round_timestamp_share": 1.0,
+      "parse_failures": 0,
+      "by_type": {
+        "delivery": {
+          "n": 3,
+          "supported": 2,
+          "contradicted": 0,
+          "wrong_time": 1
+        },
+        "pickup": {
+          "n": 3,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 3
+        },
+        "pot": {
+          "n": 216,
+          "supported": 159,
+          "contradicted": 0,
+          "wrong_time": 57
+        }
+      }
+    },
+    "telemetry": {
+      "claims": 779,
+      "checkable": 772,
+      "checkable_share": 0.991,
+      "supported": 0.806,
+      "contradicted": 0.058,
+      "wrong_time": 0.136,
+      "delivery_count_mae": 2.18,
+      "named_player_share": 0.996,
+      "supported_when_named": 0.805,
+      "round_timestamp_share": 0.021,
+      "parse_failures": 0,
+      "by_type": {
+        "blocked": {
+          "n": 27,
+          "supported": 22,
+          "contradicted": 3,
+          "wrong_time": 2
+        },
+        "counter": {
+          "n": 36,
+          "supported": 20,
+          "contradicted": 15,
+          "wrong_time": 1
+        },
+        "delivery": {
+          "n": 307,
+          "supported": 210,
+          "contradicted": 26,
+          "wrong_time": 71
+        },
+        "filled": {
+          "n": 4,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "handoff": {
+          "n": 3,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "idle": {
+          "n": 6,
+          "supported": 4,
+          "contradicted": 1,
+          "wrong_time": 1
+        },
+        "pickup": {
+          "n": 277,
+          "supported": 251,
+          "contradicted": 0,
+          "wrong_time": 26
+        },
+        "pot": {
+          "n": 119,
+          "supported": 115,
+          "contradicted": 0,
+          "wrong_time": 4
+        }
+      }
+    },
+    "video_dense": {
+      "claims": 783,
+      "checkable": 783,
+      "checkable_share": 1.0,
+      "supported": 0.506,
+      "contradicted": 0.126,
+      "wrong_time": 0.368,
+      "delivery_count_mae": 2.8,
+      "named_player_share": 0.951,
+      "supported_when_named": 0.494,
+      "round_timestamp_share": 0.267,
+      "parse_failures": 0,
+      "by_type": {
+        "counter": {
+          "n": 18,
+          "supported": 0,
+          "contradicted": 18,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 139,
+          "supported": 38,
+          "contradicted": 28,
+          "wrong_time": 73
+        },
+        "pickup": {
+          "n": 341,
+          "supported": 125,
+          "contradicted": 52,
+          "wrong_time": 164
+        },
+        "pot": {
+          "n": 285,
+          "supported": 233,
+          "contradicted": 1,
+          "wrong_time": 51
+        }
+      }
+    },
+    "video_sparse": {
+      "claims": 362,
+      "checkable": 362,
+      "checkable_share": 1.0,
+      "supported": 0.356,
+      "contradicted": 0.18,
+      "wrong_time": 0.464,
+      "delivery_count_mae": 3.69,
+      "named_player_share": 0.981,
+      "supported_when_named": 0.358,
+      "round_timestamp_share": 0.544,
+      "parse_failures": 0,
+      "by_type": {
+        "counter": {
+          "n": 10,
+          "supported": 0,
+          "contradicted": 10,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 47,
+          "supported": 18,
+          "contradicted": 9,
+          "wrong_time": 20
+        },
+        "pickup": {
+          "n": 251,
+          "supported": 82,
+          "contradicted": 45,
+          "wrong_time": 124
+        },
+        "pot": {
+          "n": 54,
+          "supported": 29,
+          "contradicted": 1,
+          "wrong_time": 24
+        }
+      }
+    },
+    "video_log": {
+      "claims": 769,
+      "checkable": 762,
+      "checkable_share": 0.991,
+      "supported": 0.835,
+      "contradicted": 0.034,
+      "wrong_time": 0.131,
+      "delivery_count_mae": 4.46,
+      "named_player_share": 0.997,
+      "supported_when_named": 0.834,
+      "round_timestamp_share": 0.027,
+      "parse_failures": 0,
+      "by_type": {
+        "blocked": {
+          "n": 21,
+          "supported": 17,
+          "contradicted": 4,
+          "wrong_time": 0
+        },
+        "congestion": {
+          "n": 2,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "counter": {
+          "n": 39,
+          "supported": 29,
+          "contradicted": 7,
+          "wrong_time": 3
+        },
+        "delivery": {
+          "n": 307,
+          "supported": 221,
+          "contradicted": 13,
+          "wrong_time": 73
+        },
+        "filled": {
+          "n": 4,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "handoff": {
+          "n": 1,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "idle": {
+          "n": 6,
+          "supported": 6,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "pickup": {
+          "n": 292,
+          "supported": 269,
+          "contradicted": 2,
+          "wrong_time": 21
+        },
+        "pot": {
+          "n": 97,
+          "supported": 94,
+          "contradicted": 0,
+          "wrong_time": 3
+        }
+      }
+    },
+    "state_text": {
+      "claims": 576,
+      "checkable": 555,
+      "checkable_share": 0.964,
+      "supported": 0.62,
+      "contradicted": 0.108,
+      "wrong_time": 0.272,
+      "delivery_count_mae": 4.18,
+      "named_player_share": 0.998,
+      "supported_when_named": 0.621,
+      "round_timestamp_share": 0.024,
+      "parse_failures": 0,
+      "by_type": {
+        "counter": {
+          "n": 8,
+          "supported": 0,
+          "contradicted": 8,
+          "wrong_time": 0
+        },
+        "delivery": {
+          "n": 224,
+          "supported": 113,
+          "contradicted": 14,
+          "wrong_time": 97
+        },
+        "down": {
+          "n": 3,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "handoff": {
+          "n": 4,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "idle": {
+          "n": 50,
+          "supported": 27,
+          "contradicted": 23,
+          "wrong_time": 0
+        },
+        "left": {
+          "n": 6,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "pickup": {
+          "n": 227,
+          "supported": 164,
+          "contradicted": 15,
+          "wrong_time": 48
+        },
+        "pot": {
+          "n": 46,
+          "supported": 40,
+          "contradicted": 0,
+          "wrong_time": 6
+        },
+        "right": {
+          "n": 5,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        },
+        "up": {
+          "n": 3,
+          "supported": 0,
+          "contradicted": 0,
+          "wrong_time": 0
+        }
+      }
+    },
+    "oracle": {
+      "claims": 0,
+      "checkable": 0,
+      "checkable_share": null,
+      "supported": null,
+      "contradicted": null,
+      "wrong_time": null,
+      "delivery_count_mae": null,
+      "named_player_share": null,
+      "supported_when_named": null,
+      "round_timestamp_share": null,
+      "parse_failures": 0,
+      "by_type": {}
+    }
+  },
+  "chance": {
+    "blind": {
+      "supported_at_random_time": 0.848,
+      "not_contradicted_named": 1.0,
+      "not_contradicted_swapped": 0.977
+    },
+    "telemetry": {
+      "supported_at_random_time": 0.544,
+      "not_contradicted_named": 0.941,
+      "not_contradicted_swapped": 0.727
+    },
+    "video_dense": {
+      "supported_at_random_time": 0.511,
+      "not_contradicted_named": 0.867,
+      "not_contradicted_swapped": 0.8
+    },
+    "video_sparse": {
+      "supported_at_random_time": 0.417,
+      "not_contradicted_named": 0.828,
+      "not_contradicted_swapped": 0.792
+    },
+    "video_log": {
+      "supported_at_random_time": 0.56,
+      "not_contradicted_named": 0.966,
+      "not_contradicted_swapped": 0.703
+    },
+    "state_text": {
+      "supported_at_random_time": 0.479,
+      "not_contradicted_named": 0.892,
+      "not_contradicted_swapped": 0.738
+    },
+    "oracle": {
+      "supported_at_random_time": null,
+      "not_contradicted_named": null,
+      "not_contradicted_swapped": null
+    }
+  },
+  "human": {}
+}

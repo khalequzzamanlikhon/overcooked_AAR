@@ -1,0 +1,1099 @@
+{
+  "conditions": {
+    "telemetry": {
+      "episodes": 15,
+      "claims": 693,
+      "checkable": 689,
+      "precision": {
+        "value": 0.7054,
+        "ci": [
+          0.6476,
+          0.7627
+        ]
+      },
+      "precision_named": {
+        "value": 0.7224,
+        "ci": [
+          0.6592,
+          0.7829
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.5091,
+        "ci": [
+          0.3469,
+          0.6923
+        ]
+      },
+      "duplicate": {
+        "value": 0.0929,
+        "ci": [
+          0.0749,
+          0.1128
+        ]
+      },
+      "wrong_time": {
+        "value": 0.1466,
+        "ci": [
+          0.108,
+          0.185
+        ]
+      },
+      "contradicted": {
+        "value": 0.0552,
+        "ci": [
+          0.023,
+          0.0909
+        ]
+      },
+      "recall": {
+        "value": 0.1458,
+        "ci": [
+          0.1079,
+          0.198
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.5211,
+        "ci": [
+          0.4278,
+          0.6211
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.7911,
+        "ci": [
+          0.7454,
+          0.8433
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.9401,
+        "ci": [
+          0.8998,
+          0.9753
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7003,
+        "ci": [
+          0.6084,
+          0.7845
+        ]
+      },
+      "delivery_mae": {
+        "value": 1.5556,
+        "ci": [
+          1.1111,
+          2.2
+        ]
+      },
+      "delivery_signed_error": {
+        "value": 0.5333,
+        "ci": [
+          -0.4444,
+          1.2222
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.2222,
+        "ci": [
+          0.1333,
+          0.3111
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.0245,
+        "ci": [
+          0.0137,
+          0.0352
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.1478,
+        "ci": [
+          0.0841,
+          0.2246
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.8333,
+        "ci": [
+          0.7753,
+          0.8912
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 0.301,
+        "iqr": [
+          0.034,
+          1.803
+        ],
+        "ci": [
+          0.049,
+          0.601
+        ]
+      },
+      "delivery_answer_entropy_bits": 2.06,
+      "actor_chance": 0.5021,
+      "by_type": {
+        "delivery": {
+          "claims": 295,
+          "precision": {
+            "value": 0.5932,
+            "ci": [
+              0.5134,
+              0.6749
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.7322,
+            "ci": [
+              0.6138,
+              0.8512
+            ]
+          },
+          "f1": 0.6554
+        },
+        "pickup": {
+          "claims": 246,
+          "precision": {
+            "value": 0.8211,
+            "ci": [
+              0.7553,
+              0.8862
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.1587,
+            "ci": [
+              0.1025,
+              0.228
+            ]
+          },
+          "f1": 0.266
+        },
+        "pot": {
+          "claims": 81,
+          "precision": {
+            "value": 0.9753,
+            "ci": [
+              0.9118,
+              1.0
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0621,
+            "ci": [
+              0.0344,
+              0.1022
+            ]
+          },
+          "f1": 0.1168
+        },
+        "counter": {
+          "claims": 37,
+          "precision": {
+            "value": 0.2432,
+            "ci": [
+              0.0625,
+              0.5517
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0342,
+            "ci": [
+              0.008,
+              0.0952
+            ]
+          },
+          "f1": 0.06
+        },
+        "blocked": {
+          "claims": 25,
+          "precision": {
+            "value": 0.8,
+            "ci": [
+              0.625,
+              1.0
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.2198,
+            "ci": [
+              0.0685,
+              0.3684
+            ]
+          },
+          "f1": 0.3449
+        },
+        "idle": {
+          "claims": 2,
+          "precision": {
+            "value": 0.5,
+            "ci": [
+              0.5,
+              0.5
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0175,
+            "ci": [
+              0.0,
+              0.0769
+            ]
+          },
+          "f1": 0.0338
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 3,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.4804,
+            "ci": [
+              0.4377,
+              0.5272
+            ]
+          },
+          "random": {
+            "value": 0.1242,
+            "ci": [
+              0.1025,
+              0.1484
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.5617,
+            "ci": [
+              0.5125,
+              0.6108
+            ]
+          },
+          "random": {
+            "value": 0.2264,
+            "ci": [
+              0.1879,
+              0.2679
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.6662,
+            "ci": [
+              0.6091,
+              0.7205
+            ]
+          },
+          "random": {
+            "value": 0.3605,
+            "ci": [
+              0.3098,
+              0.4134
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.7054,
+            "ci": [
+              0.6476,
+              0.7627
+            ]
+          },
+          "random": {
+            "value": 0.462,
+            "ci": [
+              0.4029,
+              0.5208
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.7388,
+            "ci": [
+              0.6902,
+              0.7865
+            ]
+          },
+          "random": {
+            "value": 0.5739,
+            "ci": [
+              0.5154,
+              0.6316
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.7562,
+            "ci": [
+              0.7126,
+              0.7994
+            ]
+          },
+          "random": {
+            "value": 0.6522,
+            "ci": [
+              0.6017,
+              0.7031
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.7707,
+            "ci": [
+              0.7254,
+              0.8156
+            ]
+          },
+          "random": {
+            "value": 0.6909,
+            "ci": [
+              0.6413,
+              0.7394
+            ]
+          }
+        }
+      ],
+      "above_chance_area": 0.1834,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 8,
+        "timed_error_rate": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "count_statements": 0,
+        "examples": []
+      }
+    },
+    "video_dense": {
+      "episodes": 15,
+      "claims": 732,
+      "checkable": 730,
+      "precision": {
+        "value": 0.3356,
+        "ci": [
+          0.2658,
+          0.4119
+        ]
+      },
+      "precision_named": {
+        "value": 0.3092,
+        "ci": [
+          0.229,
+          0.3958
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.8158,
+        "ci": [
+          0.6429,
+          0.9444
+        ]
+      },
+      "duplicate": {
+        "value": 0.1192,
+        "ci": [
+          0.0817,
+          0.1571
+        ]
+      },
+      "wrong_time": {
+        "value": 0.2507,
+        "ci": [
+          0.1953,
+          0.3069
+        ]
+      },
+      "contradicted": {
+        "value": 0.2945,
+        "ci": [
+          0.2,
+          0.3958
+        ]
+      },
+      "recall": {
+        "value": 0.0519,
+        "ci": [
+          0.0397,
+          0.0679
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.1856,
+        "ci": [
+          0.1611,
+          0.2067
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.5121,
+        "ci": [
+          0.4898,
+          0.5368
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.6893,
+        "ci": [
+          0.5827,
+          0.791
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.6373,
+        "ci": [
+          0.5279,
+          0.744
+        ]
+      },
+      "delivery_mae": {
+        "value": 3.0667,
+        "ci": [
+          2.2444,
+          4.0667
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -2.1778,
+        "ci": [
+          -3.4889,
+          -0.9778
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.276,
+        "ci": [
+          0.2383,
+          0.3172
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.6512,
+        "ci": [
+          0.4651,
+          0.8222
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.0227,
+        "ci": [
+          0.0081,
+          0.0412
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.1798,
+        "ci": [
+          0.0971,
+          0.2857
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 1.639,
+        "iqr": [
+          0.698,
+          3.552
+        ],
+        "ci": [
+          1.441,
+          2.102
+        ]
+      },
+      "delivery_answer_entropy_bits": 1.583,
+      "actor_chance": 0.5011,
+      "by_type": {
+        "delivery": {
+          "claims": 257,
+          "precision": {
+            "value": 0.2257,
+            "ci": [
+              0.1868,
+              0.2703
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.2427,
+            "ci": [
+              0.1751,
+              0.3156
+            ]
+          },
+          "f1": 0.2339
+        },
+        "pickup": {
+          "claims": 178,
+          "precision": {
+            "value": 0.0899,
+            "ci": [
+              0.009,
+              0.2188
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.0126,
+            "ci": [
+              0.0013,
+              0.0337
+            ]
+          },
+          "f1": 0.0221
+        },
+        "pot": {
+          "claims": 273,
+          "precision": {
+            "value": 0.6227,
+            "ci": [
+              0.5085,
+              0.7447
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.0921,
+            "ci": [
+              0.055,
+              0.137
+            ]
+          },
+          "f1": 0.1605
+        },
+        "counter": {
+          "claims": 21,
+          "precision": {
+            "value": 0.0476,
+            "ci": [
+              0.0,
+              0.5
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0038,
+            "ci": [
+              0.0,
+              0.027
+            ]
+          },
+          "f1": 0.007
+        },
+        "blocked": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 1,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.1205,
+            "ci": [
+              0.0865,
+              0.1558
+            ]
+          },
+          "random": {
+            "value": 0.1033,
+            "ci": [
+              0.0786,
+              0.1295
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.2137,
+            "ci": [
+              0.1632,
+              0.2699
+            ]
+          },
+          "random": {
+            "value": 0.196,
+            "ci": [
+              0.1497,
+              0.2466
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.2986,
+            "ci": [
+              0.2347,
+              0.3702
+            ]
+          },
+          "random": {
+            "value": 0.307,
+            "ci": [
+              0.2378,
+              0.3811
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.3356,
+            "ci": [
+              0.2658,
+              0.4119
+            ]
+          },
+          "random": {
+            "value": 0.367,
+            "ci": [
+              0.2915,
+              0.4475
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.3863,
+            "ci": [
+              0.3041,
+              0.4761
+            ]
+          },
+          "random": {
+            "value": 0.4348,
+            "ci": [
+              0.3495,
+              0.524
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.4164,
+            "ci": [
+              0.3273,
+              0.5137
+            ]
+          },
+          "random": {
+            "value": 0.4748,
+            "ci": [
+              0.383,
+              0.5686
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.4384,
+            "ci": [
+              0.3456,
+              0.5384
+            ]
+          },
+          "random": {
+            "value": 0.4986,
+            "ci": [
+              0.4034,
+              0.5959
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.0388,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 3,
+        "timed_error_rate": {
+          "value": 0.3333,
+          "ci": [
+            0.0,
+            1.0
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.0667,
+          "ci": [
+            0.0,
+            0.2
+          ]
+        },
+        "count_statements": 1,
+        "examples": [
+          {
+            "time": 60.0,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "However, the significant delay in picking up soups, starting from t=60.0s onwards, led to a substantial loss of time, as each player repeatedly picked up the soup multiple times before finally delivering it.",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    }
+  },
+  "paired": {
+    "telemetry - video_dense": {
+      "precision": {
+        "diff": 0.3698,
+        "ci": [
+          0.2984,
+          0.4349
+        ],
+        "wilcoxon_p": 0.00012,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.0939,
+        "ci": [
+          0.0627,
+          0.1331
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.4895,
+        "ci": [
+          0.3768,
+          0.6244
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.2789,
+        "ci": [
+          0.2302,
+          0.3293
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      }
+    }
+  },
+  "claim_cap": 20,
+  "episodes": 15,
+  "tolerances": [
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.5,
+    10.0
+  ]
+}

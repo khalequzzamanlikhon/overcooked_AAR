@@ -1,0 +1,1280 @@
+{
+  "chance": {
+    "L0_clock": {
+      "majority": 0.0267
+    },
+    "L0_score": {
+      "majority": 0.1533
+    },
+    "L1_held": {
+      "majority": 0.25,
+      "uniform": 0.25
+    },
+    "L1_who_holds": {
+      "majority": 0.5,
+      "uniform": 0.5
+    },
+    "L1_relpos": {
+      "majority": 0.5,
+      "uniform": 0.5
+    },
+    "L1_pot_onions": {
+      "majority": 0.25
+    },
+    "L1_pot_state": {
+      "majority": 0.3333,
+      "uniform": 0.3333
+    },
+    "L2_detect": {
+      "majority": 0.5,
+      "uniform": 0.5
+    },
+    "L2_actor": {
+      "majority": 0.5,
+      "uniform": 0.5
+    },
+    "L3_order": {
+      "majority": 0.5,
+      "uniform": 0.5
+    },
+    "L3_localize": {
+      "majority": 0.0167,
+      "uniform": 0.3915
+    },
+    "L4_count": {
+      "majority": 0.2
+    }
+  },
+  "models": {
+    "qwen25vl7b_4bit": {
+      "video_main": {
+        "L0_clock": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L0_score": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_held": {
+          "value": 0.2568,
+          "ci": [
+            0.1811,
+            0.3356
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.3176,
+          "ci": [
+            0.2439,
+            0.3924
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 0.3867,
+          "ci": [
+            0.3087,
+            0.4734
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_relpos": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 0.4933,
+          "ci": [
+            0.4064,
+            0.5855
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 0.6083,
+          "ci": [
+            0.5,
+            0.7143
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5083,
+          "ci": [
+            0.414,
+            0.6034
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.525,
+          "ci": [
+            0.4191,
+            0.626
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.325,
+          "ci": [
+            0.2293,
+            0.4228
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.4583,
+          "ci": [
+            0.359,
+            0.5565
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 3.53
+        }
+      },
+      "text": {
+        "L1_held": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.8851,
+          "ci": [
+            0.8299,
+            0.9357
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 0.72,
+          "ci": [
+            0.6497,
+            0.7933
+          ],
+          "n": 150,
+          "parsed": 0.967
+        },
+        "L1_relpos": {
+          "value": 0.92,
+          "ci": [
+            0.8693,
+            0.9653
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.9667,
+          "ci": [
+            0.9344,
+            0.9919
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.9167,
+          "ci": [
+            0.8695,
+            0.9583
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.575,
+          "ci": [
+            0.4811,
+            0.6641
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 0.05
+        }
+      },
+      "video_fps0.33": {
+        "L2_actor": {
+          "value": 0.5167,
+          "ci": [
+            0.413,
+            0.622
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.525,
+          "ci": [
+            0.422,
+            0.6228
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2833,
+          "ci": [
+            0.1923,
+            0.3788
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.3,
+          "ci": [
+            0.2182,
+            0.3802
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 4.7
+        }
+      },
+      "video_fps1": {
+        "L2_actor": {
+          "value": 0.5167,
+          "ci": [
+            0.413,
+            0.622
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.525,
+          "ci": [
+            0.4298,
+            0.6214
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.325,
+          "ci": [
+            0.2258,
+            0.4238
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.3917,
+          "ci": [
+            0.2959,
+            0.4958
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 3.83
+        }
+      },
+      "video_fps4": {
+        "L2_actor": {
+          "value": 0.5333,
+          "ci": [
+            0.422,
+            0.6381
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.575,
+          "ci": [
+            0.4803,
+            0.6724
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5333,
+          "ci": [
+            0.4265,
+            0.6321
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.275,
+          "ci": [
+            0.1951,
+            0.3644
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.625,
+          "ci": [
+            0.5346,
+            0.7131
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 2.07
+        }
+      },
+      "video_hud_clock": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.325,
+          "ci": [
+            0.2293,
+            0.4228
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.4167,
+          "ci": [
+            0.3271,
+            0.512
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 4.05
+        }
+      },
+      "video_hud_none": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2417,
+          "ci": [
+            0.1538,
+            0.3277
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.3583,
+          "ci": [
+            0.2692,
+            0.4437
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 3.91
+        }
+      }
+    },
+    "qwen25vl7b_bf16": {
+      "video_main": {
+        "L0_clock": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L0_score": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_held": {
+          "value": 0.2365,
+          "ci": [
+            0.1618,
+            0.3088
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.3919,
+          "ci": [
+            0.3187,
+            0.4702
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 0.4067,
+          "ci": [
+            0.3231,
+            0.5033
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_relpos": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 0.5,
+          "ci": [
+            0.4226,
+            0.5796
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 0.5583,
+          "ci": [
+            0.4622,
+            0.6589
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.55,
+          "ci": [
+            0.4474,
+            0.6549
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.3,
+          "ci": [
+            0.2051,
+            0.3983
+          ],
+          "n": 120,
+          "parsed": 0.867
+        },
+        "L3_localize": {
+          "value": 0.4417,
+          "ci": [
+            0.3426,
+            0.5378
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 3.66
+        }
+      },
+      "text": {
+        "L1_held": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.8446,
+          "ci": [
+            0.78,
+            0.9048
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 0.94,
+          "ci": [
+            0.9021,
+            0.9739
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_relpos": {
+          "value": 0.9733,
+          "ci": [
+            0.9441,
+            0.9939
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.9667,
+          "ci": [
+            0.9297,
+            0.9921
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.9167,
+          "ci": [
+            0.873,
+            0.9573
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.5,
+          "ci": [
+            0.4088,
+            0.5932
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 0.05
+        }
+      },
+      "video_fps0.33": {
+        "L2_actor": {
+          "value": 0.5333,
+          "ci": [
+            0.4261,
+            0.6423
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5583,
+          "ci": [
+            0.4646,
+            0.6529
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2917,
+          "ci": [
+            0.2016,
+            0.3859
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.2583,
+          "ci": [
+            0.1696,
+            0.3478
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 5.42
+        }
+      },
+      "video_fps1": {
+        "L2_actor": {
+          "value": 0.5333,
+          "ci": [
+            0.4261,
+            0.6423
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.575,
+          "ci": [
+            0.4769,
+            0.672
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.325,
+          "ci": [
+            0.2258,
+            0.4238
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.3583,
+          "ci": [
+            0.26,
+            0.4602
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 3.88
+        }
+      },
+      "video_fps4": {
+        "L2_actor": {
+          "value": 0.5167,
+          "ci": [
+            0.4035,
+            0.6333
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5417,
+          "ci": [
+            0.4513,
+            0.6349
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5417,
+          "ci": [
+            0.4375,
+            0.6435
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2417,
+          "ci": [
+            0.1615,
+            0.3229
+          ],
+          "n": 120,
+          "parsed": 0.533
+        },
+        "L3_localize": {
+          "value": 0.5583,
+          "ci": [
+            0.4602,
+            0.6522
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 2.69
+        }
+      },
+      "video_hud_clock": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2917,
+          "ci": [
+            0.2018,
+            0.3866
+          ],
+          "n": 120,
+          "parsed": 0.867
+        },
+        "L3_localize": {
+          "value": 0.35,
+          "ci": [
+            0.2617,
+            0.4412
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 4.68
+        }
+      },
+      "video_hud_none": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.25,
+          "ci": [
+            0.1579,
+            0.3391
+          ],
+          "n": 120,
+          "parsed": 0.933
+        },
+        "L3_localize": {
+          "value": 0.3167,
+          "ci": [
+            0.2273,
+            0.4077
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 4.75
+        }
+      }
+    },
+    "qwen3vl8b_bf16": {
+      "video_main": {
+        "L0_clock": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L0_score": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_held": {
+          "value": 0.4527,
+          "ci": [
+            0.3733,
+            0.5355
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.2703,
+          "ci": [
+            0.2037,
+            0.3384
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 0.5,
+          "ci": [
+            0.4097,
+            0.5882
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_relpos": {
+          "value": 0.9867,
+          "ci": [
+            0.9664,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 0.7867,
+          "ci": [
+            0.7089,
+            0.8676
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 0.5917,
+          "ci": [
+            0.4836,
+            0.6957
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5083,
+          "ci": [
+            0.4186,
+            0.605
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.275,
+          "ci": [
+            0.2,
+            0.3548
+          ],
+          "n": 120,
+          "parsed": 0.933
+        },
+        "L3_localize": {
+          "value": 0.3167,
+          "ci": [
+            0.229,
+            0.4091
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 5.68
+        }
+      },
+      "text": {
+        "L1_held": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_onions": {
+          "value": 0.7703,
+          "ci": [
+            0.6993,
+            0.8411
+          ],
+          "n": 148,
+          "parsed": 1.0
+        },
+        "L1_pot_state": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_relpos": {
+          "value": 0.9733,
+          "ci": [
+            0.9459,
+            0.9939
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L1_who_holds": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 150,
+          "parsed": 1.0
+        },
+        "L2_actor": {
+          "value": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.9833,
+          "ci": [
+            0.958,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.9583,
+          "ci": [
+            0.9068,
+            0.992
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.5417,
+          "ci": [
+            0.4682,
+            0.6179
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.9917,
+          "ci": [
+            0.9712,
+            1.0
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 0.04
+        }
+      },
+      "video_fps0.33": {
+        "L2_actor": {
+          "value": 0.5083,
+          "ci": [
+            0.3876,
+            0.6279
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.4833,
+          "ci": [
+            0.3917,
+            0.58
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2167,
+          "ci": [
+            0.1393,
+            0.3036
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.2167,
+          "ci": [
+            0.1391,
+            0.3025
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 5.84
+        }
+      },
+      "video_fps1": {
+        "L2_actor": {
+          "value": 0.5083,
+          "ci": [
+            0.3876,
+            0.6279
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5167,
+          "ci": [
+            0.421,
+            0.6182
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2917,
+          "ci": [
+            0.211,
+            0.374
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.2667,
+          "ci": [
+            0.1894,
+            0.3496
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 5.35
+        }
+      },
+      "video_fps4": {
+        "L2_actor": {
+          "value": 0.6167,
+          "ci": [
+            0.5203,
+            0.7154
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_order": {
+          "value": 0.5167,
+          "ci": [
+            0.4203,
+            0.6214
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2583,
+          "ci": [
+            0.1864,
+            0.3333
+          ],
+          "n": 120,
+          "parsed": 0.6
+        },
+        "L3_localize": {
+          "value": 0.3667,
+          "ci": [
+            0.2679,
+            0.4697
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 5.38
+        }
+      },
+      "video_hud_clock": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.1833,
+          "ci": [
+            0.1212,
+            0.248
+          ],
+          "n": 120,
+          "parsed": 0.933
+        },
+        "L3_localize": {
+          "value": 0.15,
+          "ci": [
+            0.0833,
+            0.2256
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 6.65
+        }
+      },
+      "video_hud_none": {
+        "L2_detect": {
+          "value": 0.5,
+          "ci": [
+            0.4054,
+            0.5948
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L4_count": {
+          "value": 0.2,
+          "ci": [
+            0.1351,
+            0.2667
+          ],
+          "n": 120,
+          "parsed": 1.0
+        },
+        "L3_localize": {
+          "value": 0.1667,
+          "ci": [
+            0.101,
+            0.2385
+          ],
+          "n": 120,
+          "parsed": 1.0,
+          "median_abs_error_s": 6.57
+        }
+      }
+    }
+  }
+}
