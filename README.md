@@ -1,9 +1,13 @@
 # Telemetry vs. video: comparing automatic after-action reviews
 
-**Status:** the pilot study (September 2026) is done: two runs, both re-scored with
-a stricter checker. **Study v2 is set up and ready to run:** two models, seven
-input conditions, a perception probe, all 76 episodes. `bash run_study.sh` runs
-all of it (see [Study v2](#study-v2-what-happens-now)).
+**Status:** the pilot (two runs) and study v2 are done on the pilot's 15 episodes:
+three model settings, seven input conditions, a perception probe and a
+sampled-decoding repeat. The short version: from the event log the models make claims
+that check out (67-93% precision); from video their claims are at chance, and neither
+a readable render, full precision nor a newer model changes that. The probe shows why:
+the models read the clock and the score perfectly but can't see what a chef is holding
+or whether a soup was delivered. Still to do: the other 61 episodes and the blind human
+rating. See [Study v2: results](#study-v2-results).
 
 After a team plays, an after-action review says what they did well, what cost them
 time, and what to change. I wanted to know whether a model writes a better review
@@ -238,10 +242,12 @@ Plus the matching problem above (one event backing two claims) and the lenient
 
 ## Limitations
 
-- **Small pilot.** 15 episodes, one model, one prompt, greedy decoding, no repeated runs.
-  Study v2 runs all 76 episodes, two models and a sampled-decoding repeat.
-- **Small model.** Qwen2.5-VL-7B in 4-bit is small and compressed. Study v2 adds the
-  same model in bf16 and Qwen3-VL-8B.
+- **Small sample.** 15 episodes (45 minutes of play per condition), all from the train
+  split, one prompt. The other 61 episodes are set up
+  (`PHASES="all analyze" bash run_study.sh`) but not run.
+- **Small models.** Two open 7-8B models. A larger or a closed video model may do
+  better; nothing here says video models in general can't do this.
+- **No human rating yet.** Everything reported is the automatic check against the log.
 - **Same information.** The video is drawn from the same game state as the log, so it
   cannot contain anything the state lacks. What it can show is behaviour the *event
   log* doesn't list (waiting at a pot, a handoff over a counter). Study v2 checks those
@@ -253,7 +259,112 @@ Plus the matching problem above (one event backing two claims) and the lenient
   whoever did it, so "both"/"unclear" claims are reported separately.
 - **Rendered sprites, no audio, 2019 data.** This is not video of real people.
 
-## Study v2: what happens now
+## Study v2: results
+
+Run on 28-30 September 2026, 49 hours on the two shared A5000s: three model settings,
+the pilot's 15 episodes in every condition, the perception probe (1,646 items from all
+76 episodes) and the sampled-decoding repeat. **Not run yet:** the other 61 episodes
+(the `all` step) and the blind human rating. Full tables:
+[`results/v2/SUMMARY.md`](results/v2/SUMMARY.md), one `metrics_v2.md` per model under
+[`results/v2/`](results/v2/), and [`results/v2/probe/probe_summary.md`](results/v2/probe/probe_summary.md).
+
+### Claims, by model and condition
+
+The pilot's 15 episodes, at most 20 claims per minute, greedy decoding. Brackets are
+95% CIs from resampling episodes.
+
+| model | condition | precision | delivery recall | actor accuracy | above-chance area |
+|---|---|---|---|---|---|
+| Qwen2.5-VL-7B, 4-bit | log | 67% [62, 71] | 71% [57, 83] | 80% [74, 85] | 0.131 |
+| | video, 2 fps | 30% [22, 38] | 13% [8, 19] | 61% [52, 69] | -0.075 |
+| | video, 1 frame / 3 s | 22% [14, 32] | 8% [4, 12] | 58% [49, 67] | -0.030 |
+| | video + log | 68% [64, 72] | 67% [57, 76] | 86% [81, 90] | 0.133 |
+| | raw state as text | 24% [16, 32] | 20% [13, 28] | 65% [58, 71] | -0.121 |
+| Qwen2.5-VL-7B, bf16 | log | 69% [64, 74] | 76% [67, 85] | 82% [76, 87] | 0.154 |
+| | video, 2 fps | 34% [27, 41] | 27% [18, 35] | 56% [50, 63] | -0.136 |
+| | video, 1 frame / 3 s | 34% [26, 42] | 13% [8, 18] | 53% [48, 59] | -0.164 |
+| | video + log | 67% [61, 73] | 74% [62, 85] | 84% [75, 90] | 0.174 |
+| | raw state as text | 35% [24, 49] | 18% [9, 28] | 76% [66, 85] | -0.108 |
+| Qwen3-VL-8B, bf16 | log | **93% [92, 95]** | **98% [96, 100]** | 99% [98, 100] | 0.320 |
+| | video, 2 fps | 43% [32, 53] | 16% [4, 32] | 58% [51, 69] | -0.093 |
+| | video, 1 frame / 3 s | 37% [26, 50] | 6% [2, 12] | 53% [51, 56] | -0.128 |
+| | video + log | 96% [94, 97] | 62% [36, 89] | 99% [98, 100] | 0.318 |
+| | raw state as text | 49% [40, 58] | 47% [38, 57] | 68% [62, 73] | 0.023 |
+
+Actor accuracy is 50% by chance. The `blind` condition (no input at all) finds 0-3% of
+the real events in every model; it is in the full tables.
+
+### The probe: video against the same information as text
+
+| question | chance | Qwen2.5 4-bit, video | Qwen2.5 bf16, video | Qwen3, video | text (all three) |
+|---|---|---|---|---|---|
+| what does the clock show / what is the score | 3% / 15% | 100% | 100% | 100% | - |
+| is P1 left or right of P2 | 50% | 100% | 100% | 99% | 92-97% |
+| what is P1 holding | 25% | 26% | 24% | 45% | 100% |
+| who holds the item | 50% | 49% | 50% | 79% | 100% |
+| how many onions in the pot | 25% | 32% | 39% | 27% | 77-89% |
+| is the soup cooking or ready | 33% | 39% | 41% | 50% | 72-100% |
+| did P1 deliver a soup (5 s clip) | 50% | 51% | 50% | 50% | 97-98% |
+| who delivered it | 50% | 61% | 56% | 59% | 100% |
+| which of two events came first | 50% | 52% | 55% | 51% | 92-96% |
+| when was the soup delivered (within 3 s) | - | 46% | 44% | 32% | 99-100% |
+| how many soups were delivered | 20% | 32% | 30% | 28% | 50-57% |
+
+<p align="center">
+  <img src="results/v2/probe/probe_ladder.png" width="80%" alt="probe accuracy by level, video and text, per model">
+</p>
+
+### What study v2 found
+
+- **RQ1, where the video fails: at seeing objects and detecting events.** All three
+  models read the clock and the score perfectly and know which chef is on which side.
+  They cannot tell what a chef is holding (24-26% for Qwen2.5 against 25% by chance) or
+  whether a delivery happened in a 5 s clip (50-51% against 50%). Given the same
+  information as text they score 97-100% on those questions. So the failure is
+  perception, and everything later (order, time, counting) fails because of it.
+- **More frames and a clock help placing an event in time, not seeing it.** For
+  Qwen2.5 4-bit, the delivery time is within 3 s for 30% of items at 1 frame per 3 s
+  and 62% at 4 fps, but detection stays at 50-57%. Taking the clock strip away costs
+  Qwen3 half of its time accuracy (32% → 17%): the models lean on the clock.
+- **RQ2, a better model does not fix it.** bf16 against 4-bit changes nothing I can
+  measure on the log (+3 points [-3, +9]) and little on video. Qwen3-VL is much better
+  at reading the log (precision +24 points [+20, +29], p = 0.00006) and a little better
+  at single frames (what a chef holds: 45%; who holds the item: 79%), but its video
+  claims are no better than Qwen2.5's (+10 points [-7, +24], p = 0.42), its event
+  detection is still 50%, and its timestamps are still below the random-time baseline.
+- **RQ3, the log is what works, and video adds nothing to it.** Log plus video scores
+  what the log alone scores in all three models. For Qwen3 it finds fewer deliveries
+  than the log alone (62% against 98%, difference -36 points [-62, -8], p = 0.10) and
+  13 of its minutes failed to parse.
+- **The raw state as text is almost as bad as video.** Same information as the video,
+  as text, with no events extracted: 24-49% precision, against 67-93% for the event
+  log. So a large part of the gap is not pixels against text but raw against
+  summarised: the models can't turn two state dumps a second into events either.
+- **Video is not clearly better than no input.** For Qwen3, 2 fps video beats `blind`
+  by +7 points of precision [-8, +24] and finds 5% of the real events against 0%.
+- **RQ4, no model recovers the behaviours the log doesn't list.** Waiting, handoffs
+  and congestion are almost never claimed and almost never right, in any condition
+  (Qwen3 from video: 1 supported out of 17 such claims, recall 0%).
+- **RQ5, better claims make better reviews, up to a point.** In Qwen3's written
+  reviews, 28% of the timed statements from the log are wrong against 59-67% from
+  video. But 21% are wrong even from the oracle's perfect claims, so the writing stage
+  adds mistakes of its own. The human rating is still to do.
+- **Video numbers move a lot between runs; log numbers don't.** Over 3 sampled seeds
+  the log's precision has a standard deviation of 1.0-2.6 points, the video's 5.5-10.6.
+  For Qwen2.5 bf16 the sampled video runs average 52% against 34% greedy, so a single
+  video number should be read with that in mind. The log against video gap is far
+  larger than this spread.
+- **Counting follows the same split.** Qwen3 is off by 0.9 deliveries per minute from
+  the log and by 3.3 from 2 fps video, almost always under-counting.
+
+### Against the pilot
+
+Same episodes and the same Qwen2.5-VL 4-bit setting as pilot 2, but 20 claims per
+minute instead of 8, the new prompt and no final score in the log header, so the
+numbers are close but not identical: log precision 69% → 67%, 2 fps video 40% → 30%,
+video timing at chance in both. Nothing in v2 contradicts the pilot; it explains it.
+
+## Study v2: design
 
 Code on branch `study-v2`; the pilot's state is tagged `pilot-v1`.
 
