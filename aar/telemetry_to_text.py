@@ -262,15 +262,25 @@ def segment_events(events: list[Event], start: float, end: float) -> list[Event]
     return [e for e in events if start <= e.seconds < end]
 
 
-def events_to_timeline(trial: Trial, events: list[Event], start: float, end: float) -> str:
-    """Render one segment of the event list as text. Nothing is dropped."""
-    lines = [
-        f"Layout: {trial.layout_name}",
-        f"Episode length: {trial.time_elapsed[-1]:.0f} s. This is seconds {start:.0f}-{end:.0f}.",
-        f"Final score for the whole episode: {int(trial.final_score)}",
-        "",
-        "Event log:",
-    ]
+def events_to_timeline(
+    trial: Trial, events: list[Event], start: float, end: float, pilot_header: bool = False
+) -> str:
+    """Render one segment of the event list as text. Nothing is dropped.
+
+    The pilot's header also gave the episode length and the final score, which
+    the video prompt never had: the final score tells the log condition how
+    many soups went out in total. Study v2 leaves both out (`pilot_header=True`
+    brings them back, to reproduce the pilot's inputs).
+    """
+    if pilot_header:
+        lines = [
+            f"Layout: {trial.layout_name}",
+            f"Episode length: {trial.time_elapsed[-1]:.0f} s. This is seconds {start:.0f}-{end:.0f}.",
+            f"Final score for the whole episode: {int(trial.final_score)}",
+        ]
+    else:
+        lines = [f"Layout: {trial.layout_name}", f"This is seconds {start:.0f}-{end:.0f} of the episode."]
+    lines += ["", "Event log:"]
     rows = segment_events(events, start, end)
     lines += [f"  t={e.seconds:6.1f}s  {e.text}" for e in rows] or ["  (nothing was logged in this minute)"]
     return "\n".join(lines)

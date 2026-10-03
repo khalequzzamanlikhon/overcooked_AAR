@@ -21,6 +21,11 @@ SEGMENT_SECONDS: float = 60.0
 # this many seconds of it. 3 s is about one pick-up-and-place cycle.
 CLAIM_TOLERANCE_S: float = 3.0
 
+# How many claims the model may make per minute. The pilot used 8, which caps
+# recall far below the number of events in a busy minute; study v2 uses 20.
+CLAIM_CAP_PILOT: int = 8
+CLAIM_CAP: int = 20
+
 
 @dataclass(frozen=True)
 class DataConfig:
@@ -38,14 +43,19 @@ class RenderConfig:
     label_players: bool = True  # draw P1/P2 over the chefs
     clock_strip_px: int = 48  # clock and score strip above the grid, in place of the package HUD
     segment_seconds: float = SEGMENT_SECONDS
+    hud: str = "full"  # full = clock + score | clock = clock only | none = no strip (probe ablations)
 
 
 @dataclass(frozen=True)
 class LLMConfig:
     model_id: str = "Qwen/Qwen2.5-VL-7B-Instruct"
-    device: str = "cuda:0"  # index within CUDA_VISIBLE_DEVICES
-    load_in_4bit: bool = True  # 7B in bf16 does not fit next to other jobs here
-    max_new_tokens: int = 800
+    device: str = "cuda:0"  # index within CUDA_VISIBLE_DEVICES, or "auto" to spread over all visible GPUs
+    load_in_4bit: bool = True  # 7B in bf16 does not fit next to other jobs on one card here
+    # 20 claims of JSON are ~800 tokens. More only lets a model that ignores the
+    # cap (Qwen3-VL) keep listing; the claims past 20 are dropped anyway.
+    max_new_tokens: int = 1100
+    do_sample: bool = False  # greedy everywhere except the variance repeat
+    seed: int = 0
 
 
 # The two video conditions differ only in how often the model gets to see a
@@ -54,4 +64,26 @@ class LLMConfig:
 VIDEO_FPS_DENSE: float = 2.0
 VIDEO_FPS_SPARSE: float = 1.0 / 3.0
 
-CONDITIONS: tuple[str, ...] = ("telemetry", "video_dense", "video_sparse")
+# The pilot's three conditions.
+PILOT_CONDITIONS: tuple[str, ...] = ("telemetry", "video_dense", "video_sparse")
+
+# Study v2. Every condition runs the same two stages with the same wording;
+# only the SOURCE block of stage 1 changes. `oracle` skips stage 1 and writes
+# the review from the true events, so a bad review can be blamed on stage 1 or
+# stage 2.
+CONDITIONS: tuple[str, ...] = (
+    "blind",  # no source: what the model claims from its priors alone
+    "telemetry",  # the event log
+    "video_dense",  # video, 2 fps
+    "video_sparse",  # video, 1 frame / 3 s
+    "video_log",  # video and the event log together
+    "state_text",  # raw per-step state as text, 2 Hz, no event abstraction
+    "oracle",  # stage 2 only, from the true events
+)
+
+# The models in study v2: short tag -> (model id, 4-bit?)
+MODELS: dict[str, tuple[str, bool]] = {
+    "qwen25vl7b_4bit": ("Qwen/Qwen2.5-VL-7B-Instruct", True),
+    "qwen25vl7b_bf16": ("Qwen/Qwen2.5-VL-7B-Instruct", False),
+    "qwen3vl8b_bf16": ("Qwen/Qwen3-VL-8B-Instruct", False),
+}

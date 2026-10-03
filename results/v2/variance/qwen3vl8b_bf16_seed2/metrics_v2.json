@@ -1,0 +1,1163 @@
+{
+  "conditions": {
+    "telemetry": {
+      "episodes": 15,
+      "claims": 899,
+      "checkable": 899,
+      "precision": {
+        "value": 0.9511,
+        "ci": [
+          0.9322,
+          0.9677
+        ]
+      },
+      "precision_named": {
+        "value": 0.9562,
+        "ci": [
+          0.9355,
+          0.9757
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.8961,
+        "ci": [
+          0.8382,
+          0.9524
+        ]
+      },
+      "duplicate": {
+        "value": 0.0111,
+        "ci": [
+          0.0056,
+          0.0178
+        ]
+      },
+      "wrong_time": {
+        "value": 0.0222,
+        "ci": [
+          0.01,
+          0.0411
+        ]
+      },
+      "contradicted": {
+        "value": 0.0156,
+        "ci": [
+          0.0045,
+          0.0278
+        ]
+      },
+      "recall": {
+        "value": 0.2546,
+        "ci": [
+          0.2033,
+          0.3281
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.91,
+        "ci": [
+          0.8856,
+          0.9322
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.9912,
+        "ci": [
+          0.9818,
+          0.9987
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.983,
+        "ci": [
+          0.9691,
+          0.995
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.7421,
+        "ci": [
+          0.6527,
+          0.8259
+        ]
+      },
+      "delivery_mae": {
+        "value": 1.0222,
+        "ci": [
+          0.6889,
+          1.3556
+        ]
+      },
+      "delivery_signed_error": {
+        "value": 0.8,
+        "ci": [
+          0.2889,
+          1.2444
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.3333,
+        "ci": [
+          0.1778,
+          0.5111
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0222,
+        "ci": [
+          0.0,
+          0.0667
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.0145,
+        "ci": [
+          0.0089,
+          0.0201
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.0909,
+        "ci": [
+          0.0217,
+          0.1905
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.9953,
+        "ci": [
+          0.9864,
+          1.0
+        ]
+      },
+      "parse_failures": 0,
+      "time_error_s": {
+        "value": 0.032,
+        "iqr": [
+          0.003,
+          0.048
+        ],
+        "ci": [
+          0.022,
+          0.044
+        ]
+      },
+      "delivery_answer_entropy_bits": 2.719,
+      "actor_chance": 0.5105,
+      "by_type": {
+        "delivery": {
+          "claims": 254,
+          "precision": {
+            "value": 0.9134,
+            "ci": [
+              0.8694,
+              0.9495
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.9707,
+            "ci": [
+              0.9305,
+              0.9957
+            ]
+          },
+          "f1": 0.9412
+        },
+        "pickup": {
+          "claims": 212,
+          "precision": {
+            "value": 0.9906,
+            "ci": [
+              0.9729,
+              1.0
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.165,
+            "ci": [
+              0.1075,
+              0.2505
+            ]
+          },
+          "f1": 0.2829
+        },
+        "pot": {
+          "claims": 369,
+          "precision": {
+            "value": 0.9729,
+            "ci": [
+              0.949,
+              0.9907
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.3233,
+            "ci": [
+              0.2448,
+              0.4076
+            ]
+          },
+          "f1": 0.4853
+        },
+        "counter": {
+          "claims": 27,
+          "precision": {
+            "value": 0.6296,
+            "ci": [
+              0.3548,
+              1.0
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0646,
+            "ci": [
+              0.0228,
+              0.3462
+            ]
+          },
+          "f1": 0.1172
+        },
+        "blocked": {
+          "claims": 22,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.2418,
+            "ci": [
+              0.1143,
+              0.4098
+            ]
+          },
+          "f1": 0.3894
+        },
+        "idle": {
+          "claims": 15,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.2632,
+            "ci": [
+              0.1212,
+              0.3966
+            ]
+          },
+          "f1": 0.4167
+        },
+        "waiting": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 0,
+          "precision": {
+            "value": null,
+            "ci": [
+              null,
+              null
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.9221,
+            "ci": [
+              0.8977,
+              0.9455
+            ]
+          },
+          "random": {
+            "value": 0.1726,
+            "ci": [
+              0.1451,
+              0.2022
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.9355,
+            "ci": [
+              0.9133,
+              0.9556
+            ]
+          },
+          "random": {
+            "value": 0.294,
+            "ci": [
+              0.2449,
+              0.3439
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.9477,
+            "ci": [
+              0.9288,
+              0.9644
+            ]
+          },
+          "random": {
+            "value": 0.4515,
+            "ci": [
+              0.3934,
+              0.51
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.9511,
+            "ci": [
+              0.9322,
+              0.9677
+            ]
+          },
+          "random": {
+            "value": 0.5507,
+            "ci": [
+              0.4914,
+              0.6108
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.9522,
+            "ci": [
+              0.9355,
+              0.9677
+            ]
+          },
+          "random": {
+            "value": 0.6707,
+            "ci": [
+              0.621,
+              0.7207
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.9544,
+            "ci": [
+              0.9388,
+              0.9689
+            ]
+          },
+          "random": {
+            "value": 0.7557,
+            "ci": [
+              0.713,
+              0.7973
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.9555,
+            "ci": [
+              0.9389,
+              0.97
+            ]
+          },
+          "random": {
+            "value": 0.806,
+            "ci": [
+              0.7685,
+              0.8435
+            ]
+          }
+        }
+      ],
+      "above_chance_area": 0.3245,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": null,
+            "recall": null
+          },
+          "handoff": {
+            "precision": null,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": null,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 75,
+        "timed_error_rate": {
+          "value": 0.24,
+          "ci": [
+            0.1194,
+            0.386
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.4,
+          "ci": [
+            0.1333,
+            0.6667
+          ]
+        },
+        "count_statements": 11,
+        "examples": [
+          {
+            "time": 31.8,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "P2 successfully cooked two soups (t=31.8s and t=123.5s) and delivered one (t=34.2s), but was blocked twice from moving into P1 (t=87.5s, t=157.2s), costing time.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 123.5,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "P2 successfully cooked two soups (t=31.8s and t=123.5s) and delivered one (t=34.2s), but was blocked twice from moving into P1 (t=87.5s, t=157.2s), costing time.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 67.4,
+            "player": "P1",
+            "type": "delivery",
+            "text": "Both players had overlapping pot actions (e.g., t=67.4s and t=83.4s), but P1\u2019s early delivery at t=22.2s and t=72.6s kept momentum.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 83.4,
+            "player": "P1",
+            "type": "delivery",
+            "text": "Both players had overlapping pot actions (e.g., t=67.4s and t=83.4s), but P1\u2019s early delivery at t=22.2s and t=72.6s kept momentum.",
+            "status": "wrong_time"
+          },
+          {
+            "time": 59.0,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "P2 started a pot at t=59.0s and delivered 2 soups by t=119.3s, but was slower overall, with only 6 deliveries compared to P1\u2019s 10.",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    },
+    "video_dense": {
+      "episodes": 15,
+      "claims": 737,
+      "checkable": 733,
+      "precision": {
+        "value": 0.4011,
+        "ci": [
+          0.3251,
+          0.473
+        ]
+      },
+      "precision_named": {
+        "value": 0.4,
+        "ci": [
+          0.3117,
+          0.4833
+        ]
+      },
+      "precision_both_unclear": {
+        "value": 0.4068,
+        "ci": [
+          0.2031,
+          0.6447
+        ]
+      },
+      "duplicate": {
+        "value": 0.0928,
+        "ci": [
+          0.0566,
+          0.1273
+        ]
+      },
+      "wrong_time": {
+        "value": 0.1583,
+        "ci": [
+          0.0996,
+          0.224
+        ]
+      },
+      "contradicted": {
+        "value": 0.3479,
+        "ci": [
+          0.2493,
+          0.4415
+        ]
+      },
+      "recall": {
+        "value": 0.064,
+        "ci": [
+          0.0515,
+          0.0791
+        ]
+      },
+      "recall_ceiling": {
+        "value": 0.2798,
+        "ci": [
+          0.223,
+          0.3617
+        ]
+      },
+      "recall_vs_ceiling": {
+        "value": 0.2289,
+        "ci": [
+          0.1856,
+          0.2733
+        ]
+      },
+      "actor_accuracy": {
+        "value": 0.5651,
+        "ci": [
+          0.5111,
+          0.6167
+        ]
+      },
+      "swap_not_contradicted": {
+        "value": 0.6667,
+        "ci": [
+          0.5765,
+          0.7581
+        ]
+      },
+      "swap_not_contradicted_swapped": {
+        "value": 0.6455,
+        "ci": [
+          0.5714,
+          0.7204
+        ]
+      },
+      "delivery_mae": {
+        "value": 3.8095,
+        "ci": [
+          2.6591,
+          5.2309
+        ]
+      },
+      "delivery_signed_error": {
+        "value": -3.7143,
+        "ci": [
+          -5.1795,
+          -2.5
+        ]
+      },
+      "delivery_exact": {
+        "value": 0.0952,
+        "ci": [
+          0.0,
+          0.2143
+        ]
+      },
+      "delivery_says_one": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "round5_timestamps": {
+        "value": 0.2524,
+        "ci": [
+          0.2134,
+          0.2965
+        ]
+      },
+      "minutes_repeated": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "strict_alternation": {
+        "value": 0.2,
+        "ci": [
+          0.0571,
+          0.3846
+        ]
+      },
+      "unsupported_before_window": {
+        "value": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "unsupported_rescued_by_offset": {
+        "value": 0.0456,
+        "ci": [
+          0.0107,
+          0.089
+        ]
+      },
+      "pickup_precision_incl_fill": {
+        "value": 0.4551,
+        "ci": [
+          0.3425,
+          0.5796
+        ]
+      },
+      "parse_failures": 3,
+      "time_error_s": {
+        "value": 1.055,
+        "iqr": [
+          0.492,
+          2.499
+        ],
+        "ci": [
+          0.836,
+          1.347
+        ]
+      },
+      "delivery_answer_entropy_bits": 1.268,
+      "actor_chance": 0.5051,
+      "by_type": {
+        "delivery": {
+          "claims": 82,
+          "precision": {
+            "value": 0.3659,
+            "ci": [
+              0.2553,
+              0.4821
+            ]
+          },
+          "events": 239,
+          "recall": {
+            "value": 0.1255,
+            "ci": [
+              0.0417,
+              0.2315
+            ]
+          },
+          "f1": 0.1869
+        },
+        "pickup": {
+          "claims": 178,
+          "precision": {
+            "value": 0.2865,
+            "ci": [
+              0.1706,
+              0.4359
+            ]
+          },
+          "events": 1273,
+          "recall": {
+            "value": 0.0401,
+            "ci": [
+              0.0268,
+              0.0561
+            ]
+          },
+          "f1": 0.0704
+        },
+        "pot": {
+          "claims": 312,
+          "precision": {
+            "value": 0.6635,
+            "ci": [
+              0.5636,
+              0.7622
+            ]
+          },
+          "events": 999,
+          "recall": {
+            "value": 0.1191,
+            "ci": [
+              0.0858,
+              0.1618
+            ]
+          },
+          "f1": 0.2019
+        },
+        "counter": {
+          "claims": 126,
+          "precision": {
+            "value": 0.0079,
+            "ci": [
+              0.0,
+              0.0288
+            ]
+          },
+          "events": 263,
+          "recall": {
+            "value": 0.0038,
+            "ci": [
+              0.0,
+              0.0268
+            ]
+          },
+          "f1": 0.0051
+        },
+        "blocked": {
+          "claims": 1,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 91,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "idle": {
+          "claims": 14,
+          "precision": {
+            "value": 0.2857,
+            "ci": [
+              0.0833,
+              0.5
+            ]
+          },
+          "events": 57,
+          "recall": {
+            "value": 0.0702,
+            "ci": [
+              0.0185,
+              0.1364
+            ]
+          },
+          "f1": 0.1127
+        },
+        "waiting": {
+          "claims": 7,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 15,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "handoff": {
+          "claims": 12,
+          "precision": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "events": 208,
+          "recall": {
+            "value": 0.0,
+            "ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "f1": null
+        },
+        "congestion": {
+          "claims": 1,
+          "precision": {
+            "value": 1.0,
+            "ci": [
+              1.0,
+              1.0
+            ]
+          },
+          "events": 72,
+          "recall": {
+            "value": 0.0139,
+            "ci": [
+              0.0,
+              0.075
+            ]
+          },
+          "f1": 0.0274
+        }
+      },
+      "tolerance_curve": [
+        {
+          "tol": 0.5,
+          "supported": {
+            "value": 0.1596,
+            "ci": [
+              0.1165,
+              0.2019
+            ]
+          },
+          "random": {
+            "value": 0.1327,
+            "ci": [
+              0.1043,
+              0.1633
+            ]
+          }
+        },
+        {
+          "tol": 1.0,
+          "supported": {
+            "value": 0.2633,
+            "ci": [
+              0.2087,
+              0.3194
+            ]
+          },
+          "random": {
+            "value": 0.2363,
+            "ci": [
+              0.1948,
+              0.2841
+            ]
+          }
+        },
+        {
+          "tol": 2.0,
+          "supported": {
+            "value": 0.3615,
+            "ci": [
+              0.2915,
+              0.4311
+            ]
+          },
+          "random": {
+            "value": 0.3521,
+            "ci": [
+              0.2959,
+              0.4151
+            ]
+          }
+        },
+        {
+          "tol": 3.0,
+          "supported": {
+            "value": 0.4011,
+            "ci": [
+              0.3251,
+              0.473
+            ]
+          },
+          "random": {
+            "value": 0.4198,
+            "ci": [
+              0.3534,
+              0.4906
+            ]
+          }
+        },
+        {
+          "tol": 5.0,
+          "supported": {
+            "value": 0.4693,
+            "ci": [
+              0.3835,
+              0.5505
+            ]
+          },
+          "random": {
+            "value": 0.4945,
+            "ci": [
+              0.4203,
+              0.5742
+            ]
+          }
+        },
+        {
+          "tol": 7.5,
+          "supported": {
+            "value": 0.498,
+            "ci": [
+              0.407,
+              0.5862
+            ]
+          },
+          "random": {
+            "value": 0.5426,
+            "ci": [
+              0.461,
+              0.6293
+            ]
+          }
+        },
+        {
+          "tol": 10.0,
+          "supported": {
+            "value": 0.513,
+            "ci": [
+              0.4184,
+              0.6071
+            ]
+          },
+          "random": {
+            "value": 0.5623,
+            "ci": [
+              0.4808,
+              0.6493
+            ]
+          }
+        }
+      ],
+      "above_chance_area": -0.0233,
+      "behavior_sensitivity": {
+        "0.5": {
+          "waiting": {
+            "precision": 0.1429,
+            "recall": 0.0128
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 1.0,
+            "recall": 0.0047
+          }
+        },
+        "1.5": {
+          "waiting": {
+            "precision": 0.0,
+            "recall": null
+          },
+          "handoff": {
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "congestion": {
+            "precision": 0.0,
+            "recall": 0.0
+          }
+        }
+      },
+      "aar_check": {
+        "reviews": 15,
+        "timed_statements": 83,
+        "timed_error_rate": {
+          "value": 0.6024,
+          "ci": [
+            0.4394,
+            0.7531
+          ]
+        },
+        "reviews_with_count_error": {
+          "value": 0.2,
+          "ci": [
+            0.0,
+            0.4
+          ]
+        },
+        "count_statements": 5,
+        "examples": [
+          {
+            "time": 123.0,
+            "player": "UNCLEAR",
+            "type": "waiting",
+            "text": "Their synchronized onion additions at t=123s\u2013125s and coordinated waiting at t=126s\u2013127s showed good teamwork.",
+            "status": "contradicted"
+          },
+          {
+            "time": 126.0,
+            "player": "UNCLEAR",
+            "type": "waiting",
+            "text": "Their synchronized onion additions at t=123s\u2013125s and coordinated waiting at t=126s\u2013127s showed good teamwork.",
+            "status": "contradicted"
+          },
+          {
+            "time": 68.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, both players repeatedly picked up and put down soup unnecessarily, such as P1 at t=68s\u201369s and P2 at t=78s\u201379s, which wasted time.",
+            "status": "contradicted"
+          },
+          {
+            "time": 78.0,
+            "player": "UNCLEAR",
+            "type": "pickup",
+            "text": "However, both players repeatedly picked up and put down soup unnecessarily, such as P1 at t=68s\u201369s and P2 at t=78s\u201379s, which wasted time.",
+            "status": "contradicted"
+          },
+          {
+            "time": 69.0,
+            "player": "UNCLEAR",
+            "type": "delivery",
+            "text": "P1\u2019s solo soup delivery at t=69s and P2\u2019s at t=79s were timely, but both could have saved steps by not re-picking up soup after placing it down.",
+            "status": "wrong_time"
+          }
+        ]
+      }
+    }
+  },
+  "paired": {
+    "telemetry - video_dense": {
+      "precision": {
+        "diff": 0.55,
+        "ci": [
+          0.4824,
+          0.6247
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "recall": {
+        "diff": 0.1906,
+        "ci": [
+          0.144,
+          0.2568
+        ],
+        "wilcoxon_p": 6e-05,
+        "n_episodes": 15
+      },
+      "delivery_recall": {
+        "diff": 0.8452,
+        "ci": [
+          0.7356,
+          0.9282
+        ],
+        "wilcoxon_p": 0.00064,
+        "n_episodes": 15
+      },
+      "actor_accuracy": {
+        "diff": 0.4261,
+        "ci": [
+          0.376,
+          0.4779
+        ],
+        "wilcoxon_p": 0.00065,
+        "n_episodes": 15
+      }
+    }
+  },
+  "claim_cap": 20,
+  "episodes": 15,
+  "tolerances": [
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.5,
+    10.0
+  ]
+}

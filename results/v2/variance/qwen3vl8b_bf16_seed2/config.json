@@ -1,0 +1,36 @@
+{
+  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+  "precision": "bf16",
+  "decoding": {
+    "do_sample": true,
+    "seed": 2,
+    "max_new_tokens": 1100
+  },
+  "transformers": "4.57.6",
+  "prompt_version": "21bb2a502f04",
+  "git_sha": "6dc4f20147daa17e85d08a6f1d40e11194986d7e",
+  "claim_cap": 20,
+  "conditions": [
+    "telemetry",
+    "video_dense"
+  ],
+  "episodes": "pilot",
+  "video_fps": {
+    "video_dense": 2.0,
+    "video_sparse": 0.3333333333333333,
+    "video_log": 2.0
+  },
+  "segment_seconds": 60.0,
+  "render": {
+    "real_time": true,
+    "player_labels": true,
+    "hud": "full"
+  },
+  "behavior_scales": [
+    "0.5",
+    "1.0",
+    "1.5"
+  ],
+  "started": "2026-09-30T15:19:51"
+}

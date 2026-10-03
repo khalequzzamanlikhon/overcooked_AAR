@@ -32,6 +32,13 @@ _QUESTIONS = [
     ("usefulness", "Which would help this team more next time? [a/b/tie] "),
 ]
 _GUESS = "Which one do you think was written from the video? [a/b/no idea] "
+# --likert: after the pairwise questions, each review gets a 1-5 score on these
+_LIKERT = [
+    ("temporal", "Are the times right? 1 = mostly wrong, 5 = all right"),
+    ("actor", "Are the right players named? 1 = mostly wrong, 5 = all right"),
+    ("completeness", "Does it cover what mattered in the episode? 1 = misses most, 5 = covers it"),
+    ("insight", "Does it say something useful about how they worked together? 1 = nothing, 5 = a lot"),
+]
 
 
 def _ask(question: str, allowed: set[str]) -> str:
@@ -72,6 +79,8 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=0, help="same seed = same order for every rater")
     parser.add_argument("--pairs", default=None,
                         help="only these condition pairs, comma-separated, e.g. telemetry:video_dense (default: all pairs)")
+    parser.add_argument("--likert", action="store_true",
+                        help="also score each review 1-5 on times, players, completeness and insight")
     args = parser.parse_args()
 
     records = json.loads((args.run / "results.json").read_text())
@@ -117,6 +126,12 @@ def main() -> None:
                 "winner": "no idea" if guess == "no idea" else order[0 if guess == "a" else 1],
             }
         )
+        if args.likert:
+            for tag, condition in zip("AB", order):
+                for dim, question in _LIKERT:
+                    score = int(_ask(f"Review {tag}: {question} [1-5] ", {"1", "2", "3", "4", "5"}))
+                    done.append({**row, "question": f"likert_{dim}", "condition": condition, "score": score,
+                                 "winner": None})
         out_path.write_text(json.dumps(done, indent=2))
         print(f"  saved -> {out_path}")
 

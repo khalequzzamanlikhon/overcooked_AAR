@@ -4,7 +4,10 @@ __pycache__/
 *.pyc
 out/
 out_*/
+logs/
 # results are committed, the videos they were made from are not
 results/*/videos/
+results/v2/probe/media/
+results/v2/smoke/
 *.mp4
 !docs/demo/*.gif
